@@ -1,0 +1,85 @@
+---
+title: "Resolução da 2ª Lista de MATD64"
+author: "Fernando Bispo"
+format: 
+    html:
+      toc: true
+      toc-title: Índice
+      toc-depth: 4
+---
+
+
+
+## Apresentação
+O presente documento visa trazer as resoluções da segunda lista de exercícios da disciplina **MATD64 - Controle Estatístico de Processos (CEP)**, trabalhando com os gráficos de controle de *Shewhart* a fim de se identificar as condições dos processos baseados nas amostras disponibilizadas nos bancos de dados fornecidos e problemas propostos.
+
+### Exercício 1. 
+O diâmetro de um parafuso de aço é um parâmetro importante da qualidade. Dados sobre o diâmetro (em milímetros, mm) são apresentados para 25 amostras de 9 parafusos cada (ver arquivo parafusos.xls).
+
+a. Construa gráficos de controle apropriados para esse processo.
+b. Examine o processo com relação ao controle estatístico.
+c. Se necessário, revise os limites de controle tentativos, a fim de produzir um conjunto de gráficos de controle para monitorar a produção futura.
+
+
+```{r pacotes&dados}
+#| echo: false
+#| warning: false
+
+library("qcc")
+
+parafusos <- readxl::read_xls('parafusos.xls')
+
+```
+
+#### Item 1a.
+Em reposta ao **item a** da primeira questão da lista, seguem os gráficos de amplitude (R) e da média ($\bar{X}$)
+
+```{r Q1}
+#| echo: false
+#| warning: false
+#| fig-align: center
+#| fig-width: 7
+#| error: false
+#| message: false
+
+
+
+parafusos|>
+  qcc::qcc(type = "R", plot = F)|>
+  plot(label.limits = c("LIC", "LSC"), title = "Gráfico de Amplitudes dos parafusos")
+
+parafusos|>
+  qcc::qcc(type = "xbar", plot = F)|>
+  plot(label.limits = c("LIC", "LC", "LSC"), 
+       title = "Gráfico das Médias dos parafusos",
+       xlab = "Amostras", ylab = "Resumo das Estatísticas das Amostras")
+```
+
+#### Item 1b.
+Examinando o controle estatístico, com base nas [Regras Sensibilizantes **(Regras de Nelson - 1984)**](https://www.ermontoro.com/post/2018/09/05/regras-para-avaliar-cartas-de-controle-cep), é possível constatar:
+
+- Gráfico R:
+  - Violação ao Teste 1:
+    - 2 pontos fora da Linha Superior de Controle - UCL.
+  - Violação aos Testes 2 e 3:
+    - 8 pontos consecutivos do mesmo lado (acima) e 13 pontos abaixo;
+    - 11 pontos cnsecutivos em ordem crescente.
+
+- Gráfico $\bar{X}$
+  - Violação ao Teste 3:
+      - 6 pontos sucessivos em ordem crescente.
+
+### Exercício 2.
+Uma empresa quer monitorar a quantidade (em mililitros, ml) de suco presente nas garrafas que comercializa. Para tanto, selecionou 20 amostras de tamanho 5. Sejam os valores de referência: $\mu$ = 500 ml e $\sigma$ = 0,5 ml. Construa gráficos de controle para a média e a variabilidade da
+quantidade de suco nas garrafas, considerando e também desconsiderando as especificações. Compare os gráficos obtidos segundo estas duas abordagens e, em seguida, conclua.
+
+
+```{r}
+#| echo: false
+
+
+
+
+```
+
+
