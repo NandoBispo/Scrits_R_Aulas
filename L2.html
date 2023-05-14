@@ -35,6 +35,18 @@ ul.task-list li input[type="checkbox"] {
 <link href="L2_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="L2_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 
+<script src="L2_files/libs/htmlwidgets-1.6.2/htmlwidgets.js"></script>
+<link href="L2_files/libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet">
+<script src="L2_files/libs/datatables-binding-0.27/datatables.js"></script>
+<script src="L2_files/libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<link href="L2_files/libs/dt-core-1.12.1/css/jquery.dataTables.min.css" rel="stylesheet">
+<link href="L2_files/libs/dt-core-1.12.1/css/jquery.dataTables.extra.css" rel="stylesheet">
+<script src="L2_files/libs/dt-core-1.12.1/js/jquery.dataTables.min.js"></script>
+<link href="L2_files/libs/dt-ext-fixedheader-1.12.1/css/fixedHeader.dataTables.min.css" rel="stylesheet">
+<script src="L2_files/libs/dt-ext-fixedheader-1.12.1/js/dataTables.fixedHeader.min.js"></script>
+<link href="L2_files/libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet">
+<script src="L2_files/libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
+
   <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
@@ -56,6 +68,11 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#item-1b." id="toc-item-1b." class="nav-link" data-scroll-target="#item-1b.">Item 1b.</a></li>
   </ul></li>
   <li><a href="#exercício-2." id="toc-exercício-2." class="nav-link" data-scroll-target="#exercício-2.">Exercício 2.</a></li>
+  <li><a href="#exercício-3." id="toc-exercício-3." class="nav-link" data-scroll-target="#exercício-3.">Exercício 3.</a></li>
+  <li><a href="#exercício-4." id="toc-exercício-4." class="nav-link" data-scroll-target="#exercício-4.">Exercício 4.</a></li>
+  <li><a href="#exercício-5." id="toc-exercício-5." class="nav-link" data-scroll-target="#exercício-5.">Exercício 5.</a></li>
+  <li><a href="#exercício-6." id="toc-exercício-6." class="nav-link" data-scroll-target="#exercício-6.">Exercício 6.</a></li>
+  <li><a href="#exercício-7." id="toc-exercício-7." class="nav-link" data-scroll-target="#exercício-7.">Exercício 7.</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -85,19 +102,19 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<section id="apresentação" class="level2">
-<h2 class="anchored" data-anchor-id="apresentação">Apresentação</h2>
+<section id="apresentação" class="level1">
+<h1>Apresentação</h1>
 <p>O presente documento visa trazer as resoluções da segunda lista de exercícios da disciplina <strong>MATD64 - Controle Estatístico de Processos (CEP)</strong>, trabalhando com os gráficos de controle de <em>Shewhart</em> a fim de se identificar as condições dos processos baseados nas amostras disponibilizadas nos bancos de dados fornecidos e problemas propostos.</p>
-<section id="exercício-1." class="level3">
-<h3 class="anchored" data-anchor-id="exercício-1.">Exercício 1.</h3>
+<section id="exercício-1." class="level2">
+<h2 class="anchored" data-anchor-id="exercício-1.">Exercício 1.</h2>
 <p>O diâmetro de um parafuso de aço é um parâmetro importante da qualidade. Dados sobre o diâmetro (em milímetros, mm) são apresentados para 25 amostras de 9 parafusos cada (ver arquivo parafusos.xls).</p>
 <ol type="a">
 <li>Construa gráficos de controle apropriados para esse processo.</li>
 <li>Examine o processo com relação ao controle estatístico.</li>
 <li>Se necessário, revise os limites de controle tentativos, a fim de produzir um conjunto de gráficos de controle para monitorar a produção futura.</li>
 </ol>
-<section id="item-1a." class="level4">
-<h4 class="anchored" data-anchor-id="item-1a.">Item 1a.</h4>
+<section id="item-1a." class="level3">
+<h3 class="anchored" data-anchor-id="item-1a.">Item 1a.</h3>
 <p>Em reposta ao <strong>item a</strong> da primeira questão da lista, seguem os gráficos de amplitude (R) e da média (<span class="math inline">\(\bar{X}\)</span>)</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
@@ -116,8 +133,8 @@ ul.task-list li input[type="checkbox"] {
 </div>
 </div>
 </section>
-<section id="item-1b." class="level4">
-<h4 class="anchored" data-anchor-id="item-1b.">Item 1b.</h4>
+<section id="item-1b." class="level3">
+<h3 class="anchored" data-anchor-id="item-1b.">Item 1b.</h3>
 <p>Examinando o controle estatístico, com base nas <a href="https://www.ermontoro.com/post/2018/09/05/regras-para-avaliar-cartas-de-controle-cep">Regras Sensibilizantes <strong>(Regras de Nelson - 1984)</strong></a>, é possível constatar:</p>
 <ul>
 <li>Gráfico R:
@@ -142,9 +159,71 @@ ul.task-list li input[type="checkbox"] {
 </ul>
 </section>
 </section>
-<section id="exercício-2." class="level3">
-<h3 class="anchored" data-anchor-id="exercício-2.">Exercício 2.</h3>
+<section id="exercício-2." class="level2">
+<h2 class="anchored" data-anchor-id="exercício-2.">Exercício 2.</h2>
 <p>Uma empresa quer monitorar a quantidade (em mililitros, ml) de suco presente nas garrafas que comercializa. Para tanto, selecionou 20 amostras de tamanho 5. Sejam os valores de referência: <span class="math inline">\(\mu\)</span> = 500 ml e <span class="math inline">\(\sigma\)</span> = 0,5 ml. Construa gráficos de controle para a média e a variabilidade da quantidade de suco nas garrafas, considerando e também desconsiderando as especificações. Compare os gráficos obtidos segundo estas duas abordagens e, em seguida, conclua.</p>
+<p><strong>SOLUÇÃO:</strong></p>
+<p>Tendo em vista a pequena quantidade de observações por amostra, o gráfico mais recomendado é o <strong>Gráfico R</strong> para análise solicitada.</p>
+<p>Não sendo identificado nenhum alarme falso nem no gráfico R nem no gráfico <span class="math inline">\(\bar{X}\)</span>, foi construída a Figura 2 com os gráficos sem especificações, sendo estes gráficos equivalentes aos gráficos com especificações, exceto pelas pequenas mudanças listadas na Tabela 1.</p>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="L2_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid" width="864"></p>
+</div>
+<div class="cell-output-display">
+
+<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-058590386ba5d2202e7e" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-058590386ba5d2202e7e">{"x":{"filter":"none","vertical":false,"class":"display","extensions":["FixedHeader"],"caption":"<caption>Tabela 1: Informações dos gráficos R e Xbarra para Questão 2.<\/caption>","data":[["Linha Central","LIC","LSC"],[1,0,4.93],[500,498.66,501.34],[2.34,0,4.96],[499.86,498.51,501.21]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th colspan=\"1\"><\/th>\n      <th colspan=\"2\">Com Especificações<\/th>\n      <th colspan=\"2\">Sem Especificações<\/th>\n    <\/tr>\n    <tr>\n      <th><\/th>\n      <th>R<\/th>\n      <th>Xbarra<\/th>\n      <th>R<\/th>\n      <th>Xbarra<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"t","fixedHeader":true,"autoWidth":false,"columnDefs":[{"targets":1,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 2, 3, \".\", \",\", null);\n  }"},{"targets":2,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 2, 3, \".\", \",\", null);\n  }"},{"targets":3,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 2, 3, \".\", \",\", null);\n  }"},{"targets":4,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 2, 3, \".\", \",\", null);\n  }"},{"className":"dt-center","targets":[1,2,3,4]},{"orderable":false,"targets":0}],"order":[],"orderClasses":false}},"evals":["options.columnDefs.0.render","options.columnDefs.1.render","options.columnDefs.2.render","options.columnDefs.3.render"],"jsHooks":[]}</script>
+</div>
+</div>
+</section>
+<section id="exercício-3." class="level2">
+<h2 class="anchored" data-anchor-id="exercício-3.">Exercício 3.</h2>
+<p>Uma empresa deseja monitorar a pressão tolerada pelas garrafas plásticas que comercializa, visando identificar se dispõe de condições para manter um padrão de qualidade que não se altera ao longo do tempo. Para isso, utiliza 25 amostras de tamanho 14. A empresa deseja saber se todas as garrafas plásticas suportam a mesma pressão média e se a variabilidade da pressãotolerada por tais garrafas é a mesma para todos os lotes comercializados. Além disso, há interesse no monitoramento da produção futura.</p>
+<p><strong>SOLUÇÃO:</strong></p>
+<p>Tendo em vista que a quantidade de observações por amostra é maior que 10, o gráfico <strong>Gráfico S</strong> é o mais recomendado para análise solicitada.</p>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="L2_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid" width="864"></p>
+</div>
+</div>
+</section>
+<section id="exercício-4." class="level2">
+<h2 class="anchored" data-anchor-id="exercício-4.">Exercício 4.</h2>
+<p>Uma empresa de fast-food deseja verificar se o tempo demandado a partir do momento da solicitação até o momento em que o pedido é entregue é uma variável com média sob controle. Em outras palavras, a empresa deseja saber se o tempo médio até que seja feita a entrega é o mesmo para qualquer um de seus clientes ou se, dependendo do momento em que é feito o pedido, esse tempo é maior. São observados os tempos de entrega (em segundos, s) dos pedidos para os últimos 30 clientes atendidos pela empresa.</p>
+<ol type="a">
+<li>O tempo de entrega do pedido segue distribuição normal?</li>
+<li>Construa gráficos de controle e analise-os. Caso não exibam controle estatístico, revise os limites de controle tentativos.</li>
+</ol>
+</section>
+<section id="exercício-5." class="level2">
+<h2 class="anchored" data-anchor-id="exercício-5.">Exercício 5.</h2>
+<p>Amostras de tamanhos variáveis (n entre 5 e 8) são extraídas de um processo manufatureiro a cada hora. Uma característica de qualidade (normalmente distribuída) é medida para 25 amostras coletadas.</p>
+<ol type="a">
+<li>Construa gráficos de controle usando esses dados. O processo está sob controle estatístico?</li>
+<li>Supondo que tenha sido identificada uma causa responsável pela falta de controle pontual das amostras identificadas no item anterior, refaça a análise sem tais amostras e descubra se há mais sinais de descontrole do processo.</li>
+</ol>
+</section>
+<section id="exercício-6." class="level2">
+<h2 class="anchored" data-anchor-id="exercício-6.">Exercício 6.</h2>
+<p>(Cano et al., 2012) In the construction of a building, a critical to quality (CTQ) characteristic might be the fulfillment of a deadline, as unfulfillment can lead to failure. The Six Sigma team identified the following events that can cause a delay in the schedule: weather, errors in planning, delay of suppliers, inadequate operators, customer specifications/delays, defects in materials, and permissions.</p>
+<p>Create a cause-and-effect diagram such that:</p>
+<p>Effect: “Delay” &nbsp;<br>
+Groups: “Personnel”, “Weather”, “Suppliers”, “Planning” &nbsp;<br>
+Causes[1]: “Training”, “Inadequate” &nbsp;<br>
+Causes[2]: “Rain”, “Temperature”, “Wind”&nbsp;<br>
+Causes[3]: “Materials”, “Delays”, “Rework”&nbsp;<br>
+Causes[4]: “Customer”, “Permissions”, “Errors”&nbsp;</p>
+</section>
+<section id="exercício-7." class="level2">
+<h2 class="anchored" data-anchor-id="exercício-7.">Exercício 7.</h2>
+<p>(Cano et al., 2012) The Black Belt in the construction company of the previous example has investigated why a sampling of deadlines on projects developed in the last 2 years went unfulfilled. He has also estimated the cost of these delays for the company (larger labor force, extra payments, etc.). The number of unfulfilled deadlines and estimated cost are:</p>
+<p>Count: 5, 1, 3, 1, 2, 18, 20, 4, 15, 2, 4&nbsp;<br>
+Cost: 50, 150, 50, 10, 20, 180, 200, 10, 5, 20, 150</p>
+<ol type="a">
+<li>Plot a Pareto chart by number of defects.</li>
+<li>Plot the chart for cost of error.</li>
+<li>Select the causes you must focus on to improve the construction process. Can you select them from only one of the charts?</li>
+</ol>
 </section>
 </section>
 

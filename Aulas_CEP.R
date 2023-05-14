@@ -9,6 +9,14 @@ pacman::p_load(qcc, spc, SixSigma, IQCC, MSQC, MPCI, qicharts, Rspc, ggQC)
 pacman::p_load(tidyverse, readxl, summarytools, kableExtra)
 
 
+# VERSIONAMENTO ----
+# https://curso-r.githud.io/zen-do-r/git-githud.html
+# gitcreds::gitcreds_set()
+usethis::use_git()
+usethis::use_github()
+# _________________________________________________
+
+
 # AULAS ----
 ## A5_SEG_03/04/23 ----
 ### EX1 ----
@@ -143,6 +151,66 @@ Ishikawa(x,y)
 
 ## A6_QUA_05/04/23 ----
 
+# m = número de amostras observadas.
+# n = número de observações de cada amostra.
+# y = vetor com as observações, ordenadas por amostra, da variável observada.
+# mi = especificação para a média do processo.
+# sigma = especificação para o desvio-padrão do processo.
+xR1=function(m,n,y,mi,sigma){
+  if (n>1) {
+    amplit=numeric(m)
+    mat=matrix(y,m,n,byrow=T)
+    media=apply(mat,1,mean)
+    for (i in 1:m) {
+      amplit[i]=max(mat[i,])-min(mat[i,])
+    }
+  } else {
+    amplit=numeric(m-1)
+    media=y
+    for (i in 2:m) amplit[i-1]=sqrt((y[i]-y[i-1])^2)
+  }
+  d2=c(1.1296,1.6918,2.0535,2.3248,2.5404,2.7074,
+       2.8501,2.9677,3.0737,3.1696)
+  d3=c(.8541,.8909,.8800,.8674,.8508,
+       .8326,.8209,.8102,.7978,.7890)
+  LIC1=mi-3*sigma/sqrt(n)
+  LSC1=mi+3*sigma/sqrt(n)
+  if(n>1) {
+    LIC2=d2[n-1]*sigma-3*d3[n-1]*sigma
+    LSC2=d2[n-1]*sigma+3*d3[n-1]*sigma
+    if (LIC2 < 0) LIC2=0
+  } else {
+    LIC2=d2[n]*sigma-3*d3[n]*sigma
+    LSC2=d2[n]*sigma+3*d3[n]*sigma
+    if (LIC2 < 0) LIC2=0
+  }
+  par(mfrow=c(2,1))
+  amostra1=matrix(rep(seq(1,m),4),m,4,byrow=F)
+  if (n>1) amostra2=amostra1 else amostra2=amostra1[-1,]
+  xbar=cbind(rep(mi,m),rep(LIC1,m),rep(LSC1,m),media)
+  if (n>1) {
+    rbar=cbind(rep(sigma,m),rep(LIC2,m),rep(LSC2,m),amplit)
+  } else rbar=cbind(rep(sigma,m-1),rep(LIC2,m-1),
+                    rep(LSC2,m-1),amplit)
+  matplot(amostra2,rbar,type="o",ylab="Amplitude",
+          col=c("black","red","red","blue"),
+          ylim=c(min(rbar),max(rbar)),
+          xlab="Amostras",main="Gráfico R",pch=20, lty=1, lwd=2)
+  matplot(amostra1,xbar,type="o",ylab="Média",xlab="Amostras",
+          main=expression(paste("Gráfico " *
+                                  bar(x))),col=c("black","red","red",
+                                                 "blue"),ylim=c(min(xbar),max(xbar)),pch=20, lty=1, lwd=2)
+  
+  # out=rbind(round(xbar[1,1:3],2),round(rbar[1,1:3],2))
+  # colnames(out)=c("Referência","LIC","LSC")
+  out <<-  rbind(round(rbar[1, 1:3], 2), round(xbar[1, 1:3], 2))
+  colnames(out) <<- c("Referência", "LIC", "LSC")
+  rownames(out) <<- c("R", "Xbarra")
+
+  # return(out)
+}
+
+
 # m = número de amostras observadas. 
 # n = número de observações de cada amostra.
 # y = vetor com as observações, ordenadas por amostra, da variável observada.
@@ -192,13 +260,17 @@ xR2=function(m,n,y){
   matplot(amostra2,rbar,type="o",ylab="Amplitude",
           col=c("black","red","red","blue"),
           ylim=c(min(rbar),max(rbar)),
-          xlab="Amostras",main="Gráico R",pch=20, lty=1, lwd=2)
+          xlab="Amostras",main="Gráfico R",pch=20, lty=1, lwd=2)
   matplot(amostra1,xbar,type="o",ylab="Média",xlab="Amostras",
           main=expression(paste("Gráfico " * bar(x))),col=c("black","red","red",
                                                             "blue"),ylim=c(min(xbar),max(xbar)),pch=20, lty=1, lwd=2)
-  out=rbind(round(xbar[1,1:3],2),round(rbar[1,1:3],2))
-  colnames(out)=c("Referência","LIC","LSC")
-  out
+  
+  # out=rbind(round(xbar[1,1:3],2),round(rbar[1,1:3],2))
+  # colnames(out)=c("Referência","LIC","LSC")
+  out <<- rbind(round(rbar[1,1:3],2), round(xbar[1,1:3],2))
+  colnames(out) <<- c("Referência","LIC","LSC")
+  rownames(out) <<- c("R", "Xbarra")
+  # out
 }
 
 ### Exemplo
@@ -212,8 +284,52 @@ xR2(m,n,x)
 
 ## A7_SEG_10/04/2023 ----
 
-# m = númerode amostras observadas. 
-# n = númerode observações de cada amostra.
+# m = número de amostras observadas.
+# n = número de observações de cada amostra.
+# y = vetor com as observações, ordenadas por amostra, da variável observada.
+# mi = especificação para a média do processo.
+# sigma = especificação para o desvio-padrão do processo.
+
+xS1=function(m,n,y,mi,sigma){
+  if (length(n)==1) n=rep(n,m)
+  mat=matrix(NA,m,max(n)); k=1
+  for (i in 1:m) {
+    for (j in 1:n[i]) {
+      mat[i,j]=y[k]
+      k=k+1
+    }
+  }
+  media=apply(mat,1,mean,na.rm=T)
+  desviop=apply(mat,1,sd,na.rm=T)
+  LIC1=numeric(m)
+  LSC1=numeric(m)
+  LIC2=numeric(m)
+  LSC2=numeric(m)
+  for (i in 1:m){
+    LIC1[i]=mi-3*sigma/sqrt(n[i])
+    LSC1[i]=mi+3*sigma/sqrt(n[i])
+    c4=(gamma(n[i]/2)/gamma((n[i]-1)/2))*sqrt(2/(n[i]-1))
+    LIC2[i]=c4*sigma-3*sigma*sqrt((1-c4^2))
+    LSC2[i]=c4*sigma+3*sigma*sqrt((1-c4^2))
+    if (LIC2[i] < 0) LIC2[i]=0
+  }
+  par(mfrow=c(2,1))
+  amostra=matrix(rep(seq(1,m),4),m,4,byrow=F)
+  xbar=cbind(rep(mi,m),LIC1,LSC1,media)
+  rbar=cbind(rep(sigma,m), LIC2, LSC2, desviop)
+  matplot(amostra, rbar, type="o", ylab="Desvio-Padrão",
+          col = c("black","red","red","blue"),
+          ylim = c(min(rbar),max(rbar)),
+          xlab = "Amostras",main="Gráfico S", pch=20, lty=1, lwd=2)
+  matplot(amostra,xbar,type="o",ylab="Média",xlab="Amostras",
+          main = expression(paste("Gráfico " * bar(x))),
+          col = c("black","red","red","blue"),
+          ylim = c(min(xbar), max(xbar)), pch=20, lty=1, lwd=2)
+}
+
+
+# m = número de amostras observadas. 
+# n = número de observações de cada amostra.
 # y = vetor com as observações, ordenadas por amostra, da variável observada.
 
 xS2=function(m,n,y){
@@ -246,11 +362,11 @@ xS2=function(m,n,y){
   xbar=cbind(rep(x2barras,m),LIC1,LSC1,media)
   rbar=cbind(rep(Sbarra,m),LIC2,LSC2,desviop)
   par(mfrow=c(2,1))
-  matplot(amostra,rbar,type="o",ylab="Desvio-Padrão",
+  matplot(amostra, rbar, type="o", ylab= "Desvio-Padrão",
           col=c("black","red","red","blue"),
           ylim=c(min(rbar),max(rbar)),
-          xlab="Amostras",main="Gráfico S",pch=20,lty=1,lwd=2)
-  matplot(amostra,xbar,type="o",ylab="Média",xlab="Amostras",
+          xlab="Amostras", main="Gráfico S", pch=20, lty=1, lwd=2)
+  matplot(amostra,xbar,type="o", ylab= "Média", xlab= "Amostras",
           main=expression(paste("Gráfico " * bar(x))), 
           col=c("black","red","red","blue"),
           ylim=c(min(xbar),max(xbar)),pch=20, lty=1, lwd=2)
@@ -317,11 +433,52 @@ with()
 
 ### Q2 ----
 
-
 m=20; n=5; mn=m*n; mi=500; sigma=1; set.seed(2453); x=round(rnorm(mn,mi,sigma),1)
 
-xR2(m,n,x)
+# Com especificações
+xR1(m, n, x, 500, 1)
+out
 
+result <- t(out)
+
+# Sem especificações
+xR2(m, n, x)
+out
+
+result <- cbind(result, t(out))
+
+rownames(result) <- c("Linha Central", "LIC", "LSC")
+
+# Tabela
+tit = htmltools::withTags(table(
+  class = 'display',
+  thead(
+    tr(
+      th(colspan = 1, ''),
+      th(colspan = 2, 'Com Especificações'),
+      th(colspan = 2, 'Sem Especificações')
+      # th(colspan = 2, 'Petal')
+    ),
+    tr(
+      lapply(rep(c('', 'R', "Xbarra", "R", "Xbarra"), 1), th)
+    )
+  )
+))
+
+result|>
+  DT::datatable(
+    caption = "Tabela 1: Informações dos gráficos R e Xbarra para Questão 2.",
+    colnames = c("R", "Xbarra", "R", "Xbarra"),
+    extensions = 'FixedHeader', container = tit,
+    options = list(dom = 't', fixedHeader = T, autoWidth = F,
+                   columnDefs = 
+                     list(
+                       list(className = 'dt-center', targets = c(1:4))))
+  )|>
+  DT::formatRound(
+    columns = c(1:4), digits = 2, mark = ".", dec.mark = ",")
+
+# Tentativa de utilização do pacote qcc
 amostra <- c(1:20)
 
 x1 <- c(500.5, 500.1, 498.9, 499.2, 500.1, 500.2, 500.3, 498.2, 501.1, 501.5, 499.2, 501, 500.2, 501.2, 500.5, 499.5, 500.3, 500.7, 500.2, 500.3)
@@ -362,7 +519,41 @@ sucos|>
   plot()
 
 sucos|>
-  qcc::qcc(type = "xbar", center = 500, std.dev = 1)
+  qcc::qcc(type = "xbar", center = 500, std.dev = 1, plot = F)|>plot()
+
+### Q3 ----
+
+m=25; n=14; mn=m*n; mi=150; sigma=10; set.seed(4125); x=round(rnorm(mn,mi,sigma),2); x[155:168]=x[155:168]-1.5*sigma; x=round(x,0)
+
+xS2(m, n, x)
+
+### Q4 ----
+
+
+
+
+
+### Q5 -----
+
+
+
+
+
+
+### Q6 -----
+
+
+
+
+
+
+
+
+
+
+### Q7 -----
+
+
 
 ## A8_QUA_ ----
 ### CUSUM ----
