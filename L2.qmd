@@ -86,7 +86,6 @@ Não sendo identificado nenhum alarme falso nem no gráfico R nem no gráfico $\
 #| fig-width: 9
 #| fig-height: 7
 
-
 xR1=function(m,n,y,mi,sigma){
   if (n>1) {
     amplit=numeric(m)
@@ -106,36 +105,46 @@ xR1=function(m,n,y,mi,sigma){
        .8326,.8209,.8102,.7978,.7890)
   LIC1=mi-3*sigma/sqrt(n)
   LSC1=mi+3*sigma/sqrt(n)
+  LAIC1=mi-2*sigma/sqrt(n)
+  LASC1=mi+2*sigma/sqrt(n)
   if(n>1) {
     LIC2=d2[n-1]*sigma-3*d3[n-1]*sigma
     LSC2=d2[n-1]*sigma+3*d3[n-1]*sigma
     if (LIC2 < 0) LIC2=0
+    LAIC2=d2[n-1]*sigma-2*d3[n-1]*sigma
+    LASC2=d2[n-1]*sigma+2*d3[n-1]*sigma
+    if (LAIC2 < 0) LAIC2=0
   } else {
     LIC2=d2[n]*sigma-3*d3[n]*sigma
     LSC2=d2[n]*sigma+3*d3[n]*sigma
     if (LIC2 < 0) LIC2=0
+    LAIC2=d2[n]*sigma-2*d3[n]*sigma
+    LASC2=d2[n]*sigma+2*d3[n]*sigma
+    if (LAIC2 < 0) LAIC2=0
   }
   par(mfrow=c(2,1))
   amostra1=matrix(rep(seq(1,m),4),m,4,byrow=F)
   if (n>1) amostra2=amostra1 else amostra2=amostra1[-1,]
-  xbar=cbind(rep(mi,m),rep(LIC1,m),rep(LSC1,m),media)
+  xbar=cbind(rep(mi,m),rep(LIC1,m),rep(LSC1,m),rep(LAIC1,m),rep(LASC1,m),media)
   if (n>1) {
-    rbar=cbind(rep(sigma,m),rep(LIC2,m),rep(LSC2,m),amplit)
+    rbar=cbind(rep(sigma,m),rep(LIC2,m),rep(LSC2,m),rep(LAIC2,m),rep(LASC2,m),amplit)
   } else rbar=cbind(rep(sigma,m-1),rep(LIC2,m-1),
                     rep(LSC2,m-1),amplit)
   # matplot(amostra2,rbar,type="o",ylab="Amplitude",
-  #         col=c("black","red","red","blue"),
+  #         col=c("black","red","red", "orange", "orange","blue"),
   #         ylim=c(min(rbar),max(rbar)),
   #         xlab="Amostras",main="Gráfico R",pch=20, lty=1, lwd=2)
   # matplot(amostra1,xbar,type="o",ylab="Média",xlab="Amostras",
   #         main=expression(paste("Gráfico " *
-  #                                 bar(x))),col=c("black","red","red",
+  #                                 bar(x))),col=c("black","red","red","orange",
+  #                                                "orange",
   #                                                "blue"),ylim=c(min(xbar),max(xbar)),pch=20, lty=1, lwd=2)
-
   
   out <<-  rbind(round(rbar[1, 1:3], 2), round(xbar[1, 1:3], 2))
   colnames(out) <<- c("Referência", "LIC", "LSC")
   rownames(out) <<- c("R", "Xbarra")
+
+  # return(out)
 }
 
 xR2=function(m,n,y){
@@ -156,6 +165,12 @@ xR2=function(m,n,y){
     LSC2=Rbarra+3*d3[n-1]*Rbarra/d2[n-1]
     if (LIC2 < 0) LIC2=0
     
+    LAIC1=x2barras-2*Rbarra/(d2[n-1]*sqrt(n))
+    LASC1=x2barras+2*Rbarra/(d2[n-1]*sqrt(n))
+    LAIC2=Rbarra-2*d3[n-1]*Rbarra/d2[n-1]
+    LASC2=Rbarra+2*d3[n-1]*Rbarra/d2[n-1]
+    if (LAIC2 < 0) LAIC2=0
+    
   } else {
     amplit=numeric(m-1)
     media=y
@@ -169,26 +184,33 @@ xR2=function(m,n,y){
     LIC2=Rbarra-3*d3*Rbarra/d2
     LSC2=Rbarra+3*d3*Rbarra/d2
     if (LIC2 < 0) LIC2=0
+    
+    LAIC1=x2barras-2*Rbarra/(d2*sqrt(n))
+    LASC1=x2barras+2*Rbarra/(d2*sqrt(n))
+    LAIC2=Rbarra-2*d3*Rbarra/d2
+    LASC2=Rbarra+2*d3*Rbarra/d2
+    if (LAIC2 < 0) LAIC2=0
   }
   par(mfrow=c(2,1))
   amostra1=matrix(rep(seq(1,m),4),m,4,byrow=F)
   if (n>1) amostra2=amostra1 else amostra2=amostra1[-1,]
-  xbar=cbind(rep(x2barras,m),rep(LIC1,m),rep(LSC1,m),media)
+  xbar=cbind(rep(x2barras,m),rep(LIC1,m),rep(LSC1,m),rep(LAIC1,m),rep(LASC1,m),media)
   if (n>1) {
-    rbar=cbind(rep(Rbarra,m),rep(LIC2,m),rep(LSC2,m),amplit) 
+    rbar=cbind(rep(Rbarra,m),rep(LIC2,m),rep(LSC2,m),rep(LAIC2,m),rep(LASC2,m),amplit) 
   } else rbar=cbind(rep(Rbarra,m-1),rep(LIC2,m-1),
                     rep(LSC2,m-1),amplit)
   matplot(amostra2,rbar,type="o",ylab="Amplitude",
-          col=c("black","red","red","blue"),
+          col=c("black","red","red","orange","orange","blue"),
           ylim=c(min(rbar),max(rbar)),
-          xlab="Amostras",main="Gráico R",pch=20, lty=1, lwd=2)
+          xlab="Amostras",main="Gráfico R",pch=20, lty=1, lwd=2)
   matplot(amostra1,xbar,type="o",ylab="Média",xlab="Amostras",
-          main=expression(paste("Gráfico " * bar(x))),col=c("black","red","red",
+          main=expression(paste("Gráfico " * bar(x))),col=c("black","red","red","orange","orange",
                                                             "blue"),ylim=c(min(xbar),max(xbar)),pch=20, lty=1, lwd=2)
-  
-  out <<-  rbind(round(rbar[1, 1:3], 2), round(xbar[1, 1:3], 2))
-  colnames(out) <<- c("Referência", "LIC", "LSC")
+
+  out <<- rbind(round(rbar[1,1:3],2), round(xbar[1,1:3],2))
+  colnames(out) <<- c("Referência","LIC","LSC")
   rownames(out) <<- c("R", "Xbarra")
+  # out
 }
 
 
@@ -252,7 +274,6 @@ Uma empresa deseja monitorar a pressão tolerada pelas garrafas plásticas que c
 Tendo em vista que a quantidade de observações por amostra é maior que 10, o gráfico **Gráfico S** é o mais recomendado para análise solicitada.
 
 
-
 ```{r}
 #| echo: false
 #| warning: false
@@ -304,14 +325,10 @@ m=25; n=14; mn=m*n; mi=150; sigma=10; set.seed(4125); x=round(rnorm(mn,mi,sigma)
 
 xS2(m, n, x)
 
-
-
 ```
 
 
-
-
-
+Após a construção do gráfico é possível constatar que o processo está fora de controle, pois a amostra de numero 12 ultrapassa o limite inferior no gráfico $\bar{X}$, caracterizando uma mudança na média do processo, ou seja, levando em consideração as **regras de sensibilidade**, o gráfico $\bar{X}$ fere ao primeiro teste que avalia os pontos que caem fora dos limites de controle.
 
 
 ## Exercício 4.
@@ -322,9 +339,134 @@ controle. Em outras palavras, a empresa deseja saber se o tempo médio até que 
 a) O tempo de entrega do pedido segue distribuição normal?
 b) Construa gráficos de controle e analise-os. Caso não exibam controle estatístico, revise os limites de controle tentativos.
 
+**SOLUÇÃO:**
+
+#### Item 4a.
+
+```{r}
+#| echo: false
+#| warning: false
+#| fig-width: 9
+#| fig-height: 5
+#| fig-align: center
+
+
+m=30; n=1; mn=m*n; mi=200; sigma=10; set.seed(1287); x=round(rnorm(mn,mi,sigma),2);
+x[28:30]=x[28:30]+2.5*sigma; x=round(x,0)
+
+test <- shapiro.test(x)
+
+result <- cbind(test$statistic, test$p.value)
+colnames(result) <- c("Estatística", "p-value")
+
+result|>
+  DT::datatable(
+    caption = "Tabela 2: Resultado do teste de normalidade de Shapiro-Wilk.",
+    # colnames = c("R", "Xbarra", "R", "Xbarra"),
+    extensions = 'FixedHeader', rownames = F,
+    options = list(dom = 't', fixedHeader = F, autoWidth = F,
+                   columnDefs = 
+                     list(
+                       list(className = 'dt-center', targets = c(0:1))))
+  )|>
+  DT::formatRound(columns = c(0:1), digits = 4, mark = ".", dec.mark = ",")
+
+
+par(mfrow=c(1,2))
+
+hist(x, ylab = "Frequência", main = "Histograma", xlab = "X")
+
+qqnorm(x, xlab = "Quantis normais", ylab = "X")
+qqline(x, col = "steelblue", lwd = 2)
+
+par(mfrow=c(1,1))
+
+
+```
+
+\   
+
+Com base no teste de normalidade realizado é possível concluir a existência de normalidade, através da não rejeição da hipótese nula ($H_0$) que afirma normalidade dos dados.
+O resultado do teste é confirmado através dos gráficos gerados, sendo possível identificar uma certa simetria entre os dados pelo Histograma bem como a normalidade por meio do QQ Plot.
 
 
 
+#### Item 4b.
+Tendo em vista que a quantidade de observações por amostra é igual a 1, o gráfico **Gráfico R** é o mais recomendado para análise solicitada.
+
+```{r}
+#| echo: false
+#| warning: false
+#| fig-align: center
+#| fig-width: 9
+#| fig-height: 7
+#| error: false
+#| message: false
+
+
+m=30; n=1; mn=m*n; mi=200; sigma=10; set.seed(1287); x=round(rnorm(mn,mi,sigma),2);
+x[28:30]=x[28:30]+2.5*sigma; x=round(x,0)
+
+xR2=function(m,n,y){
+  if (n>1) {
+    amplit=numeric(m) 	
+    mat=matrix(y,m,n,byrow=T)
+    media=apply(mat,1,mean)
+    for (i in 1:m) amplit[i]=max(mat[i,])-min(mat[i,])
+    x2barras=mean(media)
+    Rbarra=mean(amplit) 
+    d2=c(1.1296,1.6918,2.0535,2.3248,2.5404,2.7074,2.8501,
+         2.9677,3.0737,3.1696)
+    d3=c(.8541,.8909,.8800,.8674,.8508,.8326,.8209,
+         .8102,.7978,.7890)
+    LIC1=x2barras-3*Rbarra/(d2[n-1]*sqrt(n))
+    LSC1=x2barras+3*Rbarra/(d2[n-1]*sqrt(n))
+    LIC2=Rbarra-3*d3[n-1]*Rbarra/d2[n-1]
+    LSC2=Rbarra+3*d3[n-1]*Rbarra/d2[n-1]
+    if (LIC2 < 0) LIC2=0
+ 
+  } else {
+    amplit=numeric(m-1)
+    media=y
+    for (i in 2:m) amplit[i-1]=sqrt((y[i]-y[i-1])^2)
+    x2barras=mean(media)
+    Rbarra=mean(amplit) 
+    d2=1.1296
+    d3=.8541
+    LIC1=x2barras-3*Rbarra/(d2*sqrt(n))
+    LSC1=x2barras+3*Rbarra/(d2*sqrt(n))
+    LIC2=Rbarra-3*d3*Rbarra/d2
+    LSC2=Rbarra+3*d3*Rbarra/d2
+    if (LIC2 < 0) LIC2=0
+  }
+  par(mfrow=c(2,1))
+  amostra1=matrix(rep(seq(1,m),4),m,4,byrow=F)
+  if (n>1) amostra2=amostra1 else amostra2=amostra1[-1,]
+  xbar=cbind(rep(x2barras,m),rep(LIC1,m),rep(LSC1,m),media)
+  if (n>1) {
+    rbar=cbind(rep(Rbarra,m),rep(LIC2,m),rep(LSC2,m),amplit) 
+  } else rbar=cbind(rep(Rbarra,m-1),rep(LIC2,m-1),
+                    rep(LSC2,m-1),amplit)
+  matplot(amostra2,rbar,type="o",ylab="Amplitude",
+          col=c("black","red","red", "blue"),
+          ylim=c(min(rbar),max(rbar)),
+          xlab="Amostras",main="Gráfico R",pch=20, lty=1, lwd=2)
+  matplot(amostra1,xbar,type="o",ylab="Média",xlab="Amostras",
+          main=expression(paste("Gráfico " * bar(x))),col=c("black","red","red",
+                                                            "blue"),ylim=c(min(xbar),max(xbar)),pch=20, lty=1, lwd=2)
+  
+  # out=rbind(round(xbar[1,1:3],2),round(rbar[1,1:3],2))
+  # colnames(out)=c("Referência","LIC","LSC")
+  out <<- rbind(round(rbar[1,1:3],2), round(xbar[1,1:3],2))
+  colnames(out) <<- c("Referência","LIC","LSC")
+  rownames(out) <<- c("R", "Xbarra")
+  # out
+}
+
+xR2(m,n,x)
+
+
+```
 
 
 ## Exercício 5. 
@@ -334,6 +476,24 @@ Amostras de tamanhos variáveis (n entre 5 e 8) são extraídas de um processo m
 a) Construa gráficos de controle usando esses dados. O processo está sob controle estatístico?
 b) Supondo que tenha sido identificada uma causa responsável pela falta de controle pontual das amostras identificadas no item anterior, refaça a análise sem tais amostras e descubra se há mais sinais de descontrole do processo.
 
+**SOLUÇÃO:**
+
+#### Item 5a.
+
+```{r}
+#| echo: false
+#| warning: false
+#| fig-width: 9
+#| fig-height: 7
+
+m=25; set.seed(35); n=sample(seq(5,8),m,replace=T); mn=sum(n); mi=100; sigma=10; set.seed(3725); x=round(rnorm(mn,mi,sigma),1); x[89:100]=x[89:100]+2*sigma
+
+xS2(m, n, x)
+
+```
+
+
+#### Item 5b.
 
 
 

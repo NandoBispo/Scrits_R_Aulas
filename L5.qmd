@@ -1,0 +1,148 @@
+---
+title: "Resolução da 5ª Lista de MATD64"
+author: "Fernando Bispo"
+format: 
+    html:
+      toc: true
+      toc-title: Índice
+      toc-depth: 4
+---
+
+```{r pacotes&dados}
+#| echo: false
+#| warning: false
+
+if(!require("pacman"))install.packages("pacman")
+
+pacman::p_load(DT)
+
+library("qcc")
+
+parafusos <- readxl::read_xls('parafusos.xls')
+```
+
+
+## Apresentação
+
+Resolução da Lista 5.
+
+## Exercício 1
+Em uma fábrica de sapatos, 200 pares são analisados diariamente. Nos 25 dias úteis de um mês
+foram registrados os números de pares defeituosos mostrados na tabela abaixo.
+
+```{r tabQ1}
+#| echo: false
+#| warning: false
+
+# dia = c(1:25)
+# x=c(9, 11, 14, 9, 16, 11, 10, 12, 5, 10, 9, 11, 7, 9, 22, 11, 8, 11, 9, 7, 9, 8, 12)
+# 
+# cbind(dia, x)|>
+#     DT::datatable(
+#     # caption = "Tabela 1: Informações dos gráficos R e Xbarra para Questão 2.",
+#     colnames = c("R", "Xbarra", "R", "Xbarra"),
+#     extensions = 'FixedHeader', 
+#     # container = tit,
+#     options = list(dom = 't', fixedHeader = F, autoWidth = F,
+#                    columnDefs = 
+#                      list(
+#                        list(className = 'dt-center', targets = c(1:4))))
+#   )|>
+#   DT::formatRound(
+#     columns = c(1:4),
+#     digits = 2, mark = ".",
+#     dec.mark = ",")
+
+```
+
+a) Estabeleça um gráfico de controle para monitorar a produção futura. Considere 𝑝 = 0,05.
+b) Qual o menor tamanho de amostra que pode ser usado para esse processo e ainda fornecer um
+limite inferior de controle positivo para o gráfico?
+
+### Solução:
+
+#### Item a
+
+Tendo em vista o cenário inicial, aquele em que não se remove nenhuma informação a fim de avaliar o comportamento dos dados quanto aos limites de controle, se construiu a Figura 1.
+
+
+```{r item 1a_1}
+#| echo: false
+#| warning: false
+#| fig-align: center
+#| fig-width: 7
+#| error: false
+#| message: false
+
+x=c(9, 11, 14, 9, 16, 11, 10, 12, 5, 10, 9, 11, 7, 9, 22, 11, 8, 11, 9, 13, 9, 7, 9, 8, 12)
+p = 0.05
+
+qcc::qcc(x, type = "p", sizes = 200, plot = F, center = p)|>
+  plot(label.limits = c("LIC", "LSC"), xlab = "Amostras",
+       ylab = "Resumo das Estatísticas das Amostras",
+       title = "Figura 1: Gráfico das proporções de itens defeituosos")
+
+```
+
+
+É possível constatar, na Figura 1, a quebra do limite superior na amostra de número 15, para o cumprimento dos requisitos da questão, se removeu a informação que gerou o erro a fim de se avaliar o comportamento do processo sem a informação que gerou o erro, sendo retratado na Figura 2.
+
+
+```{r item 1a_2}
+#| echo: false
+#| warning: false
+#| fig-align: center
+#| fig-width: 7
+#| error: false
+#| message: false
+
+qcc::qcc(x[-15], type = "p", sizes = 200, plot = F, center = p)|>
+  plot(label.limits = c("LIC", "LSC"), xlab = "Amostras",
+       ylab = "Resumo das Estatísticas das Amostras",
+       title = "Figura 2: Gráfico das proporções de itens defeituosos sem a \ninformação discrepante")
+```
+
+
+Após a remoção da informação discrepante, o processo permaneceu sob controle, sendo este o gráfico adequado para o monitoramento da produção futura.
+
+
+#### Item b
+
+Para a obtensão do menor tamanho de amostra se faz necessário a utilização da fórmula do LIC:
+
+
+O que se deseja é obter um valor de $n$ tal que $LIC > 0$
+
+$$
+LIC = p + 3\sqrt{ \dfrac{p(1-p)}{n}}
+$$
+
+Após as devidas manipulações algébricas, a obtensão do menor tamanho é através da seguinte expressão:
+
+
+$$
+n = \frac{p(1-p)}{\bigg(\dfrac{p - LIC}{3}\bigg)^2}
+$$
+
+## Exercício 2
+
+2) (Montgomery, 2013) A maintenance group improves the effectiveness of its repair work by
+monitoring the number of maintenance requests that require a second call to complete the repair.
+Twenty weeks of data are shown in the table below.
+
+a) Find trial control limits for this process.
+b) Design a control chart for controlling future production.
+c) Analyze these data using an average sample size.
+d) Construct a standardized control chart for these data.
+
+2) (Montgomery, 2013) Um grupo de manutenção melhora a eficácia de seu trabalho de reparo ao
+monitorando o número de solicitações de manutenção que requerem uma segunda chamada para concluir o reparo.
+Vinte semanas de dados são mostradas na tabela abaixo.
+
+a) Encontre os limites de controle de tentativa para este processo.
+b) Projete um gráfico de controle para controlar a produção futura.
+c) Analise esses dados usando um tamanho de amostra médio.
+d) Construa um gráfico de controle padronizado para esses dados.
+
+
+

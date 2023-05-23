@@ -175,36 +175,53 @@ xR1=function(m,n,y,mi,sigma){
        .8326,.8209,.8102,.7978,.7890)
   LIC1=mi-3*sigma/sqrt(n)
   LSC1=mi+3*sigma/sqrt(n)
+  LAIC1=mi-2*sigma/sqrt(n)
+  LASC1=mi+2*sigma/sqrt(n)
+  LAIC1.C=mi-sigma/sqrt(n)
+  LASC1.C=mi+sigma/sqrt(n)
   if(n>1) {
     LIC2=d2[n-1]*sigma-3*d3[n-1]*sigma
     LSC2=d2[n-1]*sigma+3*d3[n-1]*sigma
     if (LIC2 < 0) LIC2=0
+    LAIC2=d2[n-1]*sigma-2*d3[n-1]*sigma #Limite de advertência inferior de controle
+    LASC2=d2[n-1]*sigma+2*d3[n-1]*sigma
+    if (LAIC2 < 0) LAIC2=0
+    LAIC2.C=d2[n-1]*sigma-d3[n-1]*sigma
+    LASC2.C=d2[n-1]*sigma+d3[n-1]*sigma
+    if (LAIC2.C < 0) LAIC2.C=0
   } else {
     LIC2=d2[n]*sigma-3*d3[n]*sigma
     LSC2=d2[n]*sigma+3*d3[n]*sigma
     if (LIC2 < 0) LIC2=0
+    LAIC2=d2[n]*sigma-2*d3[n]*sigma
+    LASC2=d2[n]*sigma+2*d3[n]*sigma
+    if (LAIC2 < 0) LAIC2=0
+    LAIC2.C=d2[n]*sigma-d3[n]*sigma
+    LASC2.C=d2[n]*sigma+d3[n]*sigma
+    if (LAIC2.C < 0) LAIC2.C=0
   }
   par(mfrow=c(2,1))
   amostra1=matrix(rep(seq(1,m),4),m,4,byrow=F)
   if (n>1) amostra2=amostra1 else amostra2=amostra1[-1,]
-  xbar=cbind(rep(mi,m),rep(LIC1,m),rep(LSC1,m),media)
+  xbar=cbind(rep(mi,m),rep(LIC1,m),rep(LSC1,m),rep(LAIC1,m),rep(LASC1,m),rep(LAIC1.C,m),rep(LASC1.C,m),media)
   if (n>1) {
-    rbar=cbind(rep(sigma,m),rep(LIC2,m),rep(LSC2,m),amplit)
+    rbar=cbind(rep(sigma,m),rep(LIC2,m),rep(LSC2,m),rep(LAIC2,m),rep(LASC2,m),rep(LAIC2.C,m),rep(LASC2.C,m),amplit)
   } else rbar=cbind(rep(sigma,m-1),rep(LIC2,m-1),
                     rep(LSC2,m-1),amplit)
   matplot(amostra2,rbar,type="o",ylab="Amplitude",
-          col=c("black","red","red","blue"),
+          col=c("black","red","red", "orange", "orange","gray","gray","blue"),
           ylim=c(min(rbar),max(rbar)),
           xlab="Amostras",main="Gráfico R",pch=20, lty=1, lwd=2)
   matplot(amostra1,xbar,type="o",ylab="Média",xlab="Amostras",
           main=expression(paste("Gráfico " *
-                                  bar(x))),col=c("black","red","red",
-                                                 "blue"),ylim=c(min(xbar),max(xbar)),pch=20, lty=1, lwd=2)
+                                  bar(x))),col=c("black","red","red","orange",
+                                                 "orange","gray","gray","blue"),
+          ylim=c(min(xbar),max(xbar)),pch=20, lty=1, lwd=2)
   
   # out=rbind(round(xbar[1,1:3],2),round(rbar[1,1:3],2))
   # colnames(out)=c("Referência","LIC","LSC")
-  out <<-  rbind(round(rbar[1, 1:3], 2), round(xbar[1, 1:3], 2))
-  colnames(out) <<- c("Referência", "LIC", "LSC")
+  out <<-  rbind(round(rbar[1, 1:5], 2), round(xbar[1, 1:5], 2))
+  colnames(out) <<- c("Referência", "LIC", "LSC", "LAIC", "LASC")
   rownames(out) <<- c("R", "Xbarra")
 
   # return(out)
@@ -234,7 +251,7 @@ xR2=function(m,n,y){
     LIC2=Rbarra-3*d3[n-1]*Rbarra/d2[n-1]
     LSC2=Rbarra+3*d3[n-1]*Rbarra/d2[n-1]
     if (LIC2 < 0) LIC2=0
-    
+ 
   } else {
     amplit=numeric(m-1)
     media=y
@@ -258,7 +275,7 @@ xR2=function(m,n,y){
   } else rbar=cbind(rep(Rbarra,m-1),rep(LIC2,m-1),
                     rep(LSC2,m-1),amplit)
   matplot(amostra2,rbar,type="o",ylab="Amplitude",
-          col=c("black","red","red","blue"),
+          col=c("black","red","red", "blue"),
           ylim=c(min(rbar),max(rbar)),
           xlab="Amostras",main="Gráfico R",pch=20, lty=1, lwd=2)
   matplot(amostra1,xbar,type="o",ylab="Média",xlab="Amostras",
@@ -269,6 +286,75 @@ xR2=function(m,n,y){
   # colnames(out)=c("Referência","LIC","LSC")
   out <<- rbind(round(rbar[1,1:3],2), round(xbar[1,1:3],2))
   colnames(out) <<- c("Referência","LIC","LSC")
+  rownames(out) <<- c("R", "Xbarra")
+  # out
+}
+
+
+xR2.2=function(m,n,y){
+  if (n>1) {
+    amplit=numeric(m) 	
+    mat=matrix(y,m,n,byrow=T)
+    media=apply(mat,1,mean)
+    for (i in 1:m) amplit[i]=max(mat[i,])-min(mat[i,])
+    x2barras=mean(media)
+    Rbarra=mean(amplit) 
+    d2=c(1.1296,1.6918,2.0535,2.3248,2.5404,2.7074,2.8501,
+         2.9677,3.0737,3.1696)
+    d3=c(.8541,.8909,.8800,.8674,.8508,.8326,.8209,
+         .8102,.7978,.7890)
+    LIC1=x2barras-3*Rbarra/(d2[n-1]*sqrt(n))
+    LSC1=x2barras+3*Rbarra/(d2[n-1]*sqrt(n))
+    LIC2=Rbarra-3*d3[n-1]*Rbarra/d2[n-1]
+    LSC2=Rbarra+3*d3[n-1]*Rbarra/d2[n-1]
+    if (LIC2 < 0) LIC2=0
+    
+    LAIC1=x2barras-2*Rbarra/(d2[n-1]*sqrt(n))
+    LASC1=x2barras+2*Rbarra/(d2[n-1]*sqrt(n))
+    LAIC2=Rbarra-2*d3[n-1]*Rbarra/d2[n-1]
+    LASC2=Rbarra+2*d3[n-1]*Rbarra/d2[n-1]
+    if (LAIC2 < 0) LAIC2=0
+    
+  } else {
+    amplit=numeric(m-1)
+    media=y
+    for (i in 2:m) amplit[i-1]=sqrt((y[i]-y[i-1])^2)
+    x2barras=mean(media)
+    Rbarra=mean(amplit) 
+    d2=1.1296
+    d3=.8541
+    LIC1=x2barras-3*Rbarra/(d2*sqrt(n))
+    LSC1=x2barras+3*Rbarra/(d2*sqrt(n))
+    LIC2=Rbarra-3*d3*Rbarra/d2
+    LSC2=Rbarra+3*d3*Rbarra/d2
+    if (LIC2 < 0) LIC2=0
+    
+    LAIC1=x2barras-2*Rbarra/(d2*sqrt(n))
+    LASC1=x2barras+2*Rbarra/(d2*sqrt(n))
+    LAIC2=Rbarra-2*d3*Rbarra/d2
+    LASC2=Rbarra+2*d3*Rbarra/d2
+    if (LAIC2 < 0) LAIC2=0
+  }
+  par(mfrow=c(2,1))
+  amostra1=matrix(rep(seq(1,m),4),m,4,byrow=F)
+  if (n>1) amostra2=amostra1 else amostra2=amostra1[-1,]
+  xbar=cbind(rep(x2barras,m),rep(LIC1,m),rep(LSC1,m),rep(LAIC1,m),rep(LASC1,m),media)
+  if (n>1) {
+    rbar=cbind(rep(Rbarra,m),rep(LIC2,m),rep(LSC2,m),rep(LAIC2,m),rep(LASC2,m),amplit) 
+  } else rbar=cbind(rep(Rbarra,m-1),rep(LIC2,m-1),
+                    rep(LSC2,m-1),amplit)
+  matplot(amostra2,rbar,type="o",ylab="Amplitude",
+          col=c("black","red","red","orange","orange","blue"),
+          ylim=c(min(rbar),max(rbar)),
+          xlab="Amostras",main="Gráfico R",pch=20, lty=1, lwd=2)
+  matplot(amostra1,xbar,type="o",ylab="Média",xlab="Amostras",
+          main=expression(paste("Gráfico " * bar(x))),col=c("black","red","red","orange","orange",
+                                                            "blue"),ylim=c(min(xbar),max(xbar)),pch=20, lty=1, lwd=2)
+  
+  # out=rbind(round(xbar[1,1:3],2),round(rbar[1,1:3],2))
+  # colnames(out)=c("Referência","LIC","LSC")
+  out <<- rbind(round(rbar[1,1:5],2), round(xbar[1,1:5],2))
+  colnames(out) <<- c("Referência","LIC","LSC", "LAIC", "LASC")
   rownames(out) <<- c("R", "Xbarra")
   # out
 }
@@ -389,7 +475,7 @@ x[289:305]=x[289:305]+2*sigma
 xS2(m,n,x)
 
 
-## Lista de Exercícios ----
+## Lista 2 ----
 ### Q1 ----
 parafusos <- readxl::read_xls('parafusos.xls')
 
@@ -479,6 +565,7 @@ result|>
     columns = c(1:4), digits = 2, mark = ".", dec.mark = ",")
 
 # Tentativa de utilização do pacote qcc
+{
 amostra <- c(1:20)
 
 x1 <- c(500.5, 500.1, 498.9, 499.2, 500.1, 500.2, 500.3, 498.2, 501.1, 501.5, 499.2, 501, 500.2, 501.2, 500.5, 499.5, 500.3, 500.7, 500.2, 500.3)
@@ -521,6 +608,8 @@ sucos|>
 sucos|>
   qcc::qcc(type = "xbar", center = 500, std.dev = 1, plot = F)|>plot()
 
+}
+
 ### Q3 ----
 
 m=25; n=14; mn=m*n; mi=150; sigma=10; set.seed(4125); x=round(rnorm(mn,mi,sigma),2); x[155:168]=x[155:168]-1.5*sigma; x=round(x,0)
@@ -528,16 +617,58 @@ m=25; n=14; mn=m*n; mi=150; sigma=10; set.seed(4125); x=round(rnorm(mn,mi,sigma)
 xS2(m, n, x)
 
 ### Q4 ----
+#### Item a ----
+m=30; n=1; mn=m*n; mi=200; sigma=10; set.seed(1287); x=round(rnorm(mn,mi,sigma),2);
+x[28:30]=x[28:30]+2.5*sigma; x=round(x,0)
+
+test <- shapiro.test(x)
+
+test$statistic
+test$p.value
+
+result <- cbind(test$statistic, test$p.value)
+colnames(result) <- c("Estatística", "p-value")
+
+par(mfrow=c(1,2))
+qqnorm(x, main = "Histograma", xlab = "Quantis normais", ylab = "x")
+qqline(x, col = "steelblue", lwd = 2)
 
 
+hist(x, ylab = "Frequência")
+
+# car::qqPlot(x,  envelope=list(style="lines"), xlab = "Quantis normais", main = "Normal Q-Q Plot")
+par(mfrow=c(1,1))
+
+
+x|>
+  tibble::as_tibble()|>
+  ggplot2::ggplot()+
+  ggplot2::geom_histogram()
+
+result|>
+  DT::datatable(
+    caption = "Tabela 2: Resultado do teste de normalidade de Shapiro-Wilk.",
+    # colnames = c("R", "Xbarra", "R", "Xbarra"),
+    extensions = 'FixedHeader', rownames = F,
+    options = list(dom = 't', fixedHeader = F, autoWidth = F,
+                   columnDefs = 
+                     list(
+                       list(className = 'dt-center', targets = c(0:1))))
+  )|>
+  DT::formatRound(columns = c(0:1), digits = 4, mark = ".", dec.mark = ",")
+
+
+#### Item b ----
+
+xR2(m, n, x)
 
 
 
 ### Q5 -----
 
+m=25; set.seed(35); n=sample(seq(5,8),m,replace=T); mn=sum(n); mi=100; sigma=10; set.seed(3725); x=round(rnorm(mn,mi,sigma),1); x[89:100]=x[89:100]+2*sigma
 
-
-
+xS2(m, n, x)
 
 
 ### Q6 -----
@@ -667,10 +798,139 @@ x[77:80]=x[77:80]+2*sigma
 
 MMEP(m,n,mi,sigma,0.1,3,x)
 
+### Códigos R - Gráfico np ----
+
+# m = número de amostras disponíveis.
+# n = número de unidades observadas em cada amostra.
+# y = vetor contendo o total de itens defeituosos em cada amostra, ordenado de acordo com o tempo das amostras.
+
+npse=function(m,n,y) {
+  p=sum(y)/(n*m); LIC=n*p-3*sqrt(n*p*(1-p))
+  if (LIC<0) LIC=0; LSC=n*p+3*sqrt(n*p*(1-p))	
+  time=cbind(seq(1,m),seq(1,m),seq(1,m),seq(1,m))
+  w=cbind(y,rep(n*p,m),rep(LIC,m),rep(LSC,m))
+  par(mfrow=c(1,1))
+  matplot(time,w,type="o",ylab="np",
+          col=c("black","blue","red","red"),pch=20,lty=1,lwd=2,
+          main="Gráfico np",xlab="Amostras",ylim=c(min(w),max(w)))
+}
+
+
+### Exemplo 1
+
+m=25; n=100; p1=0.1; p2=0.2
+set.seed(7256); x=rbinom(m,n,p1); set.seed(7865); x[21:25]=rbinom(5,n,p2)
+
+npse(m,n,x)
+
+
+# m = número de amostras dispon’veis.
+# n = número de unidades observadas em cada amostra. Pode ser um vetor, caso as amostras tenham tamanhos diferentes.
+# y = vetor contendo o total de itens defeituosos em cada amostra, ordenado de acordo com o tempo das amostras.
+
+pse=function(m,n,y) {
+  if (length(n)==1){
+    p=sum(y)/(n*m);LIC=p-3*sqrt(p*(1-p)/n); if (LIC<0) LIC=0
+    LSC=p+3*sqrt(p*(1-p)/n)	
+    time=cbind(seq(1,m),seq(1,m),seq(1,m),seq(1,m))
+    w=cbind(y/n,rep(p,m),rep(LIC,m),rep(LSC,m))
+    par(mfrow=c(1,1))
+    matplot(time,w,type="o",pch=20,main="Gráfico p",
+            col=c("black","blue","red","red"),ylab="p",
+            xlab="Amostras", ylim=c(min(w),max(w)),lty=1,lwd=2)
+  } else {
+    p=sum(y)/sum(n);LIC=numeric(m);LSC=numeric(m);z=numeric(m)
+    for (i in 1:m){
+      LIC[i]=p-3*sqrt(p*(1-p)/n[i]); if (LIC[i]<0) LIC[i]=0
+      LSC[i]=p+3*sqrt(p*(1-p)/n[i])	
+      z[i]=((y[i]/n[i]-p)/sqrt(p*(1-p)/n[i]))
+    }
+    time=cbind(seq(1,m),seq(1,m),seq(1,m),seq(1,m))
+    w1=cbind(y/n,rep(p,m),LIC,LSC)
+    w2=cbind(z,rep(0,m),rep(-3,m),rep(3,m))
+    par(mfrow=c(1,2))
+    matplot(time,w1,type="o",pch=20,ylim=c(min(w1),max(w1)),
+            col=c("black","blue","red","red"),lty=1,lwd=2,
+            main="Gráfico p",ylab="p",xlab="Amostras"	)
+    matplot(time,w2,type="o",pch=20,ylim=c(min(w2),max(w2)),
+            col=c("black","blue","red","red"),xlab="Amostras",
+            main="Gráfico p Padronizado",ylab="z",lty=1,lwd=2)
+  }
+}
+
+### Exemplo 1
+
+m=25; n=100; p1=0.1; p2=0.2
+set.seed(7256); x=rbinom(m,n,p1); set.seed(7865); x[21:25]=rbinom(5,n,p2)
+
+pse(m,n,x)
+
+
+### Exemplo 2
+
+m=25; p1=0.1; p2=0.20
+tamanho=seq(90,140); set.seed(1459); n=sample(tamanho,m,replace=T)
+sementes=seq(0,9999); set.seed(8667); sementes=sample(sementes,m,replace=F)
+prob=c(rep(p1,20),rep(p2,5)); x=numeric(25)
+for (i in 1:m) {
+  set.seed(sementes[i]); x[i]=rbinom(1,n[i],prob[i])
+}	
+
+pse(m,n,x)
+
+
+## Lista 5 ----
+
+### Q1a ----
+x=c(9, 11, 14, 9, 16, 11, 10, 12, 5, 10, 9, 11, 7, 9, 22, 11, 8, 11, 9, 13, 9, 7, 9, 8, 12)
+p = 0.05
+
+prob = c(rep(0.05,20))
+
+pse(200,25,x)
+
+qcc::qcc(x, type = "p", sizes = 200, plot = F, center = p)|>plot(label.limits = c("LIC", "LSC"))
+
+qcc::qcc(x[-15], type = "p", sizes = 200, plot = F, center = p)|>plot(label.limits = c("LIC", "LSC"))
 
 
 
 
+dia = c(1:25)
+
+cbind(dia, x)|>
+  DT::datatable(
+    # caption = "Tabela 1: Informações dos gráficos R e Xbarra para Questão 2.",
+    colnames = c("Dia", "N° pares defeituosos"),
+    extensions = 'FixedHeader', 
+    # container = tit,
+    options = list(dom = 't', fixedHeader = F, autoWidth = T
+                   # columnDefs =
+                   #   list(
+                   #     list(className = 'dt-center', targets = c(1:2)))
+                   )
+  )
+  # DT::formatRound(
+  #   columns = c(1:2),
+  #   digits = 2, mark = ".",
+  #   dec.mark = ",")
+
+### Q1b ----
+
+
+
+(LIC = p-3*sqrt((p*(1-p)/172)))
+
+(p*(1-p))/((p-LIC)/3)^2
+
+
+### Q2 ----
+
+semana = c(1:20)
+
+total = c(200, 250, 250, 250, 200, 200, rep(150, 4), rep(100, 3), rep(200, 5), rep(250, 2))
+
+vis = c(6, 8, 9, 7, 3, 4, 2, 1, 0, 2, 1, 0, 1, 4, 5, 3, 10, 4, 7, 6)
 
 
 
