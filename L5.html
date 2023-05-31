@@ -21,6 +21,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -34,6 +68,18 @@ ul.task-list li input[type="checkbox"] {
 <script src="L5_files/libs/bootstrap/bootstrap.min.js"></script>
 <link href="L5_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="L5_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+<script src="L5_files/libs/htmlwidgets-1.6.2/htmlwidgets.js"></script>
+<link href="L5_files/libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet">
+<script src="L5_files/libs/datatables-binding-0.27/datatables.js"></script>
+<script src="L5_files/libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<link href="L5_files/libs/dt-core-1.12.1/css/jquery.dataTables.min.css" rel="stylesheet">
+<link href="L5_files/libs/dt-core-1.12.1/css/jquery.dataTables.extra.css" rel="stylesheet">
+<script src="L5_files/libs/dt-core-1.12.1/js/jquery.dataTables.min.js"></script>
+<link href="L5_files/libs/dt-ext-fixedheader-1.12.1/css/fixedHeader.dataTables.min.css" rel="stylesheet">
+<script src="L5_files/libs/dt-ext-fixedheader-1.12.1/js/dataTables.fixedHeader.min.js"></script>
+<link href="L5_files/libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet">
+<script src="L5_files/libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
 
   <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
@@ -51,13 +97,24 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#apresentação" id="toc-apresentação" class="nav-link active" data-scroll-target="#apresentação">Apresentação</a></li>
   <li><a href="#exercício-1" id="toc-exercício-1" class="nav-link" data-scroll-target="#exercício-1">Exercício 1</a>
   <ul>
-  <li><a href="#solução" id="toc-solução" class="nav-link" data-scroll-target="#solução">Solução:</a>
-  <ul class="collapse">
-  <li><a href="#item-a" id="toc-item-a" class="nav-link" data-scroll-target="#item-a">Item a</a></li>
-  <li><a href="#item-b" id="toc-item-b" class="nav-link" data-scroll-target="#item-b">Item b</a></li>
+  <li><a href="#solução" id="toc-solução" class="nav-link" data-scroll-target="#solução">Solução</a></li>
   </ul></li>
+  <li><a href="#exercício-2" id="toc-exercício-2" class="nav-link" data-scroll-target="#exercício-2">Exercício 2</a>
+  <ul>
+  <li><a href="#solução-1" id="toc-solução-1" class="nav-link" data-scroll-target="#solução-1">Solução</a></li>
   </ul></li>
-  <li><a href="#exercício-2" id="toc-exercício-2" class="nav-link" data-scroll-target="#exercício-2">Exercício 2</a></li>
+  <li><a href="#exercício-3" id="toc-exercício-3" class="nav-link" data-scroll-target="#exercício-3">Exercício 3</a>
+  <ul>
+  <li><a href="#solução-2" id="toc-solução-2" class="nav-link" data-scroll-target="#solução-2">Solução</a></li>
+  </ul></li>
+  <li><a href="#exercício-4" id="toc-exercício-4" class="nav-link" data-scroll-target="#exercício-4">Exercício 4</a>
+  <ul>
+  <li><a href="#solução-3" id="toc-solução-3" class="nav-link" data-scroll-target="#solução-3">Solução</a></li>
+  </ul></li>
+  <li><a href="#exercício-5" id="toc-exercício-5" class="nav-link" data-scroll-target="#exercício-5">Exercício 5</a>
+  <ul>
+  <li><a href="#solução-4" id="toc-solução-4" class="nav-link" data-scroll-target="#solução-4">Solução</a></li>
+  </ul></li>
   </ul>
 </nav>
 </div>
@@ -65,7 +122,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Resolução da 5ª Lista de MATD64</h1>
+<div class="quarto-title-block"><div><h1 class="title">Resolução da 5ª Lista de MATD64</h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li></ul></div></div>
 </div>
 
 
@@ -98,65 +155,336 @@ ul.task-list li input[type="checkbox"] {
 <li>Qual o menor tamanho de amostra que pode ser usado para esse processo e ainda fornecer um limite inferior de controle positivo para o gráfico?</li>
 </ol>
 <section id="solução" class="level3">
-<h3 class="anchored" data-anchor-id="solução">Solução:</h3>
-<section id="item-a" class="level4">
-<h4 class="anchored" data-anchor-id="item-a">Item a</h4>
+<h3 class="anchored" data-anchor-id="solução">Solução</h3>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">Item a</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">Item b</a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
 <p>Tendo em vista o cenário inicial, aquele em que não se remove nenhuma informação a fim de avaliar o comportamento dos dados quanto aos limites de controle, se construiu a Figura 1.</p>
 <div class="cell" data-layout-align="center">
+<details>
+<summary>Mostrar Código</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">9</span>, <span class="dv">11</span>, <span class="dv">14</span>, <span class="dv">9</span>, <span class="dv">16</span>, <span class="dv">11</span>, <span class="dv">10</span>, <span class="dv">12</span>, <span class="dv">5</span>, <span class="dv">10</span>, <span class="dv">9</span>, <span class="dv">11</span>, <span class="dv">7</span>, <span class="dv">9</span>, <span class="dv">22</span>, <span class="dv">11</span>, <span class="dv">8</span>, <span class="dv">11</span>, <span class="dv">9</span>, <span class="dv">13</span>, <span class="dv">9</span>, <span class="dv">7</span>, <span class="dv">9</span>, <span class="dv">8</span>, <span class="dv">12</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>p <span class="ot">=</span> <span class="fl">0.05</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>qcc<span class="sc">::</span><span class="fu">qcc</span>(x, <span class="at">type =</span> <span class="st">"p"</span>, <span class="at">sizes =</span> <span class="dv">200</span>, <span class="at">plot =</span> F, <span class="at">center =</span> p)<span class="sc">|&gt;</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(<span class="at">label.limits =</span> <span class="fu">c</span>(<span class="st">"LIC"</span>, <span class="st">"LSC"</span>), <span class="at">xlab =</span> <span class="st">"Amostras"</span>,</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">ylab =</span> <span class="st">"Resumo das Estatísticas das Amostras"</span>,</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">"Figura 1: Gráfico das proporções de itens defeituosos"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="L5_files/figure-html/item%201a_1-1.png" class="quarto-discovered-preview-image img-fluid figure-img" width="672"></p>
+<p><img src="L5_files/figure-html/item%201a_1-1.png" class="quarto-discovered-preview-image img-fluid figure-img" width="864"></p>
 </figure>
 </div>
 </div>
 </div>
 <p>É possível constatar, na Figura 1, a quebra do limite superior na amostra de número 15, para o cumprimento dos requisitos da questão, se removeu a informação que gerou o erro a fim de se avaliar o comportamento do processo sem a informação que gerou o erro, sendo retratado na Figura 2.</p>
 <div class="cell" data-layout-align="center">
+<details>
+<summary>Mostrar Código</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>qcc<span class="sc">::</span><span class="fu">qcc</span>(x[<span class="sc">-</span><span class="dv">15</span>], <span class="at">type =</span> <span class="st">"p"</span>, <span class="at">sizes =</span> <span class="dv">200</span>, <span class="at">plot =</span> F, <span class="at">center =</span> p)<span class="sc">|&gt;</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(<span class="at">label.limits =</span> <span class="fu">c</span>(<span class="st">"LIC"</span>, <span class="st">"LSC"</span>), <span class="at">xlab =</span> <span class="st">"Amostras"</span>,</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>       <span class="at">ylab =</span> <span class="st">"Resumo das Estatísticas das Amostras"</span>,</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">"Figura 2: Gráfico das proporções de itens defeituosos sem a </span><span class="sc">\n</span><span class="st">informação discrepante"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="L5_files/figure-html/item%201a_2-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="L5_files/figure-html/item%201a_2-1.png" class="img-fluid figure-img" width="864"></p>
 </figure>
 </div>
 </div>
 </div>
 <p>Após a remoção da informação discrepante, o processo permaneceu sob controle, sendo este o gráfico adequado para o monitoramento da produção futura.</p>
-</section>
-<section id="item-b" class="level4">
-<h4 class="anchored" data-anchor-id="item-b">Item b</h4>
-<p>Para a obtensão do menor tamanho de amostra se faz necessário a utilização da fórmula do LIC:</p>
-<p>O que se deseja é obter um valor de <span class="math inline">\(n\)</span> tal que <span class="math inline">\(LIC &gt; 0\)</span></p>
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<!-- Para a obtensão do menor tamanho de amostra se faz necessário a utilização da fórmula do LIC: -->
+<p>O que se deseja é obter um valor mínimo de <span class="math inline">\(n\)</span> (tamanho da amostra) tal que <span class="math inline">\(LIC &gt; 0\)</span></p>
 <p><span class="math display">\[
-LIC = p + 3\sqrt{ \dfrac{p(1-p)}{n}}
+LIC = p + 3\sqrt{ \dfrac{p(1-p)}{n}} &gt; 0
 \]</span></p>
-<p>Após as devidas manipulações algébricas, a obtensão do menor tamanho é através da seguinte expressão:</p>
+<p>Substituindo <span class="math inline">\(p = 0,05\)</span> e realizando os algebrismos necessários, tem-se:</p>
 <p><span class="math display">\[
-n = \frac{p(1-p)}{\bigg(\dfrac{p - LIC}{3}\bigg)^2}
+LIC = 0,05 + 3 \times \sqrt{ \dfrac{0,05(0,95)}{n}} = 0 \Rightarrow \Bigg(\dfrac{-0,05}{3}\Bigg)^2 = \dfrac{0,0475}{n} \Rightarrow
 \]</span></p>
-</section>
+<p><span class="math display">\[
+\Rightarrow n = \dfrac{0,0475}{\Bigg(\dfrac{-0,05}{3}\Bigg)^2} \therefore n = 171
+\]</span></p>
+<p>Baseado no valor de <span class="math inline">\(n\)</span> tal que <span class="math inline">\(LIC = 0\)</span>, conclui-se que <span class="math inline">\(n = 172\)</span> satisfaz o requisito solicitado.</p>
+<!-- Com base na fórmula, o valor mínimo de $n$ necessário é $172$. -->
+<!-- Após as devidas manipulações algébricas, a obtensão do menor tamanho é através da seguinte expressão: -->
+<!-- $$ -->
+<!-- n = \frac{p(1-p)}{\bigg(\dfrac{p - LIC}{3}\bigg)^2} -->
+<!-- $$ -->
+</div>
+</div>
+</div>
 </section>
 </section>
 <section id="exercício-2" class="level2">
 <h2 class="anchored" data-anchor-id="exercício-2">Exercício 2</h2>
-<ol start="2" type="1">
-<li>(Montgomery, 2013) A maintenance group improves the effectiveness of its repair work by monitoring the number of maintenance requests that require a second call to complete the repair. Twenty weeks of data are shown in the table below.</li>
-</ol>
+<p>(Montgomery, 2013) A maintenance group improves the effectiveness of its repair work by monitoring the number of maintenance requests that require a second call to complete the repair. Twenty weeks of data are shown in the table below.</p>
 <ol type="a">
 <li>Find trial control limits for this process.</li>
 <li>Design a control chart for controlling future production.</li>
 <li>Analyze these data using an average sample size.</li>
 <li>Construct a standardized control chart for these data.</li>
 </ol>
-<ol start="2" type="1">
-<li>(Montgomery, 2013) Um grupo de manutenção melhora a eficácia de seu trabalho de reparo ao monitorando o número de solicitações de manutenção que requerem uma segunda chamada para concluir o reparo. Vinte semanas de dados são mostradas na tabela abaixo.</li>
-</ol>
+<p><strong>Tradução</strong>&nbsp;<br>
+(Montgomery, 2013) Um grupo de manutenção melhora a eficácia de seu trabalho de reparo monitorando o número de solicitações de manutenção que requerem uma segunda chamada para concluir o reparo.&nbsp;<br>
+Vinte semanas de dados são mostradas na tabela abaixo.</p>
 <ol type="a">
 <li>Encontre os limites de controle de tentativa para este processo.</li>
 <li>Projete um gráfico de controle para controlar a produção futura.</li>
 <li>Analise esses dados usando um tamanho de amostra médio.</li>
 <li>Construa um gráfico de controle padronizado para esses dados.</li>
 </ol>
+<section id="solução-1" class="level3">
+<h3 class="anchored" data-anchor-id="solução-1">Solução</h3>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true" href="">Item a</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false" href="">Item b</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-3" role="tab" aria-controls="tabset-2-3" aria-selected="false" href="">Item c</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-4" role="tab" aria-controls="tabset-2-4" aria-selected="false" href="">Item d</a></li></ul>
+<div class="tab-content">
+<div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
+<div class="cell">
+<details>
+<summary>Mostrar Código</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>m <span class="ot">=</span> <span class="dv">20</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>n <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">200</span>, <span class="fu">rep</span>(<span class="dv">250</span>, <span class="dv">3</span>), <span class="dv">200</span>, <span class="dv">200</span>, <span class="fu">rep</span>(<span class="dv">150</span>, <span class="dv">4</span>), <span class="fu">rep</span>(<span class="dv">100</span>, <span class="dv">3</span>), <span class="fu">rep</span>(<span class="dv">200</span>, <span class="dv">5</span>), <span class="fu">rep</span>(<span class="dv">250</span>, <span class="dv">2</span>))</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>segunda_vis <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">6</span>, <span class="dv">8</span>, <span class="dv">9</span>, <span class="dv">7</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">3</span>, <span class="dv">10</span>, <span class="dv">4</span>, <span class="dv">7</span>, <span class="dv">6</span>)</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>p_hat_i <span class="ot">=</span> segunda_vis<span class="sc">/</span>n</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>p_barra <span class="ot">=</span> <span class="fu">sum</span>(segunda_vis)<span class="sc">/</span><span class="fu">sum</span>(n)</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>LSC <span class="ot">=</span> p_barra <span class="sc">+</span> <span class="dv">3</span><span class="sc">*</span><span class="fu">sqrt</span>((p_barra<span class="sc">*</span>(<span class="dv">1</span> <span class="sc">-</span> p_barra))<span class="sc">/</span>n)</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>LIC <span class="ot">=</span> p_barra <span class="sc">-</span> <span class="dv">3</span><span class="sc">*</span><span class="fu">sqrt</span>((p_barra<span class="sc">*</span>(<span class="dv">1</span> <span class="sc">-</span> p_barra))<span class="sc">/</span>n)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>Em virtude de ter-se tamanhos desiguais do n° de solicitações de manutenção é necessário a utilização das médias ponderadas para obtenção da estimativa.</p>
+<p><span class="math inline">\(\bar{p} = \dfrac{\sum_{i = 1}^{m}{d}_i}{\sum_{i = 1}^{m}{n}_i} \approx\)</span> 0,0221</p>
+<p>De posse da proporção média de segundas visitas, calcula-se os limites:</p>
+<p><span class="math inline">\(LSC \approx\)</span> 0,0533, 0,0500, 0,0500, 0,0500, 0,0533, 0,0533, 0,0582, 0,0582, 0,0582, 0,0582, 0,0663, 0,0663, 0,0663, 0,0533, 0,0533, 0,0533, 0,0533, 0,0533, 0,0500, 0,0500</p>
+<p><span class="math inline">\(LIC \approx\)</span> -0,0091, -0,0058, -0,0058, -0,0058, -0,0091, -0,0091, -0,0139, -0,0139, -0,0139, -0,0139, -0,0220, -0,0220, -0,0220, -0,0091, -0,0091, -0,0091, -0,0091, -0,0091, -0,0058, -0,0058</p>
+</div>
+<div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
+<div class="cell" data-layout-align="center">
+<details>
+<summary>Mostrar Código</summary>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>qcc<span class="sc">::</span><span class="fu">qcc</span>(segunda_vis, <span class="at">type =</span> <span class="st">"p"</span>, <span class="at">sizes =</span> n, <span class="at">plot =</span> F)<span class="sc">|&gt;</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(<span class="at">label.limits =</span> <span class="fu">c</span>(<span class="st">"LIC"</span>, <span class="st">"LSC"</span>), <span class="at">xlab =</span> <span class="st">"Amostras"</span>,</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>       <span class="at">ylab =</span> <span class="st">"Resumo das Estatísticas das Amostras"</span>,</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">"Figura 3: Gráfico das proporções de manutenções </span><span class="sc">\n</span><span class="st">que requerem segunda visita para conclusão"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="L5_files/figure-html/q2b-1.png" class="img-fluid figure-img" width="864"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div id="tabset-2-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-3-tab">
+<div class="cell" data-layout-align="center">
+<details>
+<summary>Mostrar Código</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>qcc<span class="sc">::</span><span class="fu">qcc</span>(segunda_vis, <span class="at">type =</span> <span class="st">"p"</span>, <span class="at">sizes =</span> <span class="fu">mean</span>(n), <span class="at">plot =</span> F)<span class="sc">|&gt;</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(<span class="at">label.limits =</span> <span class="fu">c</span>(<span class="st">"LIC"</span>, <span class="st">"LSC"</span>), <span class="at">xlab =</span> <span class="st">"Amostras"</span>,</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>       <span class="at">ylab =</span> <span class="st">"Resumo das Estatísticas das Amostras"</span>,</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">"Figura 4: Gráfico da média das amostras das proporções de manutenções </span><span class="sc">\n</span><span class="st">que requerem segunda visita para conclusão"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="L5_files/figure-html/q2c-1.png" class="img-fluid figure-img" width="864"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Analisando a Figura 4 com base nas <strong>regras sensibilizantes</strong> se constata a existência de 10 pontos consegutivos abaixo da linha central, caracterizando uma <strong>mudança</strong> na média do processo.</p>
+</div>
+<div id="tabset-2-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-4-tab">
+<div class="cell" data-layout-align="center">
+<details>
+<summary>Mostrar Código</summary>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>pse<span class="ot">=</span><span class="cf">function</span>(m,n,y) {</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">length</span>(n)<span class="sc">==</span><span class="dv">1</span>){</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    p<span class="ot">=</span><span class="fu">sum</span>(y)<span class="sc">/</span>(n<span class="sc">*</span>m);LIC<span class="ot">=</span>p<span class="dv">-3</span><span class="sc">*</span><span class="fu">sqrt</span>(p<span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span>p)<span class="sc">/</span>n); <span class="cf">if</span> (LIC<span class="sc">&lt;</span><span class="dv">0</span>) LIC<span class="ot">=</span><span class="dv">0</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    LSC<span class="ot">=</span>p<span class="sc">+</span><span class="dv">3</span><span class="sc">*</span><span class="fu">sqrt</span>(p<span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span>p)<span class="sc">/</span>n) </span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    time<span class="ot">=</span><span class="fu">cbind</span>(<span class="fu">seq</span>(<span class="dv">1</span>,m),<span class="fu">seq</span>(<span class="dv">1</span>,m),<span class="fu">seq</span>(<span class="dv">1</span>,m),<span class="fu">seq</span>(<span class="dv">1</span>,m))</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    w<span class="ot">=</span><span class="fu">cbind</span>(y<span class="sc">/</span>n,<span class="fu">rep</span>(p,m),<span class="fu">rep</span>(LIC,m),<span class="fu">rep</span>(LSC,m))</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>))</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">matplot</span>(time,w,<span class="at">type=</span><span class="st">"o"</span>,<span class="at">pch=</span><span class="dv">20</span>,<span class="at">main=</span><span class="st">"Gráfico p"</span>,</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>            <span class="at">col=</span><span class="fu">c</span>(<span class="st">"black"</span>,<span class="st">"blue"</span>,<span class="st">"red"</span>,<span class="st">"red"</span>),<span class="at">ylab=</span><span class="st">"p"</span>,</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>            <span class="at">xlab=</span><span class="st">"Amostras"</span>, <span class="at">ylim=</span><span class="fu">c</span>(<span class="fu">min</span>(w),<span class="fu">max</span>(w)),<span class="at">lty=</span><span class="dv">1</span>,<span class="at">lwd=</span><span class="dv">2</span>)</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>    p<span class="ot">=</span><span class="fu">sum</span>(y)<span class="sc">/</span><span class="fu">sum</span>(n);LIC<span class="ot">=</span><span class="fu">numeric</span>(m);LSC<span class="ot">=</span><span class="fu">numeric</span>(m);z<span class="ot">=</span><span class="fu">numeric</span>(m)</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>m){</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>      LIC[i]<span class="ot">=</span>p<span class="dv">-3</span><span class="sc">*</span><span class="fu">sqrt</span>(p<span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span>p)<span class="sc">/</span>n[i]); <span class="cf">if</span> (LIC[i]<span class="sc">&lt;</span><span class="dv">0</span>) LIC[i]<span class="ot">=</span><span class="dv">0</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>      LSC[i]<span class="ot">=</span>p<span class="sc">+</span><span class="dv">3</span><span class="sc">*</span><span class="fu">sqrt</span>(p<span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span>p)<span class="sc">/</span>n[i]) </span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>      z[i]<span class="ot">=</span>((y[i]<span class="sc">/</span>n[i]<span class="sc">-</span>p)<span class="sc">/</span><span class="fu">sqrt</span>(p<span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span>p)<span class="sc">/</span>n[i]))</span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>    time<span class="ot">=</span><span class="fu">cbind</span>(<span class="fu">seq</span>(<span class="dv">1</span>,m),<span class="fu">seq</span>(<span class="dv">1</span>,m),<span class="fu">seq</span>(<span class="dv">1</span>,m),<span class="fu">seq</span>(<span class="dv">1</span>,m))</span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>    w1<span class="ot">=</span><span class="fu">cbind</span>(y<span class="sc">/</span>n,<span class="fu">rep</span>(p,m),LIC,LSC)</span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>    w2<span class="ot">=</span><span class="fu">cbind</span>(z,<span class="fu">rep</span>(<span class="dv">0</span>,m),<span class="fu">rep</span>(<span class="sc">-</span><span class="dv">3</span>,m),<span class="fu">rep</span>(<span class="dv">3</span>,m))</span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>    <span class="co"># par(mfrow=c(1,2))</span></span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>    <span class="co"># matplot(time,w1,type="o",pch=20,ylim=c(min(w1),max(w1)),</span></span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>    <span class="co">#         col=c("black","blue","red","red"),lty=1,lwd=2,</span></span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>    <span class="co">#         main="Gráfico p",ylab="p",xlab="Amostras" )</span></span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>    <span class="fu">matplot</span>(time,w2,<span class="at">type=</span><span class="st">"o"</span>,<span class="at">pch=</span><span class="dv">20</span>,<span class="at">ylim=</span><span class="fu">c</span>(<span class="fu">min</span>(w2),<span class="fu">max</span>(w2)),</span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>            <span class="at">col=</span><span class="fu">c</span>(<span class="st">"black"</span>,<span class="st">"blue"</span>,<span class="st">"red"</span>,<span class="st">"red"</span>),<span class="at">xlab=</span><span class="st">"Amostras"</span>,</span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a>            <span class="at">main=</span><span class="st">"Gráfico p Padronizado"</span>,<span class="at">ylab=</span><span class="st">"z"</span>,<span class="at">lty=</span><span class="dv">1</span>,<span class="at">lwd=</span><span class="dv">2</span>)</span>
+<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a><span class="fu">pse</span>(m, n, segunda_vis)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="L5_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid figure-img" width="864"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="exercício-3" class="level2">
+<h2 class="anchored" data-anchor-id="exercício-3">Exercício 3</h2>
+<p>Num grande hotel, diariamente inspecionam-se 30 quartos quanto a falhas em sua arrumação. São apresentados os resultados (contagem de erros na arrumação de quartos) do acompanhamento ao longo de 30 dias.</p>
+<ol type="a">
+<li>Construa um gráfico do número de defeitos na amostra.</li>
+<li>Faça uma análise e interpretação da estabilidade do processo.</li>
+</ol>
+<section id="solução-2" class="level3">
+<h3 class="anchored" data-anchor-id="solução-2">Solução</h3>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-3-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-1" role="tab" aria-controls="tabset-3-1" aria-selected="true" href="">Item a</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-2" role="tab" aria-controls="tabset-3-2" aria-selected="false" href="">Item b</a></li></ul>
+<div class="tab-content">
+<div id="tabset-3-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-3-1-tab">
+
+</div>
+<div id="tabset-3-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-2-tab">
+
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="exercício-4" class="level2">
+<h2 class="anchored" data-anchor-id="exercício-4">Exercício 4</h2>
+<p>(Adapted from Montgomery, 2013) The data in the table below are the number of information errors found in customer records in a marketing company database. Five records were sampled each day.</p>
+<ol type="a">
+<li>Set up a c chart for the total number of errors. Is the process in control?</li>
+<li>Set up a Bell-c chart for the total number of errors. Is the process in control?</li>
+<li>Discuss the findings from parts (a) and (b). Is the Poisson distribution a good model for these data? Is there evidence of this in the data?</li>
+</ol>
+<p><strong>Tradução</strong></p>
+<p>(Adaptado de Montgomery, 2013) Os dados da tabela abaixo são o número de erros de informação encontrados em registros de clientes em um banco de dados de uma empresa de marketing. Cinco registros foram amostrados a cada dia.</p>
+<div class="cell" data-layout-align="center">
+<details>
+<summary>Mostrar Código</summary>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>dia <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">25</span>)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>reg1 <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">8</span>, <span class="dv">11</span>, <span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">6</span>, <span class="dv">8</span>, <span class="dv">4</span>, <span class="dv">1</span>, <span class="dv">15</span>, <span class="dv">1</span>, <span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">2</span>, <span class="dv">6</span>, <span class="dv">2</span>, <span class="dv">11</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">2</span>, <span class="dv">7</span>, <span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">15</span>, <span class="dv">2</span>)</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>reg2 <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">7</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">8</span>, <span class="dv">10</span>, <span class="dv">6</span>, <span class="dv">1</span>, <span class="dv">7</span>, <span class="dv">7</span>, <span class="dv">6</span>, <span class="dv">9</span>, <span class="dv">14</span>, <span class="dv">9</span>, <span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">15</span>, <span class="dv">7</span>, <span class="dv">5</span>, <span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">15</span>)</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>reg3 <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">11</span>, <span class="dv">8</span>, <span class="dv">5</span>, <span class="dv">13</span>, <span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">13</span>, <span class="dv">9</span>, <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">7</span>, <span class="dv">4</span>, <span class="dv">1</span>, <span class="dv">19</span>, <span class="dv">5</span>, <span class="dv">9</span>, <span class="dv">6</span>, <span class="dv">8</span>, <span class="dv">4</span>, <span class="dv">7</span>, <span class="dv">3</span>)</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>reg4 <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">11</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">6</span>, <span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">6</span>, <span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">5</span>, <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">8</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">6</span>, <span class="dv">2</span>, <span class="dv">14</span>, <span class="dv">1</span>, <span class="dv">20</span>, <span class="dv">10</span>, <span class="dv">11</span>)</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>reg5 <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">17</span>, <span class="dv">9</span>, <span class="dv">5</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">4</span>, <span class="dv">2</span>, <span class="dv">8</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">6</span>, <span class="dv">8</span>, <span class="dv">10</span>, <span class="dv">2</span>, <span class="dv">5</span>, <span class="dv">17</span>, <span class="dv">2</span>)</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>registros <span class="ot">=</span> <span class="fu">cbind</span>(dia, reg1, reg2, reg3, reg4, reg5)<span class="sc">|&gt;</span> </span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>  tibble<span class="sc">::</span><span class="fu">as_tibble</span>()</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(registros)<span class="sc">|&gt;</span></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>  DT<span class="sc">::</span><span class="fu">datatable</span>(</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">"Tabela 4: N° de erros em registros de clientes."</span>,</span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">colnames =</span> <span class="fu">c</span>(<span class="st">"Dia"</span>, <span class="st">"Registro 1"</span>, <span class="st">"Registro 2"</span>, <span class="st">"Registro 3"</span>, <span class="st">"Registro 4"</span>, <span class="st">"Registro 5"</span>),</span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">extensions =</span> <span class="st">'FixedHeader'</span>, </span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">rownames =</span> F,</span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>    <span class="co"># container = tit,</span></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">options =</span> <span class="fu">list</span>(</span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>      <span class="at">dom =</span> <span class="st">'t'</span>,</span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>      <span class="co"># fixedHeader = F, </span></span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>      <span class="at">autoWidth =</span> F,</span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>      <span class="at">columnDefs =</span></span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>        <span class="fu">list</span>(</span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>          <span class="fu">list</span>(<span class="at">className =</span> <span class="st">'dt-center'</span>, <span class="at">targets =</span> <span class="fu">c</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">5</span>)))))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+
+<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-5623ea017a2095a60f53" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-5623ea017a2095a60f53">{"x":{"filter":"none","vertical":false,"extensions":["FixedHeader"],"caption":"<caption>Tabela 4: N° de erros em registros de clientes.<\/caption>","data":[[1,2,3,4,5,6],[8,11,1,3,3,6],[7,1,1,2,2,3],[1,11,8,5,13,3],[11,2,2,1,6,3],[17,9,5,4,5,1]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>Dia<\/th>\n      <th>Registro 1<\/th>\n      <th>Registro 2<\/th>\n      <th>Registro 3<\/th>\n      <th>Registro 4<\/th>\n      <th>Registro 5<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"t","autoWidth":false,"columnDefs":[{"className":"dt-center","targets":[0,1,2,3,4,5]}],"order":[],"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<p>&nbsp;<br>
+a) Monte um gráfico c para o número total de erros. O processo está sob controle? b) Monte um gráfico Bell-c para o número total de erros. O processo está sob controle? c) Discuta as conclusões das partes (a) e (b). A distribuição de Poisson é um bom modelo para esses dados? Há evidências disso nos dados?</p>
+<section id="solução-3" class="level3">
+<h3 class="anchored" data-anchor-id="solução-3">Solução</h3>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-4-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-1" role="tab" aria-controls="tabset-4-1" aria-selected="true" href="">Item a</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-2" role="tab" aria-controls="tabset-4-2" aria-selected="false" href="">Item b</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-3" role="tab" aria-controls="tabset-4-3" aria-selected="false" href="">Item c</a></li></ul>
+<div class="tab-content">
+<div id="tabset-4-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-4-1-tab">
+<div class="cell" data-layout-align="center">
+<details>
+<summary>Mostrar Código</summary>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>registros <span class="ot">=</span> registros<span class="sc">|&gt;</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">total =</span> <span class="fu">rowSums</span>(registros[,<span class="sc">-</span><span class="dv">1</span>])</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>qcc<span class="sc">::</span><span class="fu">qcc</span>(registros<span class="sc">$</span>total, <span class="at">type =</span> <span class="st">"c"</span>, <span class="at">plot =</span> F)<span class="sc">|&gt;</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(<span class="at">label.limits =</span> <span class="fu">c</span>(<span class="st">"LIC"</span>, <span class="st">"LSC"</span>), <span class="at">xlab =</span> <span class="st">"Amostras"</span>,</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">ylab =</span> <span class="st">"Resumo das Estatísticas das Amostras"</span>,</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">"Figura 8: Gráfico do total de erros em registros de clientes"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="L5_files/figure-html/fig8-1.png" class="img-fluid figure-img" width="864"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Conforme exposto na Figura 8 é possível constatar que o processo não está sob controle, para tanto foram removidos os totais de observações dos dias 1, 21 e 24 respectivamente (Figura 9), sendo necessário uma análise mais aprofundada para identificar causas de descontrole nos dias identificados.</p>
+<div class="cell" data-layout-align="center">
+<details>
+<summary>Mostrar Código</summary>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>qcc<span class="sc">::</span><span class="fu">qcc</span>(registros<span class="sc">$</span>total[<span class="sc">-</span><span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">21</span>, <span class="dv">24</span>)], <span class="at">type =</span> <span class="st">"c"</span>, <span class="at">plot =</span> F)<span class="sc">|&gt;</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(<span class="at">label.limits =</span> <span class="fu">c</span>(<span class="st">"LIC"</span>, <span class="st">"LSC"</span>), <span class="at">xlab =</span> <span class="st">"Amostras"</span>,</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>       <span class="at">ylab =</span> <span class="st">"Resumo das Estatísticas das Amostras"</span>,</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">"Figura 9: Gráfico do total de erros em registros de clientes sem pontos de descontrole"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="L5_files/figure-html/fig9-1.png" class="img-fluid figure-img" width="864"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div id="tabset-4-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-2-tab">
+
+</div>
+<div id="tabset-4-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-3-tab">
+
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="exercício-5" class="level2">
+<h2 class="anchored" data-anchor-id="exercício-5">Exercício 5</h2>
+<section id="solução-4" class="level3">
+<h3 class="anchored" data-anchor-id="solução-4">Solução</h3>
+</section>
 </section>
 
 </main>
@@ -240,6 +568,57 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
+  const viewSource = window.document.getElementById('quarto-view-source') ||
+                     window.document.getElementById('quarto-code-tools-source');
+  if (viewSource) {
+    const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+    viewSource.addEventListener("click", function(e) {
+      if (sourceUrl) {
+        // rstudio viewer pane
+        if (/\bcapabilities=\b/.test(window.location)) {
+          window.open(sourceUrl);
+        } else {
+          window.location.href = sourceUrl;
+        }
+      } else {
+        const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+        modal.show();
+      }
+      return false;
+    });
+  }
+  function toggleCodeHandler(show) {
+    return function(e) {
+      const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+      for (let i=0; i<detailsSrc.length; i++) {
+        const details = detailsSrc[i].parentElement;
+        if (show) {
+          details.open = true;
+        } else {
+          details.removeAttribute("open");
+        }
+      }
+      const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+      const fromCls = show ? "hidden" : "unhidden";
+      const toCls = show ? "unhidden" : "hidden";
+      for (let i=0; i<cellCodeDivs.length; i++) {
+        const codeDiv = cellCodeDivs[i];
+        if (codeDiv.classList.contains(fromCls)) {
+          codeDiv.classList.remove(fromCls);
+          codeDiv.classList.add(toCls);
+        } 
+      }
+      return false;
+    }
+  }
+  const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+  if (hideAllCode) {
+    hideAllCode.addEventListener("click", toggleCodeHandler(false));
+  }
+  const showAllCode = window.document.getElementById("quarto-show-all-code");
+  if (showAllCode) {
+    showAllCode.addEventListener("click", toggleCodeHandler(true));
+  }
   function tippyHover(el, contentFn) {
     const config = {
       allowHTML: true,

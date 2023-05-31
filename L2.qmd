@@ -4,8 +4,18 @@ author: "Fernando Bispo"
 format: 
     html:
       toc: true
+      toc-location: right
       toc-title: Índice
       toc-depth: 4
+      code-fold: true
+      code-summary: "Mostrar Código"
+      code-overflow: wrap
+      code-tools:
+        source: false
+        toggle: true
+      code-block-bg: true
+      code-block-border-left: "#31BAE9"
+      code-copy: true
 ---
 
 
@@ -130,21 +140,9 @@ xR1=function(m,n,y,mi,sigma){
     rbar=cbind(rep(sigma,m),rep(LIC2,m),rep(LSC2,m),rep(LAIC2,m),rep(LASC2,m),amplit)
   } else rbar=cbind(rep(sigma,m-1),rep(LIC2,m-1),
                     rep(LSC2,m-1),amplit)
-  # matplot(amostra2,rbar,type="o",ylab="Amplitude",
-  #         col=c("black","red","red", "orange", "orange","blue"),
-  #         ylim=c(min(rbar),max(rbar)),
-  #         xlab="Amostras",main="Gráfico R",pch=20, lty=1, lwd=2)
-  # matplot(amostra1,xbar,type="o",ylab="Média",xlab="Amostras",
-  #         main=expression(paste("Gráfico " *
-  #                                 bar(x))),col=c("black","red","red","orange",
-  #                                                "orange",
-  #                                                "blue"),ylim=c(min(xbar),max(xbar)),pch=20, lty=1, lwd=2)
-  
   out <<-  rbind(round(rbar[1, 1:3], 2), round(xbar[1, 1:3], 2))
   colnames(out) <<- c("Referência", "LIC", "LSC")
   rownames(out) <<- c("R", "Xbarra")
-
-  # return(out)
 }
 
 xR2=function(m,n,y){
@@ -210,7 +208,6 @@ xR2=function(m,n,y){
   out <<- rbind(round(rbar[1,1:3],2), round(xbar[1,1:3],2))
   colnames(out) <<- c("Referência","LIC","LSC")
   rownames(out) <<- c("R", "Xbarra")
-  # out
 }
 
 
