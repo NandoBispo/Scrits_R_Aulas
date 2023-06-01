@@ -109,13 +109,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </ul></li>
   <li><a href="#exercício-4" id="toc-exercício-4" class="nav-link" data-scroll-target="#exercício-4">Exercício 4</a>
   <ul>
-  <li><a href="#item-4a." id="toc-item-4a." class="nav-link" data-scroll-target="#item-4a.">Item 4a.</a></li>
-  <li><a href="#item-4b." id="toc-item-4b." class="nav-link" data-scroll-target="#item-4b.">Item 4b.</a></li>
+  <li><a href="#solução-3" id="toc-solução-3" class="nav-link" data-scroll-target="#solução-3">Solução</a></li>
   </ul></li>
   <li><a href="#exercício-5" id="toc-exercício-5" class="nav-link" data-scroll-target="#exercício-5">Exercício 5</a>
   <ul>
-  <li><a href="#item-5a." id="toc-item-5a." class="nav-link" data-scroll-target="#item-5a.">Item 5a.</a></li>
-  <li><a href="#item-5b." id="toc-item-5b." class="nav-link" data-scroll-target="#item-5b.">Item 5b.</a></li>
+  <li><a href="#solução-4" id="toc-solução-4" class="nav-link" data-scroll-target="#solução-4">Solução</a></li>
   </ul></li>
   <li><a href="#exercício-6" id="toc-exercício-6" class="nav-link" data-scroll-target="#exercício-6">Exercício 6</a></li>
   <li><a href="#exercício-7" id="toc-exercício-7" class="nav-link" data-scroll-target="#exercício-7">Exercício 7</a></li>
@@ -335,7 +333,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell" data-layout-align="center">
 <details>
 <summary>Mostrar Código</summary>
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>garrafas <span class="ot">&lt;-</span> <span class="fu">read.csv2</span>(<span class="st">"TabQ3L2.csv"</span>)</span>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>garrafas <span class="ot">&lt;-</span> <span class="fu">read.csv2</span>(<span class="st">"garrafas.csv"</span>)</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Gráficos sem especificação</span></span>
 <span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>qcc<span class="sc">::</span><span class="fu">qcc</span>(garrafas[,<span class="sc">-</span><span class="dv">1</span>], <span class="at">type =</span> <span class="st">"S"</span>, <span class="at">plot =</span> F)<span class="sc">|&gt;</span></span>
@@ -355,7 +353,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>qcc<span class="sc">::</span><span class="fu">qcc</span>(garrafas[,<span class="sc">-</span><span class="dv">1</span>], <span class="at">type =</span> <span class="st">"xbar"</span>, <span class="at">plot =</span> F)<span class="sc">|&gt;</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(<span class="at">label.limits =</span> <span class="fu">c</span>(<span class="st">"LIC"</span>, <span class="st">"LSC"</span>), <span class="at">xlab =</span> <span class="st">"Amostras"</span>,</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>       <span class="at">ylab =</span> <span class="st">"Resumo das Estatísticas das Amostras"</span>,</span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">"Figura 9: Gráfico R para medidas sem especificações"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">"Figura 9: Gráfico para monitoramente das pressões médias sem especificações"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -375,7 +373,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>qcc<span class="sc">::</span><span class="fu">qcc</span>(garrafas[<span class="sc">-</span><span class="dv">12</span>, <span class="sc">-</span><span class="dv">1</span>], <span class="at">type =</span> <span class="st">"xbar"</span>, <span class="at">plot =</span> F)<span class="sc">|&gt;</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(<span class="at">label.limits =</span> <span class="fu">c</span>(<span class="st">"LIC"</span>, <span class="st">"LSC"</span>), <span class="at">xlab =</span> <span class="st">"Amostras"</span>,</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>       <span class="at">ylab =</span> <span class="st">"Resumo das Estatísticas das Amostras"</span>,</span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">"Figura 10: Gráfico R para medidas sem especificações"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">"Figura 10: Gráfico para monitoramente das pressões médias sem especificações"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -394,35 +392,136 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>O tempo de entrega do pedido segue distribuição normal?</li>
 <li>Construa gráficos de controle e analise-os. Caso não exibam controle estatístico, revise os limites de controle tentativos.</li>
 </ol>
-<p><strong>SOLUÇÃO:</strong></p>
-<section id="item-4a." class="level4">
-<h4 class="anchored" data-anchor-id="item-4a.">Item 4a.</h4>
+<section id="solução-3" class="level2">
+<h2 class="anchored" data-anchor-id="solução-3">Solução</h2>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-3-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-1" role="tab" aria-controls="tabset-3-1" aria-selected="true" href="">Item a</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-2" role="tab" aria-controls="tabset-3-2" aria-selected="false" href="">Item b</a></li></ul>
+<div class="tab-content">
+<div id="tabset-3-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-3-1-tab">
 <div class="cell" data-layout-align="center">
+<details>
+<summary>Mostrar Código</summary>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>tempo <span class="ot">&lt;-</span> <span class="fu">read.csv2</span>(<span class="st">"fast-food.csv"</span>)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>test <span class="ot">&lt;-</span> <span class="fu">shapiro.test</span>(tempo<span class="sc">$</span>tempo_entrega)</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="fu">cbind</span>(test<span class="sc">$</span>statistic, test<span class="sc">$</span>p.value)</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(result) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Estatística"</span>, <span class="st">"p-value"</span>)</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>result<span class="sc">|&gt;</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>  DT<span class="sc">::</span><span class="fu">datatable</span>(</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">"Tabela 2: Resultado do teste de normalidade de Shapiro-Wilk."</span>,</span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">extensions =</span> <span class="st">'FixedHeader'</span>, <span class="at">rownames =</span> F,</span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">options =</span> <span class="fu">list</span>(<span class="at">dom =</span> <span class="st">'t'</span>, <span class="at">fixedHeader =</span> F, <span class="at">autoWidth =</span> F,</span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>                   <span class="at">columnDefs =</span> </span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>                     <span class="fu">list</span>(</span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>                       <span class="fu">list</span>(<span class="at">className =</span> <span class="st">'dt-center'</span>, <span class="at">targets =</span> <span class="fu">c</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">1</span>))))</span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>  )<span class="sc">|&gt;</span></span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a>  DT<span class="sc">::</span><span class="fu">formatRound</span>(<span class="at">columns =</span> <span class="fu">c</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">1</span>), <span class="at">digits =</span> <span class="dv">4</span>, <span class="at">mark =</span> <span class="st">"."</span>, <span class="at">dec.mark =</span> <span class="st">","</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 
-<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-d408a674e82a832f82cd" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-d408a674e82a832f82cd">{"x":{"filter":"none","vertical":false,"extensions":["FixedHeader"],"caption":"<caption>Tabela 2: Resultado do teste de normalidade de Shapiro-Wilk.<\/caption>","data":[[0.966134252954202],[0.439488871198518]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>Estatística<\/th>\n      <th>p-value<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"t","fixedHeader":false,"autoWidth":false,"columnDefs":[{"targets":-1,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 4, 3, \".\", \",\", null);\n  }"},{"targets":0,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 4, 3, \".\", \",\", null);\n  }"},{"className":"dt-center","targets":[0,1]}],"order":[],"orderClasses":false}},"evals":["options.columnDefs.0.render","options.columnDefs.1.render"],"jsHooks":[]}</script>
+<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-f4895efb377dd4b09d7f" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-f4895efb377dd4b09d7f">{"x":{"filter":"none","vertical":false,"extensions":["FixedHeader"],"caption":"<caption>Tabela 2: Resultado do teste de normalidade de Shapiro-Wilk.<\/caption>","data":[[0.966134252954202],[0.439488871198518]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>Estatística<\/th>\n      <th>p-value<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"t","fixedHeader":false,"autoWidth":false,"columnDefs":[{"targets":-1,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 4, 3, \".\", \",\", null);\n  }"},{"targets":0,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 4, 3, \".\", \",\", null);\n  }"},{"className":"dt-center","targets":[0,1]}],"order":[],"orderClasses":false}},"evals":["options.columnDefs.0.render","options.columnDefs.1.render"],"jsHooks":[]}</script>
 </div>
+<details>
+<summary>Mostrar Código</summary>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(tempo[,<span class="sc">-</span><span class="dv">1</span>], <span class="at">ylab =</span> <span class="st">"Frequência"</span>, <span class="at">main =</span> <span class="st">"Histograma"</span>, <span class="at">xlab =</span> <span class="st">"X"</span>)</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="fu">qqnorm</span>(tempo[,<span class="sc">-</span><span class="dv">1</span>], <span class="at">xlab =</span> <span class="st">"Quantis normais"</span>, <span class="at">ylab =</span> <span class="st">"X"</span>)</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="fu">qqline</span>(tempo[,<span class="sc">-</span><span class="dv">1</span>], <span class="at">col =</span> <span class="st">"steelblue"</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="L2_files/figure-html/unnamed-chunk-3-2.png" class="img-fluid figure-img" width="864"></p>
+<p><img src="L2_files/figure-html/q4a-2.png" class="img-fluid figure-img" width="864"></p>
 </figure>
 </div>
 </div>
+<details>
+<summary>Mostrar Código</summary>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
 <p>&nbsp;</p>
 <p>Com base no teste de normalidade realizado é possível concluir a existência de normalidade, através da não rejeição da hipótese nula (<span class="math inline">\(H_0\)</span>) que afirma normalidade dos dados. O resultado do teste é confirmado através dos gráficos gerados, sendo possível identificar uma certa simetria entre os dados pelo Histograma bem como a normalidade por meio do QQ Plot.</p>
-</section>
-<section id="item-4b." class="level4">
-<h4 class="anchored" data-anchor-id="item-4b.">Item 4b.</h4>
+</div>
+<div id="tabset-3-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-2-tab">
 <p>Tendo em vista que a quantidade de observações por amostra é igual a 1, o gráfico <strong>Gráfico R</strong> é o mais recomendado para análise solicitada.</p>
 <div class="cell" data-layout-align="center">
+<details>
+<summary>Mostrar Código</summary>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>m<span class="ot">=</span><span class="dv">30</span>; n<span class="ot">=</span><span class="dv">1</span>; mn<span class="ot">=</span>m<span class="sc">*</span>n; mi<span class="ot">=</span><span class="dv">200</span>; sigma<span class="ot">=</span><span class="dv">10</span>; <span class="fu">set.seed</span>(<span class="dv">1287</span>); x<span class="ot">=</span><span class="fu">round</span>(<span class="fu">rnorm</span>(mn,mi,sigma),<span class="dv">2</span>);</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>x[<span class="dv">28</span><span class="sc">:</span><span class="dv">30</span>]<span class="ot">=</span>x[<span class="dv">28</span><span class="sc">:</span><span class="dv">30</span>]<span class="sc">+</span><span class="fl">2.5</span><span class="sc">*</span>sigma; x<span class="ot">=</span><span class="fu">round</span>(x,<span class="dv">0</span>)</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>xR2<span class="ot">=</span><span class="cf">function</span>(m,n,y){</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (n<span class="sc">&gt;</span><span class="dv">1</span>) {</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>    amplit<span class="ot">=</span><span class="fu">numeric</span>(m)   </span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>    mat<span class="ot">=</span><span class="fu">matrix</span>(y,m,n,<span class="at">byrow=</span>T)</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>    media<span class="ot">=</span><span class="fu">apply</span>(mat,<span class="dv">1</span>,mean)</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>m) amplit[i]<span class="ot">=</span><span class="fu">max</span>(mat[i,])<span class="sc">-</span><span class="fu">min</span>(mat[i,])</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>    x2barras<span class="ot">=</span><span class="fu">mean</span>(media)</span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>    Rbarra<span class="ot">=</span><span class="fu">mean</span>(amplit) </span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>    d2<span class="ot">=</span><span class="fu">c</span>(<span class="fl">1.1296</span>,<span class="fl">1.6918</span>,<span class="fl">2.0535</span>,<span class="fl">2.3248</span>,<span class="fl">2.5404</span>,<span class="fl">2.7074</span>,<span class="fl">2.8501</span>,</span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>         <span class="fl">2.9677</span>,<span class="fl">3.0737</span>,<span class="fl">3.1696</span>)</span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>    d3<span class="ot">=</span><span class="fu">c</span>(.<span class="dv">8541</span>,.<span class="dv">8909</span>,.<span class="dv">8800</span>,.<span class="dv">8674</span>,.<span class="dv">8508</span>,.<span class="dv">8326</span>,.<span class="dv">8209</span>,</span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>         .<span class="dv">8102</span>,.<span class="dv">7978</span>,.<span class="dv">7890</span>)</span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>    LIC1<span class="ot">=</span>x2barras<span class="dv">-3</span><span class="sc">*</span>Rbarra<span class="sc">/</span>(d2[n<span class="dv">-1</span>]<span class="sc">*</span><span class="fu">sqrt</span>(n))</span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a>    LSC1<span class="ot">=</span>x2barras<span class="sc">+</span><span class="dv">3</span><span class="sc">*</span>Rbarra<span class="sc">/</span>(d2[n<span class="dv">-1</span>]<span class="sc">*</span><span class="fu">sqrt</span>(n))</span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a>    LIC2<span class="ot">=</span>Rbarra<span class="dv">-3</span><span class="sc">*</span>d3[n<span class="dv">-1</span>]<span class="sc">*</span>Rbarra<span class="sc">/</span>d2[n<span class="dv">-1</span>]</span>
+<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a>    LSC2<span class="ot">=</span>Rbarra<span class="sc">+</span><span class="dv">3</span><span class="sc">*</span>d3[n<span class="dv">-1</span>]<span class="sc">*</span>Rbarra<span class="sc">/</span>d2[n<span class="dv">-1</span>]</span>
+<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (LIC2 <span class="sc">&lt;</span> <span class="dv">0</span>) LIC2<span class="ot">=</span><span class="dv">0</span></span>
+<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a>    amplit<span class="ot">=</span><span class="fu">numeric</span>(m<span class="dv">-1</span>)</span>
+<span id="cb14-24"><a href="#cb14-24" aria-hidden="true" tabindex="-1"></a>    media<span class="ot">=</span>y</span>
+<span id="cb14-25"><a href="#cb14-25" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">2</span><span class="sc">:</span>m) amplit[i<span class="dv">-1</span>]<span class="ot">=</span><span class="fu">sqrt</span>((y[i]<span class="sc">-</span>y[i<span class="dv">-1</span>])<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb14-26"><a href="#cb14-26" aria-hidden="true" tabindex="-1"></a>    x2barras<span class="ot">=</span><span class="fu">mean</span>(media)</span>
+<span id="cb14-27"><a href="#cb14-27" aria-hidden="true" tabindex="-1"></a>    Rbarra<span class="ot">=</span><span class="fu">mean</span>(amplit) </span>
+<span id="cb14-28"><a href="#cb14-28" aria-hidden="true" tabindex="-1"></a>    d2<span class="ot">=</span><span class="fl">1.1296</span></span>
+<span id="cb14-29"><a href="#cb14-29" aria-hidden="true" tabindex="-1"></a>    d3<span class="ot">=</span>.<span class="dv">8541</span></span>
+<span id="cb14-30"><a href="#cb14-30" aria-hidden="true" tabindex="-1"></a>    LIC1<span class="ot">=</span>x2barras<span class="dv">-3</span><span class="sc">*</span>Rbarra<span class="sc">/</span>(d2<span class="sc">*</span><span class="fu">sqrt</span>(n))</span>
+<span id="cb14-31"><a href="#cb14-31" aria-hidden="true" tabindex="-1"></a>    LSC1<span class="ot">=</span>x2barras<span class="sc">+</span><span class="dv">3</span><span class="sc">*</span>Rbarra<span class="sc">/</span>(d2<span class="sc">*</span><span class="fu">sqrt</span>(n))</span>
+<span id="cb14-32"><a href="#cb14-32" aria-hidden="true" tabindex="-1"></a>    LIC2<span class="ot">=</span>Rbarra<span class="dv">-3</span><span class="sc">*</span>d3<span class="sc">*</span>Rbarra<span class="sc">/</span>d2</span>
+<span id="cb14-33"><a href="#cb14-33" aria-hidden="true" tabindex="-1"></a>    LSC2<span class="ot">=</span>Rbarra<span class="sc">+</span><span class="dv">3</span><span class="sc">*</span>d3<span class="sc">*</span>Rbarra<span class="sc">/</span>d2</span>
+<span id="cb14-34"><a href="#cb14-34" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (LIC2 <span class="sc">&lt;</span> <span class="dv">0</span>) LIC2<span class="ot">=</span><span class="dv">0</span></span>
+<span id="cb14-35"><a href="#cb14-35" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb14-36"><a href="#cb14-36" aria-hidden="true" tabindex="-1"></a>  <span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">1</span>))</span>
+<span id="cb14-37"><a href="#cb14-37" aria-hidden="true" tabindex="-1"></a>  amostra1<span class="ot">=</span><span class="fu">matrix</span>(<span class="fu">rep</span>(<span class="fu">seq</span>(<span class="dv">1</span>,m),<span class="dv">4</span>),m,<span class="dv">4</span>,<span class="at">byrow=</span>F)</span>
+<span id="cb14-38"><a href="#cb14-38" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (n<span class="sc">&gt;</span><span class="dv">1</span>) amostra2<span class="ot">=</span>amostra1 <span class="cf">else</span> amostra2<span class="ot">=</span>amostra1[<span class="sc">-</span><span class="dv">1</span>,]</span>
+<span id="cb14-39"><a href="#cb14-39" aria-hidden="true" tabindex="-1"></a>  xbar<span class="ot">=</span><span class="fu">cbind</span>(<span class="fu">rep</span>(x2barras,m),<span class="fu">rep</span>(LIC1,m),<span class="fu">rep</span>(LSC1,m),media)</span>
+<span id="cb14-40"><a href="#cb14-40" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (n<span class="sc">&gt;</span><span class="dv">1</span>) {</span>
+<span id="cb14-41"><a href="#cb14-41" aria-hidden="true" tabindex="-1"></a>    rbar<span class="ot">=</span><span class="fu">cbind</span>(<span class="fu">rep</span>(Rbarra,m),<span class="fu">rep</span>(LIC2,m),<span class="fu">rep</span>(LSC2,m),amplit) </span>
+<span id="cb14-42"><a href="#cb14-42" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> rbar<span class="ot">=</span><span class="fu">cbind</span>(<span class="fu">rep</span>(Rbarra,m<span class="dv">-1</span>),<span class="fu">rep</span>(LIC2,m<span class="dv">-1</span>),</span>
+<span id="cb14-43"><a href="#cb14-43" aria-hidden="true" tabindex="-1"></a>                    <span class="fu">rep</span>(LSC2,m<span class="dv">-1</span>),amplit)</span>
+<span id="cb14-44"><a href="#cb14-44" aria-hidden="true" tabindex="-1"></a>  <span class="fu">matplot</span>(amostra2,rbar,<span class="at">type=</span><span class="st">"o"</span>,<span class="at">ylab=</span><span class="st">"Amplitude"</span>,</span>
+<span id="cb14-45"><a href="#cb14-45" aria-hidden="true" tabindex="-1"></a>          <span class="at">col=</span><span class="fu">c</span>(<span class="st">"black"</span>,<span class="st">"red"</span>,<span class="st">"red"</span>, <span class="st">"blue"</span>),</span>
+<span id="cb14-46"><a href="#cb14-46" aria-hidden="true" tabindex="-1"></a>          <span class="at">ylim=</span><span class="fu">c</span>(<span class="fu">min</span>(rbar),<span class="fu">max</span>(rbar)),</span>
+<span id="cb14-47"><a href="#cb14-47" aria-hidden="true" tabindex="-1"></a>          <span class="at">xlab=</span><span class="st">"Amostras"</span>,<span class="at">main=</span><span class="st">"Gráfico R"</span>,<span class="at">pch=</span><span class="dv">20</span>, <span class="at">lty=</span><span class="dv">1</span>, <span class="at">lwd=</span><span class="dv">2</span>)</span>
+<span id="cb14-48"><a href="#cb14-48" aria-hidden="true" tabindex="-1"></a>  <span class="fu">matplot</span>(amostra1,xbar,<span class="at">type=</span><span class="st">"o"</span>,<span class="at">ylab=</span><span class="st">"Média"</span>,<span class="at">xlab=</span><span class="st">"Amostras"</span>,</span>
+<span id="cb14-49"><a href="#cb14-49" aria-hidden="true" tabindex="-1"></a>          <span class="at">main=</span><span class="fu">expression</span>(<span class="fu">paste</span>(<span class="st">"Gráfico "</span> <span class="sc">*</span> <span class="fu">bar</span>(x))),<span class="at">col=</span><span class="fu">c</span>(<span class="st">"black"</span>,<span class="st">"red"</span>,<span class="st">"red"</span>,</span>
+<span id="cb14-50"><a href="#cb14-50" aria-hidden="true" tabindex="-1"></a>                                                            <span class="st">"blue"</span>),<span class="at">ylim=</span><span class="fu">c</span>(<span class="fu">min</span>(xbar),<span class="fu">max</span>(xbar)),<span class="at">pch=</span><span class="dv">20</span>, <span class="at">lty=</span><span class="dv">1</span>, <span class="at">lwd=</span><span class="dv">2</span>)</span>
+<span id="cb14-51"><a href="#cb14-51" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb14-52"><a href="#cb14-52" aria-hidden="true" tabindex="-1"></a>  <span class="co"># out=rbind(round(xbar[1,1:3],2),round(rbar[1,1:3],2))</span></span>
+<span id="cb14-53"><a href="#cb14-53" aria-hidden="true" tabindex="-1"></a>  <span class="co"># colnames(out)=c("Referência","LIC","LSC")</span></span>
+<span id="cb14-54"><a href="#cb14-54" aria-hidden="true" tabindex="-1"></a>  out <span class="ot">&lt;&lt;-</span> <span class="fu">rbind</span>(<span class="fu">round</span>(rbar[<span class="dv">1</span>,<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>],<span class="dv">2</span>), <span class="fu">round</span>(xbar[<span class="dv">1</span>,<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>],<span class="dv">2</span>))</span>
+<span id="cb14-55"><a href="#cb14-55" aria-hidden="true" tabindex="-1"></a>  <span class="fu">colnames</span>(out) <span class="ot">&lt;&lt;-</span> <span class="fu">c</span>(<span class="st">"Referência"</span>,<span class="st">"LIC"</span>,<span class="st">"LSC"</span>)</span>
+<span id="cb14-56"><a href="#cb14-56" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rownames</span>(out) <span class="ot">&lt;&lt;-</span> <span class="fu">c</span>(<span class="st">"R"</span>, <span class="st">"Xbarra"</span>)</span>
+<span id="cb14-57"><a href="#cb14-57" aria-hidden="true" tabindex="-1"></a>  <span class="co"># out</span></span>
+<span id="cb14-58"><a href="#cb14-58" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb14-59"><a href="#cb14-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-60"><a href="#cb14-60" aria-hidden="true" tabindex="-1"></a><span class="fu">xR2</span>(m,n,x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="L2_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="864"></p>
+<p><img src="L2_files/figure-html/q4b-1.png" class="img-fluid figure-img" width="864"></p>
 </figure>
+</div>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -435,21 +534,31 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Construa gráficos de controle usando esses dados. O processo está sob controle estatístico?</li>
 <li>Supondo que tenha sido identificada uma causa responsável pela falta de controle pontual das amostras identificadas no item anterior, refaça a análise sem tais amostras e descubra se há mais sinais de descontrole do processo.</li>
 </ol>
-<p><strong>SOLUÇÃO:</strong></p>
-<section id="item-5a." class="level4">
-<h4 class="anchored" data-anchor-id="item-5a.">Item 5a.</h4>
+<section id="solução-4" class="level2">
+<h2 class="anchored" data-anchor-id="solução-4">Solução</h2>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-4-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-1" role="tab" aria-controls="tabset-4-1" aria-selected="true" href="">Item a</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-2" role="tab" aria-controls="tabset-4-2" aria-selected="false" href="">Item b.</a></li></ul>
+<div class="tab-content">
+<div id="tabset-4-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-4-1-tab">
 <div class="cell">
 <div class="cell-output-display">
-<p><img src="L2_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="864"></p>
+<p><img src="L2_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid" width="864"></p>
 </div>
 </div>
-</section>
-<section id="item-5b." class="level4">
-<h4 class="anchored" data-anchor-id="item-5b.">Item 5b.</h4>
+</div>
+<div id="tabset-4-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-2-tab">
+
+</div>
+</div>
+</div>
 </section>
 </section>
 <section id="exercício-6" class="level1">
 <h1>Exercício 6</h1>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-5-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-1" role="tab" aria-controls="tabset-5-1" aria-selected="true" href="">Enunciado Original</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-5-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-2" role="tab" aria-controls="tabset-5-2" aria-selected="false" href="">Tradução</a></li></ul>
+<div class="tab-content">
+<div id="tabset-5-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-5-1-tab">
 <p>(Cano et al., 2012) In the construction of a building, a critical to quality (CTQ) characteristic might be the fulfillment of a deadline, as unfulfillment can lead to failure. The Six Sigma team identified the following events that can cause a delay in the schedule: weather, errors in planning, delay of suppliers, inadequate operators, customer specifications/delays, defects in materials, and permissions.</p>
 <p>Create a cause-and-effect diagram such that:</p>
 <p>Effect: “Delay” &nbsp;<br>
@@ -458,9 +567,26 @@ Causes[1]: “Training”, “Inadequate” &nbsp;<br>
 Causes[2]: “Rain”, “Temperature”, “Wind”&nbsp;<br>
 Causes[3]: “Materials”, “Delays”, “Rework”&nbsp;<br>
 Causes[4]: “Customer”, “Permissions”, “Errors”&nbsp;</p>
+</div>
+<div id="tabset-5-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-5-2-tab">
+<p>(Cano et al., 2012) Na construção de um edifício, uma característica crítica à qualidade (CTQ) pode ser o cumprimento de um prazo, pois o não cumprimento pode levar ao fracasso. A equipe Seis Sigma identificou os seguintes eventos que podem causar atraso no cronograma: clima, erros de planejamento, atraso de fornecedores, operadores inadequados, especificações/atrasos do cliente, defeitos de materiais e permissões.</p>
+<p>Crie um diagrama de causa e efeito tal que:</p>
+<p>Efeito: “Delay”&nbsp;<br>
+Grupos: “Pessoal”, “Clima”, “Fornecedores”, “Planejamento”&nbsp;<br>
+Causas[1]: “Treinamento”, “Inadequado”&nbsp;<br>
+Causas[2]: “Chuva”, “Temperatura”, “Vento”&nbsp;<br>
+Causas[3]: “Materiais”, “Atrasos”, “Retrabalho”&nbsp;<br>
+Causas[4]: “Cliente”, “Permissões”, “Erros”</p>
+</div>
+</div>
+</div>
 </section>
 <section id="exercício-7" class="level1">
 <h1>Exercício 7</h1>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-6-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-6-1" role="tab" aria-controls="tabset-6-1" aria-selected="true" href="">Enunciado Original</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-6-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-6-2" role="tab" aria-controls="tabset-6-2" aria-selected="false" href="">Tradução</a></li></ul>
+<div class="tab-content">
+<div id="tabset-6-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-6-1-tab">
 <p>(Cano et al., 2012) The Black Belt in the construction company of the previous example has investigated why a sampling of deadlines on projects developed in the last 2 years went unfulfilled. He has also estimated the cost of these delays for the company (larger labor force, extra payments, etc.). The number of unfulfilled deadlines and estimated cost are:</p>
 <p>Count: 5, 1, 3, 1, 2, 18, 20, 4, 15, 2, 4&nbsp;<br>
 Cost: 50, 150, 50, 10, 20, 180, 200, 10, 5, 20, 150</p>
@@ -469,6 +595,19 @@ Cost: 50, 150, 50, 10, 20, 180, 200, 10, 5, 20, 150</p>
 <li>Plot the chart for cost of error.</li>
 <li>Select the causes you must focus on to improve the construction process. Can you select them from only one of the charts?</li>
 </ol>
+</div>
+<div id="tabset-6-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-6-2-tab">
+<p>(Cano et al., 2012) O Black Belt na construtora do exemplo anterior investigou porque uma amostragem de prazos de projetos desenvolvidos nos últimos 2 anos não foi cumprida. Ele também estimou o custo desses atrasos para a empresa (maior força de trabalho, pagamentos extras, etc.). O número de prazos não cumpridos e o custo estimado são:</p>
+<p>Contagem: 5, 1, 3, 1, 2, 18, 20, 4, 15, 2, 4&nbsp;<br>
+Custo: 50, 150, 50, 10, 20, 180, 200, 10, 5, 20, 150</p>
+<ol type="a">
+<li>Faça um gráfico de Pareto por número de defeitos.</li>
+<li>Faça um gráfico do custo do erro.</li>
+<li>Selecione as causas nas quais você deve focar para melhorar o processo de construção. Você pode selecioná-los de apenas um dos gráficos?</li>
+</ol>
+</div>
+</div>
+</div>
 </section>
 
 </main>

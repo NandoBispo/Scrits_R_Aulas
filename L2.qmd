@@ -481,6 +481,8 @@ b) Construa gráficos de controle e analise-os. Caso não exibam controle estat�
 
 tempo <- read.csv2("fast-food.csv")
 
+test <- shapiro.test(tempo$tempo_entrega)
+
 result <- cbind(test$statistic, test$p.value)
 colnames(result) <- c("Estatística", "p-value")
 
@@ -498,10 +500,10 @@ result|>
 
 par(mfrow=c(1,2))
 
-hist(tempo, ylab = "Frequência", main = "Histograma", xlab = "X")
+hist(tempo[,-1], ylab = "Frequência", main = "Histograma", xlab = "X")
 
-qqnorm(tempo, xlab = "Quantis normais", ylab = "X")
-qqline(tempo, col = "steelblue", lwd = 2)
+qqnorm(tempo[,-1], xlab = "Quantis normais", ylab = "X")
+qqline(tempo[,-1], col = "steelblue", lwd = 2)
 
 par(mfrow=c(1,1))
 
@@ -603,9 +605,11 @@ Amostras de tamanhos variáveis (n entre 5 e 8) são extraídas de um processo m
 a) Construa gráficos de controle usando esses dados. O processo está sob controle estatístico?
 b) Supondo que tenha sido identificada uma causa responsável pela falta de controle pontual das amostras identificadas no item anterior, refaça a análise sem tais amostras e descubra se há mais sinais de descontrole do processo.
 
-**SOLUÇÃO:**
+## Solução
 
-#### Item 5a.
+::: {.panel-tabset}
+
+### Item a
 
 ```{r}
 #| echo: false
@@ -620,12 +624,18 @@ xS2(m, n, x)
 ```
 
 
-#### Item 5b.
+### Item b.
 
 
+
+
+:::
 
 # Exercício 6
 
+::: {.panel-tabset}
+
+## Enunciado Original
 (Cano et al., 2012) In the construction of a building, a critical to quality (CTQ)
 characteristic might be the fulfillment of a deadline, as unfulfillment can lead to failure. The Six Sigma team identified the following events that can cause a delay in the schedule: weather, errors in planning, delay of suppliers, inadequate operators, customer specifications/delays, defects in materials, and permissions.
 
@@ -638,9 +648,19 @@ Causes[2]: “Rain”, “Temperature”, “Wind”\
 Causes[3]: “Materials”, “Delays”, “Rework”\   
 Causes[4]: “Customer”, “Permissions”, “Errors”\   
 
+## Tradução
+(Cano et al., 2012) Na construção de um edifício, uma característica crítica à qualidade (CTQ) pode ser o cumprimento de um prazo, pois o não cumprimento pode levar ao fracasso. A equipe Seis Sigma identificou os seguintes eventos que podem causar atraso no cronograma: clima, erros de planejamento, atraso de fornecedores, operadores inadequados, especificações/atrasos do cliente, defeitos de materiais e permissões.
 
+Crie um diagrama de causa e efeito tal que:
 
+Efeito: “Delay”\    
+Grupos: “Pessoal”, “Clima”, “Fornecedores”, “Planejamento”\   
+Causas[1]: “Treinamento”, “Inadequado”\   
+Causas[2]: “Chuva”, “Temperatura”, “Vento”\   
+Causas[3]: “Materiais”, “Atrasos”, “Retrabalho”\    
+Causas[4]: “Cliente”, “Permissões”, “Erros”
 
+:::
 
 
 
@@ -649,6 +669,9 @@ Causes[4]: “Customer”, “Permissions”, “Errors”\
 
 # Exercício 7
 
+::: {.panel-tabset}
+
+## Enunciado Original
 (Cano et al., 2012) The Black Belt in the construction company of the previous
 example has investigated why a sampling of deadlines on projects developed in the last 2 years went unfulfilled. He has also estimated the cost of these delays for the company (larger labor force, extra payments, etc.). The number of unfulfilled deadlines and estimated cost are:
 
@@ -661,9 +684,16 @@ c) Select the causes you must focus on to improve the construction process. Can 
 
 
 
+## Tradução
+(Cano et al., 2012) O Black Belt na construtora do exemplo anterior investigou porque uma amostragem de prazos de projetos desenvolvidos nos últimos 2 anos não foi cumprida. Ele também estimou o custo desses atrasos para a empresa (maior força de trabalho, pagamentos extras, etc.). O número de prazos não cumpridos e o custo estimado são:
 
+Contagem: 5, 1, 3, 1, 2, 18, 20, 4, 15, 2, 4\   
+Custo: 50, 150, 50, 10, 20, 180, 200, 10, 5, 20, 150
 
+a) Faça um gráfico de Pareto por número de defeitos.
+b) Faça um gráfico do custo do erro.
+c) Selecione as causas nas quais você deve focar para melhorar o processo de construção. Você pode selecioná-los de apenas um dos gráficos?
 
-
+:::
 
 
