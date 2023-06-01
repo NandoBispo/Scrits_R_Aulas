@@ -492,37 +492,35 @@ parafusos|>
     stats = c("min", "Q1", "med", "mean", "Q3", "max", "sd", "cv"))
 #______________________________________________________________________________
 
-m=25; n=9; mn=m*n; mi=100; sigma=10
-set.seed(9962); x=round(rnorm(mn,mi,sigma),2); x[77:80]=x[77:80]+3*sigma 
-
-
-
-xR2(m, n, parafusos)
-
-
 
 library("qcc")
 
-parafusos|>
-  qcc::qcc(type = "R", plot = F)|>
+qcc::qcc(parafusos[,-1], type = "R", plot = F)|>
   plot(label.limits = c("LIC", "LSC"), 
        title = "Gráfico de Amplitudes dos parafusos",
        xlab = "Amostras", ylab = "Resumo das Estatísticas das Amostras")
 
-parafusos|>
-  qcc::qcc(type = "xbar", plot = F)|>
+qcc::qcc(parafusos[,-1], type = "xbar", plot = F)|>
   plot(label.limits = c("LIC", "LSC"), 
-       title = "Gráfico das Médias dos parafusos",
+       title = "Gráfico dos diâmetros médios dos parafusos",
+       xlab = "Amostras", ylab = "Resumo das Estatísticas das Amostras")
+
+# Remoção dos pontos discrepantes
+qcc::qcc(parafusos[c(-6, -19, -20), -1], type = "xbar", plot = F)|>
+  plot(label.limits = c("LIC", "LSC"), 
+       title = "Gráfico dos diâmetros médios dos parafusos",
        xlab = "Amostras", ylab = "Resumo das Estatísticas das Amostras")
 
 with()
 
 ### Q2 ----
 
+#### Utilizando a fç criada ----
+
 m=20; n=5; mn=m*n; mi=500; sigma=1; set.seed(2453); x=round(rnorm(mn,mi,sigma),1)
 
 # Com especificações
-xR1(m, n, x, 500, 1)
+xR1(20, 5, x, 500, 1)
 out
 
 result <- t(out)
@@ -564,7 +562,7 @@ result|>
   DT::formatRound(
     columns = c(1:4), digits = 2, mark = ".", dec.mark = ",")
 
-# Tentativa de utilização do pacote qcc
+#### Tentativa de utilização do pacote qcc ----
 {
 amostra <- c(1:20)
 
@@ -579,36 +577,37 @@ x4 <- c(498.7, 501.7, 499.5, 498.9, 501.4, 500.5, 500, 497.8, 500.5, 500.1, 501.
 x5 <- c(498.3, 498.8, 499.2, 499.1, 498.5, 499.8, 499.1, 499.7, 499.9, 501.3, 500, 500.2, 499.5, 498, 499.1, 497.9, 499.9, 500.3, 499.3, 499.2)
 
 sucos <- tibble::tibble(amostra, x1, x2, x3, x4, x5)
-sucos2 <- cbind(amostra, x1, x2, x3, x4, x5)
 
 # Verificação de NAs
 sucos|>
   is.na()|>
   any()
 
-mean(sucos[1,1])
+# Gráficos sem especificação
+qcc::qcc(sucos[,-1], type = "R", plot = F)|>
+  plot(label.limits = c("LIC", "LSC"), xlab = "Amostras",
+       ylab = "Resumo das Estatísticas das Amostras",
+       title = "Figura 5: Gráfico R para medidas sem especificações")
 
-sucos|>
-  dplyr::summarise(mean())
 
-dim(sucos2)[1]
+qcc::qcc(sucos[,-1], type = "xbar", plot = F)|>
+  plot(label.limits = c("LIC", "LSC"), xlab = "Amostras",
+       ylab = "Resumo das Estatísticas das Amostras",
+       title = "Figura 6: Gráfico R para medidas sem especificações")
 
-for (i in 1:20) {
-  x_barra[i] <- mean(sucos2[i, 2:5])
-  sigma[i] = sd(sucos2[i, 2:5])
-}
+# Gráficos com especificação e sigma = 0,5
+qcc::qcc(sucos[,-1], type = "R", center = 2.5, std.dev = 0.5, plot = T)
+qcc::qcc(sucos[,-1], type = "xbar", center = 500, std.dev = 0.5, plot = T)
 
-mean(x_barra)
-mean(sigma)
 
-sucos|>
-  qcc::qcc(type = "R", center = 500, std.dev = 1, plot = F)|>
-  plot()
+# Gráficos com especificação e sigma = 1
+qcc::qcc(sucos[,-1], type = "R", center = 2.5, std.dev = 1, plot = T)
+qcc::qcc(sucos[,-1], type = "xbar", center = 500, std.dev = 1, plot = T)
 
-sucos|>
-  qcc::qcc(type = "xbar", center = 500, std.dev = 1, plot = F)|>plot()
 
-}
+  }
+
+par(mfrow = c(1,1))
 
 ### Q3 ----
 
@@ -616,12 +615,44 @@ m=25; n=14; mn=m*n; mi=150; sigma=10; set.seed(4125); x=round(rnorm(mn,mi,sigma)
 
 xS2(m, n, x)
 
+# _________________________________
+amostra = c(1:25)
+
+x1 = c(158, 144, 158, 141, 135, 154, 147, 132, 140, 162, 156, 133, 144, 140, 149, 157, 147, 150, 153, 167, 153, 143, 157, 158, 152)
+x2 = c(160, 136, 154, 147, 149, 165, 157, 145, 149, 161, 146, 126, 138, 163, 139, 149, 147, 161, 125, 146, 140, 153, 150, 157, 139)
+x3 = c(155, 177, 154, 160, 142, 162, 148, 159, 141, 145, 155, 134, 144, 164, 139, 141, 161, 140, 157, 154, 160, 141, 147, 154, 161)
+x4 = c(164, 145, 170, 159, 156, 164, 147, 173, 147, 156, 154, 132, 137, 146, 136, 147, 152, 148, 156, 157, 160, 134, 156, 153, 163)
+x5 = c(143, 155, 150, 135, 164, 143, 170, 155, 147, 142, 163, 141, 135, 148, 132, 156, 135, 173, 159, 165, 130, 148, 141, 157, 161)
+x6 = c(134, 133, 147, 146, 159,	129,	148,	144,	154,	159,	151,	137,	147,	151,	164,	155,	160,	149,	143,	134,	159, 154, 124, 153, 134)
+
+
+
+garrafas <- read.csv2("garrafas.csv")
+
+# Gráficos sem especificação
+qcc::qcc(garrafas[,-1], type = "S", plot = F)|>
+  plot(label.limits = c("LIC", "LSC"), xlab = "Amostras",
+       ylab = "Resumo das Estatísticas das Amostras",
+       title = "Figura 5: Gráfico R para medidas sem especificações")
+
+
+qcc::qcc(garrafas[-12 ,-1], type = "xbar", plot = F)|>
+  plot(label.limits = c("LIC", "LSC"), xlab = "Amostras",
+       ylab = "Resumo das Estatísticas das Amostras",
+       title = "Figura 6: Gráfico R para medidas sem especificações")
+
+
 ### Q4 ----
+
+tempo <- read.csv2("fast-food.csv")
+
+
 #### Item a ----
 m=30; n=1; mn=m*n; mi=200; sigma=10; set.seed(1287); x=round(rnorm(mn,mi,sigma),2);
 x[28:30]=x[28:30]+2.5*sigma; x=round(x,0)
 
 test <- shapiro.test(x)
+test <- shapiro.test(tempo$tempo_entrega)
 
 test$statistic
 test$p.value
@@ -634,7 +665,7 @@ qqnorm(x, main = "Histograma", xlab = "Quantis normais", ylab = "x")
 qqline(x, col = "steelblue", lwd = 2)
 
 
-hist(x, ylab = "Frequência")
+hist(tempo$tempo_entrega, ylab = "Frequência")
 
 # car::qqPlot(x,  envelope=list(style="lines"), xlab = "Quantis normais", main = "Normal Q-Q Plot")
 par(mfrow=c(1,1))
@@ -661,6 +692,20 @@ result|>
 #### Item b ----
 
 xR2(m, n, x)
+
+
+qcc::qcc(tempo[,-1], type = "R", sizes = 30, center = 200, std.dev = 10, plot = T)
+qcc::qcc(tempo[,-1], type = "R", sizes = 30, plot = T)
+  plot(label.limits = c("LIC", "LSC"), 
+       title = "Gráfico de Amplitudes dos parafusos",
+       xlab = "Amostras", ylab = "Resumo das Estatísticas das Amostras")
+
+qcc::qcc(tempo[,-1], type = "xbar", sizes = 30, plot = T)
+
+qcc::qcc(tempo[,-1], type = "xbar", plot = F)|>
+  plot(label.limits = c("LIC", "LSC"), 
+       title = "Gráfico dos diâmetros médios dos parafusos",
+       xlab = "Amostras", ylab = "Resumo das Estatísticas das Amostras")
 
 
 

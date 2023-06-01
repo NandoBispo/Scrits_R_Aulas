@@ -23,7 +23,8 @@ format:
 # Apresentação
 O presente documento visa trazer as resoluções da segunda lista de exercícios da disciplina **MATD64 - Controle Estatístico de Processos (CEP)**, trabalhando com os gráficos de controle de *Shewhart* a fim de se identificar as condições dos processos baseados nas amostras disponibilizadas nos bancos de dados fornecidos e problemas propostos.
 
-## Exercício 1. 
+# Exercício 1
+
 O diâmetro de um parafuso de aço é um parâmetro importante da qualidade. Dados sobre o diâmetro (em milímetros, mm) são apresentados para 25 amostras de 9 parafusos cada (ver arquivo parafusos.xls).
 
 a. Construa gráficos de controle apropriados para esse processo.
@@ -41,53 +42,141 @@ parafusos <- readxl::read_xls('parafusos.xls')
 
 ```
 
-### Item 1a.
-Em reposta ao **item a** da primeira questão da lista, seguem os gráficos de amplitude (R) e da média ($\bar{X}$)
+## Solução:
 
-```{r Q1}
-#| echo: false
+::: {.panel-tabset}
+
+### Item a
+Seguem os gráficos de amplitude (R) e da média ($\bar{X}$) para os diâmetros dos parafusos.
+
+```{r q1a}
 #| warning: false
+#| fig-width: 9
+#| fig-height: 6
 #| fig-align: center
-#| fig-width: 7
-#| error: false
-#| message: false
 
-parafusos|>
-  qcc::qcc(type = "R", plot = F)|>
+qcc::qcc(parafusos[,-1], type = "R", plot = F)|>
   plot(label.limits = c("LIC", "LSC"), 
-       title = "Gráfico de Amplitudes dos parafusos",
+       title = "Figura 1: Gráfico de Amplitudes dos parafusos",
        xlab = "Amostras", ylab = "Resumo das Estatísticas das Amostras")
 
-parafusos|>
-  qcc::qcc(type = "xbar", plot = F)|>
+qcc::qcc(parafusos[,-1], type = "xbar", plot = F)|>
   plot(label.limits = c("LIC", "LSC"), 
-       title = "Gráfico das Médias dos parafusos",
+       title = "Figura 2: Gráfico dos diâmetros médios dos parafusos",
        xlab = "Amostras", ylab = "Resumo das Estatísticas das Amostras")
 ```
 
-### Item 1b.
-Examinando o controle estatístico, com base nas [Regras Sensibilizantes **(Regras de Nelson - 1984)**](https://www.ermontoro.com/post/2018/09/05/regras-para-avaliar-cartas-de-controle-cep), é possível constatar:
+### Item b
 
-- Gráfico R:
-  - Violação ao Teste 1:
-    - 2 pontos fora da Linha Superior de Controle - UCL.
-  - Violação aos Testes 2 e 3:
-    - 8 pontos consecutivos do mesmo lado (acima) e 13 pontos abaixo;
-    - 11 pontos cnsecutivos em ordem crescente.
+Com base nas [Regras Sensibilizantes **(Regras de Nelson - 1984)**](https://www.ermontoro.com/post/2018/09/05/regras-para-avaliar-cartas-de-controle-cep), é possível constatar:
 
-- Gráfico $\bar{X}$
-  - Violação ao Teste 3:
-      - 6 pontos sucessivos em ordem crescente.
+- No gráfico $\bar{X}$ o teste 1 não é verificado, pois a média das amostras 6, 19 e 20 caem fora dos limites de controle.
+  - Caracteriza que o nível médio dos diâmetros do processo de fabricação dos parafusos está fora de controle.
 
-## Exercício 2.
+- O teste 3 não foi satisfeito para o gráfico $\bar{X}$.
+  - 6 pontos sucessivos em ordem crescente.
+
+### Item c
+
+Para a construção do gráfico de controle suficiente para monitorar a produção futura é necessário a remoção das amostras 6, 19 e 20 respectivamente, produzindo assim um gráfico dentro das especificações, conforme a Figura 3.
+
+
+```{r q1c}
+#| warning: false
+#| fig-width: 9
+#| fig-height: 6
+#| fig-align: center
+
+
+qcc::qcc(parafusos[c(-6, -19, -20), -1], type = "xbar", plot = F)|>
+  plot(label.limits = c("LIC", "LSC"), 
+       title = "Figura 3: Gráfico dos diâmetros médios dos parafusos sem pontos discrepantes",
+       xlab = "Amostras", ylab = "Resumo das Estatísticas das Amostras")
+```
+
+
+:::
+
+
+# Exercício 2
+
 Uma empresa quer monitorar a quantidade (em mililitros, ml) de suco presente nas garrafas que comercializa. Para tanto, selecionou 20 amostras de tamanho 5. Sejam os valores de referência: $\mu$ = 500 ml e $\sigma$ = 0,5 ml. Construa gráficos de controle para a média e a variabilidade da
 quantidade de suco nas garrafas, considerando e também desconsiderando as especificações. Compare os gráficos obtidos segundo estas duas abordagens e, em seguida, conclua.
 
-**SOLUÇÃO:**
+## Solução:
 
-Tendo em vista a pequena quantidade de observações por amostra, o gráfico mais recomendado é o **Gráfico R** para análise solicitada.
+Tendo em vista a pequena quantidade de observações por amostra, o gráfico mais recomendado para avaliação da variabilidade é o **Gráfico R** para análise solicitada.
 
-Não sendo identificado nenhum alarme falso nem no gráfico R nem no gráfico $\bar{X}$, foi construída a Figura 2 com os gráficos sem especificações, sendo estes gráficos equivalentes aos gráficos com especificações, exceto pelas pequenas mudanças listadas na Tabela 1.
+
+::: {.panel-tabset}
+
+#### Gráficos COM especificações
+
+```{r fig3}
+#| warning: false
+#| fig-width: 9
+#| fig-height: 6
+#| fig-align: center
+
+amostra <- c(1:20)
+
+x1 <- c(500.5, 500.1, 498.9, 499.2, 500.1, 500.2, 500.3, 498.2, 501.1, 501.5, 499.2, 501, 500.2, 501.2, 500.5, 499.5, 500.3, 500.7, 500.2, 500.3)
+
+x2 <- c(498.3, 500.4, 499.9, 498.4, 500.4, 502.7, 500.2, 500.3, 499.1, 500.3, 500.8, 501, 500.6, 499.7, 498.9, 499.9, 500, 501.5, 500.4, 500.7)
+
+x3 <- c(500.9, 499.2, 500.6, 499.3, 498.5, 500.2, 500.3, 501.5, 498.3, 498.6, 498.4, 499.1, 500.2, 499.3, 499.8, 498.6, 500.1, 501.9, 501.3, 499.9)
+
+x4 <- c(498.7, 501.7, 499.5, 498.9, 501.4, 500.5, 500, 497.8, 500.5, 500.1, 501.5, 500.9, 500.1, 499.5, 499.8, 500, 500, 498, 500, 497.7)
+
+x5 <- c(498.3, 498.8, 499.2, 499.1, 498.5, 499.8, 499.1, 499.7, 499.9, 501.3, 500, 500.2, 499.5, 498, 499.1, 497.9, 499.9, 500.3, 499.3, 499.2)
+
+sucos <- tibble::tibble(amostra, x1, x2, x3, x4, x5)
+
+qcc::qcc(sucos[,-1], type = "R", center = 2.5, std.dev = 0.5, plot = F)|>
+    plot(label.limits = c("LIC", "LSC"), xlab = "Amostras",
+       ylab = "Resumo das Estatísticas das Amostras",
+       title = "Figura 4: Gráfico R para medidas com especificações")
+
+
+qcc::qcc(sucos[,-1], type = "xbar", center = 500, std.dev = 0.5, plot = F)|>
+    plot(label.limits = c("LIC", "LSC"), xlab = "Amostras",
+       ylab = "Resumo das Estatísticas das Amostras",
+       title = "Figura 5: Gráfico R para medidas com especificações")
+
+
+```
+
+
+#### Gráficos SEM especificações
+
+
+```{r fig4}
+#| warning: false
+#| fig-width: 9
+#| fig-height: 6
+#| fig-align: center
+
+qcc::qcc(sucos[,-1], type = "R", plot = F)|>
+      plot(label.limits = c("LIC", "LSC"), xlab = "Amostras",
+       ylab = "Resumo das Estatísticas das Amostras",
+       title = "Figura 6: Gráfico R para medidas sem especificações")
+
+
+qcc::qcc(sucos[,-1], type = "xbar", plot = F)|>
+      plot(label.limits = c("LIC", "LSC"), xlab = "Amostras",
+       ylab = "Resumo das Estatísticas das Amostras",
+       title = "Figura 7: Gráfico R para medidas sem especificações")
+
+```
+
+
+:::
+
+Com base nas especificações fornecidas, é possível constatar a presença de pontos que ultrapassam tanto o limite inferior - LIC quanto o superior - LSC, fato este que não ocorre nas figuras em que  foram estimados os valores de referência, logo, se conclui que há necessidade de se reavaliar os limites de especificação.
+
+
+
+<!-- Não sendo identificado nenhum alarme falso nem no gráfico R nem no gráfico $\bar{X}$, foi construída a Figura 2 com os gráficos sem especificações, sendo estes gráficos equivalentes aos gráficos com especificações, exceto pelas pequenas mudanças listadas na Tabela 1. -->
 
 
 ```{r}
@@ -96,177 +185,177 @@ Não sendo identificado nenhum alarme falso nem no gráfico R nem no gráfico $\
 #| fig-width: 9
 #| fig-height: 7
 
-xR1=function(m,n,y,mi,sigma){
-  if (n>1) {
-    amplit=numeric(m)
-    mat=matrix(y,m,n,byrow=T)
-    media=apply(mat,1,mean)
-    for (i in 1:m) {
-      amplit[i]=max(mat[i,])-min(mat[i,])
-    }
-  } else {
-    amplit=numeric(m-1)
-    media=y
-    for (i in 2:m) amplit[i-1]=sqrt((y[i]-y[i-1])^2)
-  }
-  d2=c(1.1296,1.6918,2.0535,2.3248,2.5404,2.7074,
-       2.8501,2.9677,3.0737,3.1696)
-  d3=c(.8541,.8909,.8800,.8674,.8508,
-       .8326,.8209,.8102,.7978,.7890)
-  LIC1=mi-3*sigma/sqrt(n)
-  LSC1=mi+3*sigma/sqrt(n)
-  LAIC1=mi-2*sigma/sqrt(n)
-  LASC1=mi+2*sigma/sqrt(n)
-  if(n>1) {
-    LIC2=d2[n-1]*sigma-3*d3[n-1]*sigma
-    LSC2=d2[n-1]*sigma+3*d3[n-1]*sigma
-    if (LIC2 < 0) LIC2=0
-    LAIC2=d2[n-1]*sigma-2*d3[n-1]*sigma
-    LASC2=d2[n-1]*sigma+2*d3[n-1]*sigma
-    if (LAIC2 < 0) LAIC2=0
-  } else {
-    LIC2=d2[n]*sigma-3*d3[n]*sigma
-    LSC2=d2[n]*sigma+3*d3[n]*sigma
-    if (LIC2 < 0) LIC2=0
-    LAIC2=d2[n]*sigma-2*d3[n]*sigma
-    LASC2=d2[n]*sigma+2*d3[n]*sigma
-    if (LAIC2 < 0) LAIC2=0
-  }
-  par(mfrow=c(2,1))
-  amostra1=matrix(rep(seq(1,m),4),m,4,byrow=F)
-  if (n>1) amostra2=amostra1 else amostra2=amostra1[-1,]
-  xbar=cbind(rep(mi,m),rep(LIC1,m),rep(LSC1,m),rep(LAIC1,m),rep(LASC1,m),media)
-  if (n>1) {
-    rbar=cbind(rep(sigma,m),rep(LIC2,m),rep(LSC2,m),rep(LAIC2,m),rep(LASC2,m),amplit)
-  } else rbar=cbind(rep(sigma,m-1),rep(LIC2,m-1),
-                    rep(LSC2,m-1),amplit)
-  out <<-  rbind(round(rbar[1, 1:3], 2), round(xbar[1, 1:3], 2))
-  colnames(out) <<- c("Referência", "LIC", "LSC")
-  rownames(out) <<- c("R", "Xbarra")
-}
-
-xR2=function(m,n,y){
-  if (n>1) {
-    amplit=numeric(m) 	
-    mat=matrix(y,m,n,byrow=T)
-    media=apply(mat,1,mean)
-    for (i in 1:m) amplit[i]=max(mat[i,])-min(mat[i,])
-    x2barras=mean(media)
-    Rbarra=mean(amplit) 
-    d2=c(1.1296,1.6918,2.0535,2.3248,2.5404,2.7074,2.8501,
-         2.9677,3.0737,3.1696)
-    d3=c(.8541,.8909,.8800,.8674,.8508,.8326,.8209,
-         .8102,.7978,.7890)
-    LIC1=x2barras-3*Rbarra/(d2[n-1]*sqrt(n))
-    LSC1=x2barras+3*Rbarra/(d2[n-1]*sqrt(n))
-    LIC2=Rbarra-3*d3[n-1]*Rbarra/d2[n-1]
-    LSC2=Rbarra+3*d3[n-1]*Rbarra/d2[n-1]
-    if (LIC2 < 0) LIC2=0
-    
-    LAIC1=x2barras-2*Rbarra/(d2[n-1]*sqrt(n))
-    LASC1=x2barras+2*Rbarra/(d2[n-1]*sqrt(n))
-    LAIC2=Rbarra-2*d3[n-1]*Rbarra/d2[n-1]
-    LASC2=Rbarra+2*d3[n-1]*Rbarra/d2[n-1]
-    if (LAIC2 < 0) LAIC2=0
-    
-  } else {
-    amplit=numeric(m-1)
-    media=y
-    for (i in 2:m) amplit[i-1]=sqrt((y[i]-y[i-1])^2)
-    x2barras=mean(media)
-    Rbarra=mean(amplit) 
-    d2=1.1296
-    d3=.8541
-    LIC1=x2barras-3*Rbarra/(d2*sqrt(n))
-    LSC1=x2barras+3*Rbarra/(d2*sqrt(n))
-    LIC2=Rbarra-3*d3*Rbarra/d2
-    LSC2=Rbarra+3*d3*Rbarra/d2
-    if (LIC2 < 0) LIC2=0
-    
-    LAIC1=x2barras-2*Rbarra/(d2*sqrt(n))
-    LASC1=x2barras+2*Rbarra/(d2*sqrt(n))
-    LAIC2=Rbarra-2*d3*Rbarra/d2
-    LASC2=Rbarra+2*d3*Rbarra/d2
-    if (LAIC2 < 0) LAIC2=0
-  }
-  par(mfrow=c(2,1))
-  amostra1=matrix(rep(seq(1,m),4),m,4,byrow=F)
-  if (n>1) amostra2=amostra1 else amostra2=amostra1[-1,]
-  xbar=cbind(rep(x2barras,m),rep(LIC1,m),rep(LSC1,m),rep(LAIC1,m),rep(LASC1,m),media)
-  if (n>1) {
-    rbar=cbind(rep(Rbarra,m),rep(LIC2,m),rep(LSC2,m),rep(LAIC2,m),rep(LASC2,m),amplit) 
-  } else rbar=cbind(rep(Rbarra,m-1),rep(LIC2,m-1),
-                    rep(LSC2,m-1),amplit)
-  matplot(amostra2,rbar,type="o",ylab="Amplitude",
-          col=c("black","red","red","orange","orange","blue"),
-          ylim=c(min(rbar),max(rbar)),
-          xlab="Amostras",main="Gráfico R",pch=20, lty=1, lwd=2)
-  matplot(amostra1,xbar,type="o",ylab="Média",xlab="Amostras",
-          main=expression(paste("Gráfico " * bar(x))),col=c("black","red","red","orange","orange",
-                                                            "blue"),ylim=c(min(xbar),max(xbar)),pch=20, lty=1, lwd=2)
-
-  out <<- rbind(round(rbar[1,1:3],2), round(xbar[1,1:3],2))
-  colnames(out) <<- c("Referência","LIC","LSC")
-  rownames(out) <<- c("R", "Xbarra")
-}
-
-
-## Q2 ----
-
-m=20; n=5; mn=m*n; mi=500; sigma=1; set.seed(2453); x=round(rnorm(mn,mi,sigma),1)
-
-xR1(m, n, x, 500, 1)
-
-result <- t(out)
-
-xR2(m,n,x)
-
-result <- cbind(result, t(out))
-
-rownames(result) <- c("Linha Central", "LIC", "LSC")
-
-
-# Tabela ----
-tit = htmltools::withTags(table(
-  class = 'display',
-  thead(
-    tr(
-      th(colspan = 1, ''),
-      th(colspan = 2, 'Com Especificações'),
-      th(colspan = 2, 'Sem Especificações')
-      # th(colspan = 2, 'Petal')
-    ),
-    tr(
-      lapply(rep(c('', 'R', "Xbarra", "R", "Xbarra"), 1), th)
-    )
-  )
-))
-
-result|>
-  DT::datatable(
-    caption = "Tabela 1: Informações dos gráficos R e Xbarra para Questão 2.",
-    colnames = c("R", "Xbarra", "R", "Xbarra"),
-    extensions = 'FixedHeader', container = tit,
-    options = list(dom = 't', fixedHeader = F, autoWidth = F,
-                   columnDefs = 
-                     list(
-                       list(className = 'dt-center', targets = c(1:4))))
-  )|>
-  DT::formatRound(
-    columns = c(1:4),
-    digits = 2, mark = ".",
-    dec.mark = ",")
+# xR1=function(m,n,y,mi,sigma){
+#   if (n>1) {
+#     amplit=numeric(m)
+#     mat=matrix(y,m,n,byrow=T)
+#     media=apply(mat,1,mean)
+#     for (i in 1:m) {
+#       amplit[i]=max(mat[i,])-min(mat[i,])
+#     }
+#   } else {
+#     amplit=numeric(m-1)
+#     media=y
+#     for (i in 2:m) amplit[i-1]=sqrt((y[i]-y[i-1])^2)
+#   }
+#   d2=c(1.1296,1.6918,2.0535,2.3248,2.5404,2.7074,
+#        2.8501,2.9677,3.0737,3.1696)
+#   d3=c(.8541,.8909,.8800,.8674,.8508,
+#        .8326,.8209,.8102,.7978,.7890)
+#   LIC1=mi-3*sigma/sqrt(n)
+#   LSC1=mi+3*sigma/sqrt(n)
+#   LAIC1=mi-2*sigma/sqrt(n)
+#   LASC1=mi+2*sigma/sqrt(n)
+#   if(n>1) {
+#     LIC2=d2[n-1]*sigma-3*d3[n-1]*sigma
+#     LSC2=d2[n-1]*sigma+3*d3[n-1]*sigma
+#     if (LIC2 < 0) LIC2=0
+#     LAIC2=d2[n-1]*sigma-2*d3[n-1]*sigma
+#     LASC2=d2[n-1]*sigma+2*d3[n-1]*sigma
+#     if (LAIC2 < 0) LAIC2=0
+#   } else {
+#     LIC2=d2[n]*sigma-3*d3[n]*sigma
+#     LSC2=d2[n]*sigma+3*d3[n]*sigma
+#     if (LIC2 < 0) LIC2=0
+#     LAIC2=d2[n]*sigma-2*d3[n]*sigma
+#     LASC2=d2[n]*sigma+2*d3[n]*sigma
+#     if (LAIC2 < 0) LAIC2=0
+#   }
+#   par(mfrow=c(2,1))
+#   amostra1=matrix(rep(seq(1,m),4),m,4,byrow=F)
+#   if (n>1) amostra2=amostra1 else amostra2=amostra1[-1,]
+#   xbar=cbind(rep(mi,m),rep(LIC1,m),rep(LSC1,m),rep(LAIC1,m),rep(LASC1,m),media)
+#   if (n>1) {
+#     rbar=cbind(rep(sigma,m),rep(LIC2,m),rep(LSC2,m),rep(LAIC2,m),rep(LASC2,m),amplit)
+#   } else rbar=cbind(rep(sigma,m-1),rep(LIC2,m-1),
+#                     rep(LSC2,m-1),amplit)
+#   out <<-  rbind(round(rbar[1, 1:3], 2), round(xbar[1, 1:3], 2))
+#   colnames(out) <<- c("Referência", "LIC", "LSC")
+#   rownames(out) <<- c("R", "Xbarra")
+# }
+# 
+# xR2=function(m,n,y){
+#   if (n>1) {
+#     amplit=numeric(m) 	
+#     mat=matrix(y,m,n,byrow=T)
+#     media=apply(mat,1,mean)
+#     for (i in 1:m) amplit[i]=max(mat[i,])-min(mat[i,])
+#     x2barras=mean(media)
+#     Rbarra=mean(amplit) 
+#     d2=c(1.1296,1.6918,2.0535,2.3248,2.5404,2.7074,2.8501,
+#          2.9677,3.0737,3.1696)
+#     d3=c(.8541,.8909,.8800,.8674,.8508,.8326,.8209,
+#          .8102,.7978,.7890)
+#     LIC1=x2barras-3*Rbarra/(d2[n-1]*sqrt(n))
+#     LSC1=x2barras+3*Rbarra/(d2[n-1]*sqrt(n))
+#     LIC2=Rbarra-3*d3[n-1]*Rbarra/d2[n-1]
+#     LSC2=Rbarra+3*d3[n-1]*Rbarra/d2[n-1]
+#     if (LIC2 < 0) LIC2=0
+#     
+#     LAIC1=x2barras-2*Rbarra/(d2[n-1]*sqrt(n))
+#     LASC1=x2barras+2*Rbarra/(d2[n-1]*sqrt(n))
+#     LAIC2=Rbarra-2*d3[n-1]*Rbarra/d2[n-1]
+#     LASC2=Rbarra+2*d3[n-1]*Rbarra/d2[n-1]
+#     if (LAIC2 < 0) LAIC2=0
+#     
+#   } else {
+#     amplit=numeric(m-1)
+#     media=y
+#     for (i in 2:m) amplit[i-1]=sqrt((y[i]-y[i-1])^2)
+#     x2barras=mean(media)
+#     Rbarra=mean(amplit) 
+#     d2=1.1296
+#     d3=.8541
+#     LIC1=x2barras-3*Rbarra/(d2*sqrt(n))
+#     LSC1=x2barras+3*Rbarra/(d2*sqrt(n))
+#     LIC2=Rbarra-3*d3*Rbarra/d2
+#     LSC2=Rbarra+3*d3*Rbarra/d2
+#     if (LIC2 < 0) LIC2=0
+#     
+#     LAIC1=x2barras-2*Rbarra/(d2*sqrt(n))
+#     LASC1=x2barras+2*Rbarra/(d2*sqrt(n))
+#     LAIC2=Rbarra-2*d3*Rbarra/d2
+#     LASC2=Rbarra+2*d3*Rbarra/d2
+#     if (LAIC2 < 0) LAIC2=0
+#   }
+#   par(mfrow=c(2,1))
+#   amostra1=matrix(rep(seq(1,m),4),m,4,byrow=F)
+#   if (n>1) amostra2=amostra1 else amostra2=amostra1[-1,]
+#   xbar=cbind(rep(x2barras,m),rep(LIC1,m),rep(LSC1,m),rep(LAIC1,m),rep(LASC1,m),media)
+#   if (n>1) {
+#     rbar=cbind(rep(Rbarra,m),rep(LIC2,m),rep(LSC2,m),rep(LAIC2,m),rep(LASC2,m),amplit) 
+#   } else rbar=cbind(rep(Rbarra,m-1),rep(LIC2,m-1),
+#                     rep(LSC2,m-1),amplit)
+#   matplot(amostra2,rbar,type="o",ylab="Amplitude",
+#           col=c("black","red","red","orange","orange","blue"),
+#           ylim=c(min(rbar),max(rbar)),
+#           xlab="Amostras",main="Gráfico R",pch=20, lty=1, lwd=2)
+#   matplot(amostra1,xbar,type="o",ylab="Média",xlab="Amostras",
+#           main=expression(paste("Gráfico " * bar(x))),col=c("black","red","red","orange","orange",
+#                                                             "blue"),ylim=c(min(xbar),max(xbar)),pch=20, lty=1, lwd=2)
+# 
+#   out <<- rbind(round(rbar[1,1:3],2), round(xbar[1,1:3],2))
+#   colnames(out) <<- c("Referência","LIC","LSC")
+#   rownames(out) <<- c("R", "Xbarra")
+# }
+# 
+# 
+# ## Q2 ----
+# 
+# m=20; n=5; mn=m*n; mi=500; sigma=1; set.seed(2453); x=round(rnorm(mn,mi,sigma),1)
+# 
+# xR1(m, n, x, 500, 1)
+# 
+# result <- t(out)
+# 
+# xR2(m,n,x)
+# 
+# result <- cbind(result, t(out))
+# 
+# rownames(result) <- c("Linha Central", "LIC", "LSC")
+# 
+# 
+# # Tabela ----
+# tit = htmltools::withTags(table(
+#   class = 'display',
+#   thead(
+#     tr(
+#       th(colspan = 1, ''),
+#       th(colspan = 2, 'Com Especificações'),
+#       th(colspan = 2, 'Sem Especificações')
+#       # th(colspan = 2, 'Petal')
+#     ),
+#     tr(
+#       lapply(rep(c('', 'R', "Xbarra", "R", "Xbarra"), 1), th)
+#     )
+#   )
+# ))
+# 
+# result|>
+#   DT::datatable(
+#     caption = "Tabela 1: Informações dos gráficos R e Xbarra para Questão 2.",
+#     colnames = c("R", "Xbarra", "R", "Xbarra"),
+#     extensions = 'FixedHeader', container = tit,
+#     options = list(dom = 't', fixedHeader = F, autoWidth = F,
+#                    columnDefs = 
+#                      list(
+#                        list(className = 'dt-center', targets = c(1:4))))
+#   )|>
+#   DT::formatRound(
+#     columns = c(1:4),
+#     digits = 2, mark = ".",
+#     dec.mark = ",")
 
 
 
 ```
 
 
-## Exercício 3. 
+# Exercício 3
 
-Uma empresa deseja monitorar a pressão tolerada pelas garrafas plásticas que comercializa, visando identificar se dispõe de condições para manter um padrão de qualidade que não se altera ao longo do tempo. Para isso, utiliza 25 amostras de tamanho 14. A empresa deseja saber se todas as garrafas plásticas suportam a mesma pressão média e se a variabilidade da pressãotolerada por tais garrafas é a mesma para todos os lotes comercializados. Além disso, há interesse no monitoramento da produção futura.
+Uma empresa deseja monitorar a pressão tolerada pelas garrafas plásticas que comercializa, visando identificar se dispõe de condições para manter um padrão de qualidade que não se altera ao longo do tempo. Para isso, utiliza 25 amostras de tamanho 14. A empresa deseja saber se todas as garrafas plásticas suportam a mesma pressão média e se a variabilidade da pressão tolerada por tais garrafas é a mesma para todos os lotes comercializados. Além disso, há interesse no monitoramento da produção futura.
 
-**SOLUÇÃO:**
+## Solução:
 
 Tendo em vista que a quantidade de observações por amostra é maior que 10, o gráfico **Gráfico S** é o mais recomendado para análise solicitada.
 
@@ -279,7 +368,7 @@ Tendo em vista que a quantidade de observações por amostra é maior que 10, o 
 
 xS2=function(m,n,y){
   if (length(n)==1) n=rep(n,m)
-  mat=matrix(NA,m,max(n)); k=1 
+  mat=matrix(NA,m,max(n)); k=1
   for (i in 1:m) {
     for (j in 1:n[i]) {
       mat[i,j]=y[k]
@@ -294,8 +383,8 @@ xS2=function(m,n,y){
   LSC1=numeric(m)
   LIC2=numeric(m)
   LSC2=numeric(m)
-  c4=0	
-  for (i in 1:m){ 
+  c4=0
+  for (i in 1:m){
     c4=(gamma(n[i]/2)/gamma((n[i]-1)/2))*sqrt(2/(n[i]-1))
     LIC1[i]=x2barras-3*Sbarra/(c4*sqrt(n[i]))
     LSC1[i]=x2barras+3*Sbarra/(c4*sqrt(n[i]))
@@ -312,23 +401,65 @@ xS2=function(m,n,y){
           ylim=c(min(rbar),max(rbar)),
           xlab="Amostras", main="Gráfico S", pch=20, lty=1, lwd=2)
   matplot(amostra,xbar,type="o", ylab= "Média", xlab= "Amostras",
-          main=expression(paste("Gráfico " * bar(x))), 
+          main=expression(paste("Gráfico " * bar(x))),
           col=c("black","red","red","blue"),
           ylim=c(min(xbar),max(xbar)),pch=20, lty=1, lwd=2)
 }
 
 
 m=25; n=14; mn=m*n; mi=150; sigma=10; set.seed(4125); x=round(rnorm(mn,mi,sigma),2); x[155:168]=x[155:168]-1.5*sigma; x=round(x,0)
-
-xS2(m, n, x)
+# 
+# xS2(m, n, x)
 
 ```
 
 
-Após a construção do gráfico é possível constatar que o processo está fora de controle, pois a amostra de numero 12 ultrapassa o limite inferior no gráfico $\bar{X}$, caracterizando uma mudança na média do processo, ou seja, levando em consideração as **regras de sensibilidade**, o gráfico $\bar{X}$ fere ao primeiro teste que avalia os pontos que caem fora dos limites de controle.
+```{r figQ3_1}
+#| warning: false
+#| fig-width: 9
+#| fig-height: 6
+#| fig-align: center
+
+garrafas <- read.csv2("garrafas.csv")
+
+# Gráficos sem especificação
+qcc::qcc(garrafas[,-1], type = "S", plot = F)|>
+  plot(label.limits = c("LIC", "LSC"), xlab = "Amostras",
+       ylab = "Resumo das Estatísticas das Amostras",
+       title = "Figura 8: Gráfico S para medidas sem especificações")
 
 
-## Exercício 4.
+qcc::qcc(garrafas[,-1], type = "xbar", plot = F)|>
+  plot(label.limits = c("LIC", "LSC"), xlab = "Amostras",
+       ylab = "Resumo das Estatísticas das Amostras",
+       title = "Figura 9: Gráfico para monitoramente das pressões médias sem especificações")
+```
+
+
+Acerca da variabilidade, Figura 8, se constata um processo sobre controle, indicando que a pressão tolerada é a mesma para todos os lotes.
+
+Ao se analisar o gráfico que avalia a média do processo, constata-se que o processo não está sob controle pois a amostra de número 12 está abaixo do valor esperado do processo, caracterizando que esta amostra não suportaria a mesma pressão média.
+
+
+<!-- Após a construção do gráfico é possível constatar que o processo está fora de controle, pois a amostra de numero 12 ultrapassa o limite inferior no gráfico $\bar{X}$, caracterizando uma mudança na média do processo, ou seja, levando em consideração as **regras de sensibilidade**, o gráfico $\bar{X}$ fere ao primeiro teste que avalia os pontos que caem fora dos limites de controle. -->
+
+Para viabilizar o monitoramento de produções futuras, se faz necessário a remoção dos pontos que ferem as regras sensibilizantes, para tanto após a remoção da amostra de número 12 se construiu a Figura 10 que apresenta um processo sob controle.
+
+
+```{r figQ3_2}
+#| warning: false
+#| fig-width: 9
+#| fig-height: 6
+#| fig-align: center
+
+qcc::qcc(garrafas[-12, -1], type = "xbar", plot = F)|>
+  plot(label.limits = c("LIC", "LSC"), xlab = "Amostras",
+       ylab = "Resumo das Estatísticas das Amostras",
+       title = "Figura 10: Gráfico para monitoramente das pressões médias sem especificações")
+```
+
+
+# Exercício 4
 
 Uma empresa de fast-food deseja verificar se o tempo demandado a partir do momento da solicitação até o momento em que o pedido é entregue é uma variável com média sob
 controle. Em outras palavras, a empresa deseja saber se o tempo médio até que seja feita a entrega é o mesmo para qualquer um de seus clientes ou se, dependendo do momento em que é feito o pedido, esse tempo é maior. São observados os tempos de entrega (em segundos, s) dos pedidos para os últimos 30 clientes atendidos pela empresa.
@@ -336,22 +467,19 @@ controle. Em outras palavras, a empresa deseja saber se o tempo médio até que 
 a) O tempo de entrega do pedido segue distribuição normal?
 b) Construa gráficos de controle e analise-os. Caso não exibam controle estatístico, revise os limites de controle tentativos.
 
-**SOLUÇÃO:**
+## Solução
 
-#### Item 4a.
+::: {.panel-tabset}
 
-```{r}
-#| echo: false
+### Item a
+
+```{r q4a}
 #| warning: false
 #| fig-width: 9
 #| fig-height: 5
 #| fig-align: center
 
-
-m=30; n=1; mn=m*n; mi=200; sigma=10; set.seed(1287); x=round(rnorm(mn,mi,sigma),2);
-x[28:30]=x[28:30]+2.5*sigma; x=round(x,0)
-
-test <- shapiro.test(x)
+tempo <- read.csv2("fast-food.csv")
 
 result <- cbind(test$statistic, test$p.value)
 colnames(result) <- c("Estatística", "p-value")
@@ -359,7 +487,6 @@ colnames(result) <- c("Estatística", "p-value")
 result|>
   DT::datatable(
     caption = "Tabela 2: Resultado do teste de normalidade de Shapiro-Wilk.",
-    # colnames = c("R", "Xbarra", "R", "Xbarra"),
     extensions = 'FixedHeader', rownames = F,
     options = list(dom = 't', fixedHeader = F, autoWidth = F,
                    columnDefs = 
@@ -371,10 +498,10 @@ result|>
 
 par(mfrow=c(1,2))
 
-hist(x, ylab = "Frequência", main = "Histograma", xlab = "X")
+hist(tempo, ylab = "Frequência", main = "Histograma", xlab = "X")
 
-qqnorm(x, xlab = "Quantis normais", ylab = "X")
-qqline(x, col = "steelblue", lwd = 2)
+qqnorm(tempo, xlab = "Quantis normais", ylab = "X")
+qqline(tempo, col = "steelblue", lwd = 2)
 
 par(mfrow=c(1,1))
 
@@ -388,11 +515,11 @@ O resultado do teste é confirmado através dos gráficos gerados, sendo possív
 
 
 
-#### Item 4b.
+### Item b
+
 Tendo em vista que a quantidade de observações por amostra é igual a 1, o gráfico **Gráfico R** é o mais recomendado para análise solicitada.
 
-```{r}
-#| echo: false
+```{r q4b}
 #| warning: false
 #| fig-align: center
 #| fig-width: 9
@@ -466,7 +593,10 @@ xR2(m,n,x)
 ```
 
 
-## Exercício 5. 
+
+:::
+
+# Exercício 5
 
 Amostras de tamanhos variáveis (n entre 5 e 8) são extraídas de um processo manufatureiro a cada hora. Uma característica de qualidade (normalmente distribuída) é medida para 25 amostras coletadas.
 
@@ -494,7 +624,7 @@ xS2(m, n, x)
 
 
 
-## Exercício 6.
+# Exercício 6
 
 (Cano et al., 2012) In the construction of a building, a critical to quality (CTQ)
 characteristic might be the fulfillment of a deadline, as unfulfillment can lead to failure. The Six Sigma team identified the following events that can cause a delay in the schedule: weather, errors in planning, delay of suppliers, inadequate operators, customer specifications/delays, defects in materials, and permissions.
@@ -517,7 +647,7 @@ Causes[4]: “Customer”, “Permissions”, “Errors”\
 
 
 
-## Exercício 7. 
+# Exercício 7
 
 (Cano et al., 2012) The Black Belt in the construction company of the previous
 example has investigated why a sampling of deadlines on projects developed in the last 2 years went unfulfilled. He has also estimated the cost of these delays for the company (larger labor force, extra payments, etc.). The number of unfulfilled deadlines and estimated cost are:
