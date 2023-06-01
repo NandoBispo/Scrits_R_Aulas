@@ -109,14 +109,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </ul></li>
   <li><a href="#exercício-4" id="toc-exercício-4" class="nav-link" data-scroll-target="#exercício-4">Exercício 4</a>
   <ul>
-  <li><a href="#solução-3" id="toc-solução-3" class="nav-link" data-scroll-target="#solução-3">Solução</a></li>
+  <li><a href="#solução-3" id="toc-solução-3" class="nav-link" data-scroll-target="#solução-3">Solução:</a></li>
   </ul></li>
   <li><a href="#exercício-5" id="toc-exercício-5" class="nav-link" data-scroll-target="#exercício-5">Exercício 5</a>
   <ul>
-  <li><a href="#solução-4" id="toc-solução-4" class="nav-link" data-scroll-target="#solução-4">Solução</a></li>
+  <li><a href="#solução-4" id="toc-solução-4" class="nav-link" data-scroll-target="#solução-4">Solução:</a></li>
   </ul></li>
-  <li><a href="#exercício-6" id="toc-exercício-6" class="nav-link" data-scroll-target="#exercício-6">Exercício 6</a></li>
-  <li><a href="#exercício-7" id="toc-exercício-7" class="nav-link" data-scroll-target="#exercício-7">Exercício 7</a></li>
+  <li><a href="#exercício-6" id="toc-exercício-6" class="nav-link" data-scroll-target="#exercício-6">Exercício 6</a>
+  <ul>
+  <li><a href="#solução-5" id="toc-solução-5" class="nav-link" data-scroll-target="#solução-5">Solução:</a></li>
+  </ul></li>
+  <li><a href="#exercício-7" id="toc-exercício-7" class="nav-link" data-scroll-target="#exercício-7">Exercício 7</a>
+  <ul>
+  <li><a href="#solução-6" id="toc-solução-6" class="nav-link" data-scroll-target="#solução-6">Solução:</a></li>
+  </ul></li>
   </ul>
 </nav>
 </div>
@@ -393,7 +399,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Construa gráficos de controle e analise-os. Caso não exibam controle estatístico, revise os limites de controle tentativos.</li>
 </ol>
 <section id="solução-3" class="level2">
-<h2 class="anchored" data-anchor-id="solução-3">Solução</h2>
+<h2 class="anchored" data-anchor-id="solução-3">Solução:</h2>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-3-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-1" role="tab" aria-controls="tabset-3-1" aria-selected="true" href="">Item a</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-2" role="tab" aria-controls="tabset-3-2" aria-selected="false" href="">Item b</a></li></ul>
 <div class="tab-content">
@@ -428,9 +434,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <summary>Mostrar Código</summary>
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(tempo[,<span class="sc">-</span><span class="dv">1</span>], <span class="at">ylab =</span> <span class="st">"Frequência"</span>, <span class="at">main =</span> <span class="st">"Histograma"</span>, <span class="at">xlab =</span> <span class="st">"X"</span>)</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(tempo[,<span class="sc">-</span><span class="dv">1</span>], <span class="at">ylab =</span> <span class="st">"Frequência"</span>, <span class="at">main =</span> <span class="st">"Figura 11: Histograma"</span>, <span class="at">xlab =</span> <span class="st">"X"</span>)</span>
 <span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="fu">qqnorm</span>(tempo[,<span class="sc">-</span><span class="dv">1</span>], <span class="at">xlab =</span> <span class="st">"Quantis normais"</span>, <span class="at">ylab =</span> <span class="st">"X"</span>)</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="fu">qqnorm</span>(tempo[,<span class="sc">-</span><span class="dv">1</span>], <span class="at">xlab =</span> <span class="st">"Quantis normais"</span>, <span class="at">ylab =</span> <span class="st">"X"</span>, <span class="at">main =</span> <span class="st">"Figura 12: Normal Q-Q Plot"</span>)</span>
 <span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="fu">qqline</span>(tempo[,<span class="sc">-</span><span class="dv">1</span>], <span class="at">col =</span> <span class="st">"steelblue"</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
@@ -535,19 +541,64 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Supondo que tenha sido identificada uma causa responsável pela falta de controle pontual das amostras identificadas no item anterior, refaça a análise sem tais amostras e descubra se há mais sinais de descontrole do processo.</li>
 </ol>
 <section id="solução-4" class="level2">
-<h2 class="anchored" data-anchor-id="solução-4">Solução</h2>
+<h2 class="anchored" data-anchor-id="solução-4">Solução:</h2>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-4-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-1" role="tab" aria-controls="tabset-4-1" aria-selected="true" href="">Item a</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-2" role="tab" aria-controls="tabset-4-2" aria-selected="false" href="">Item b.</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-4-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-1" role="tab" aria-controls="tabset-4-1" aria-selected="true" href="">Item a</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-2" role="tab" aria-controls="tabset-4-2" aria-selected="false" href="">Item b</a></li></ul>
 <div class="tab-content">
 <div id="tabset-4-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-4-1-tab">
-<div class="cell">
+<div class="cell" data-layout-align="center">
+<details>
+<summary>Mostrar Código</summary>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>amostra <span class="ot">&lt;-</span> <span class="fu">read.csv2</span>(<span class="st">"tab5-L2.csv"</span>)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>qcc<span class="sc">::</span><span class="fu">qcc</span>(amostra[,<span class="sc">-</span><span class="dv">1</span>], <span class="at">type =</span> <span class="st">"S"</span>, <span class="at">plot =</span> F)<span class="sc">|&gt;</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>      <span class="fu">plot</span>(<span class="at">label.limits =</span> <span class="fu">c</span>(<span class="st">"LIC"</span>, <span class="st">"LSC"</span>), <span class="at">xlab =</span> <span class="st">"Amostras"</span>,</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">ylab =</span> <span class="st">"Resumo das Estatísticas das Amostras"</span>,</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">"Figura 15: Gráfico S para medidas sem especificações"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
-<p><img src="L2_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid" width="864"></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="L2_files/figure-html/q5a-1.png" class="img-fluid figure-img" width="864"></p>
+</figure>
 </div>
 </div>
+<details>
+<summary>Mostrar Código</summary>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>qcc<span class="sc">::</span><span class="fu">qcc</span>(amostra[,<span class="sc">-</span><span class="dv">1</span>], <span class="at">type =</span> <span class="st">"xbar"</span>, <span class="at">plot =</span> F)<span class="sc">|&gt;</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>      <span class="fu">plot</span>(<span class="at">label.limits =</span> <span class="fu">c</span>(<span class="st">"LIC"</span>, <span class="st">"LSC"</span>), <span class="at">xlab =</span> <span class="st">"Amostras"</span>,</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>       <span class="at">ylab =</span> <span class="st">"Resumo das Estatísticas das Amostras"</span>,</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">"Figura 16: Gráfico das médias das medidas sem especificações"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="L2_files/figure-html/q5a-2.png" class="img-fluid figure-img" width="864"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>O gráfico <span class="math inline">\(\bar{X}\)</span> não atende ao requisito do teste 1 das Regras Sensibilizantes, pois existem 2 pontos que ultrapassam o LSC, logo o processo não está sob controle.</p>
 </div>
 <div id="tabset-4-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-2-tab">
-
+<p>Após a identificação das amostras que estão fora de controle, foi feita a remoção das mesmas e refeito o gráfico para as médias, exposto na Figura 17.</p>
+<div class="cell" data-layout-align="center">
+<details>
+<summary>Mostrar Código</summary>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>qcc<span class="sc">::</span><span class="fu">qcc</span>(amostra[<span class="sc">-</span><span class="fu">c</span>(<span class="dv">14</span>, <span class="dv">15</span>),<span class="sc">-</span><span class="dv">1</span>], <span class="at">type =</span> <span class="st">"xbar"</span>, <span class="at">plot =</span> F)<span class="sc">|&gt;</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>      <span class="fu">plot</span>(<span class="at">label.limits =</span> <span class="fu">c</span>(<span class="st">"LIC"</span>, <span class="st">"LSC"</span>), <span class="at">xlab =</span> <span class="st">"Amostras"</span>,</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>       <span class="at">ylab =</span> <span class="st">"Resumo das Estatísticas das Amostras"</span>,</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">"Figura 17: Gráfico das médias das medidas sem especificações"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="L2_files/figure-html/q5b-1.png" class="img-fluid figure-img" width="864"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Conforme ilustrado na Figura 17 é possível constatar que após a remoção das amostras que estão fora de controle, o processo se ajustou, permanecendo assim controlado.</p>
 </div>
 </div>
 </div>
@@ -571,7 +622,7 @@ Causes[4]: “Customer”, “Permissions”, “Errors”&nbsp;</p>
 <div id="tabset-5-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-5-2-tab">
 <p>(Cano et al., 2012) Na construção de um edifício, uma característica crítica à qualidade (CTQ) pode ser o cumprimento de um prazo, pois o não cumprimento pode levar ao fracasso. A equipe Seis Sigma identificou os seguintes eventos que podem causar atraso no cronograma: clima, erros de planejamento, atraso de fornecedores, operadores inadequados, especificações/atrasos do cliente, defeitos de materiais e permissões.</p>
 <p>Crie um diagrama de causa e efeito tal que:</p>
-<p>Efeito: “Delay”&nbsp;<br>
+<p>Efeito: “Atraso”&nbsp;<br>
 Grupos: “Pessoal”, “Clima”, “Fornecedores”, “Planejamento”&nbsp;<br>
 Causas[1]: “Treinamento”, “Inadequado”&nbsp;<br>
 Causas[2]: “Chuva”, “Temperatura”, “Vento”&nbsp;<br>
@@ -580,6 +631,27 @@ Causas[4]: “Cliente”, “Permissões”, “Erros”</p>
 </div>
 </div>
 </div>
+<section id="solução-5" class="level2">
+<h2 class="anchored" data-anchor-id="solução-5">Solução:</h2>
+<div class="cell" data-layout-align="center">
+<details>
+<summary>Mostrar Código</summary>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>qcc<span class="sc">::</span><span class="fu">cause.and.effect</span>(<span class="at">cause =</span> </span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>                        <span class="fu">list</span>(<span class="st">"Pessoal"</span><span class="ot">=</span><span class="fu">c</span>(<span class="st">"Treinamento"</span>, <span class="st">"Inadequado"</span>),</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>                             <span class="st">"Clima"</span><span class="ot">=</span><span class="fu">c</span>(<span class="st">"Chuva"</span>, <span class="st">"Temperatura"</span>, <span class="st">"Vento"</span>),</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>                             <span class="st">"Fornecedores"</span><span class="ot">=</span><span class="fu">c</span>(<span class="st">"Materiais"</span>, <span class="st">"Atrasos"</span>, <span class="st">"Retrabalho"</span>),</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>                             <span class="st">"Planejamento"</span><span class="ot">=</span><span class="fu">c</span>(<span class="st">"Cliente"</span>, <span class="st">"Permissões"</span>, <span class="st">"Erros"</span>)),</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>                      <span class="at">effect =</span> <span class="st">"Atraso"</span>, <span class="at">title =</span> <span class="st">"Figura 18: Diagrama de Causa e Efeito"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="L2_files/figure-html/q6-1.png" class="img-fluid figure-img" width="864"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
 </section>
 <section id="exercício-7" class="level1">
 <h1>Exercício 7</h1>
@@ -598,8 +670,14 @@ Cost: 50, 150, 50, 10, 20, 180, 200, 10, 5, 20, 150</p>
 </div>
 <div id="tabset-6-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-6-2-tab">
 <p>(Cano et al., 2012) O Black Belt na construtora do exemplo anterior investigou porque uma amostragem de prazos de projetos desenvolvidos nos últimos 2 anos não foi cumprida. Ele também estimou o custo desses atrasos para a empresa (maior força de trabalho, pagamentos extras, etc.). O número de prazos não cumpridos e o custo estimado são:</p>
-<p>Contagem: 5, 1, 3, 1, 2, 18, 20, 4, 15, 2, 4&nbsp;<br>
-Custo: 50, 150, 50, 10, 20, 180, 200, 10, 5, 20, 150</p>
+<div class="cell">
+<div class="cell-output-display">
+
+<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-cba55d98dc8c47071a0c" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-cba55d98dc8c47071a0c">{"x":{"filter":"none","vertical":false,"data":[["Contagem","Custo"],[5,50],[1,150],[3,50],[1,10],[2,20],[18,180],[20,200],[4,10],[15,5],[2,20],[4,150]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th><\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"t","fixedHeader":false,"autoWidth":false,"columnDefs":[{"className":"dt-center","targets":[1,2,3,4,5,6,7,8,9,10]},{"className":"dt-right","targets":11}],"order":[],"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<p>&nbsp;</p>
 <ol type="a">
 <li>Faça um gráfico de Pareto por número de defeitos.</li>
 <li>Faça um gráfico do custo do erro.</li>
@@ -608,6 +686,55 @@ Custo: 50, 150, 50, 10, 20, 180, 200, 10, 5, 20, 150</p>
 </div>
 </div>
 </div>
+<section id="solução-6" class="level2">
+<h2 class="anchored" data-anchor-id="solução-6">Solução:</h2>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-7-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-7-1" role="tab" aria-controls="tabset-7-1" aria-selected="true" href="">Item a</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-7-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-7-2" role="tab" aria-controls="tabset-7-2" aria-selected="false" href="">Item b</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-7-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-7-3" role="tab" aria-controls="tabset-7-3" aria-selected="false" href="">Item c</a></li></ul>
+<div class="tab-content">
+<div id="tabset-7-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-7-1-tab">
+<div class="cell" data-layout-align="center">
+<details>
+<summary>Mostrar Código</summary>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(Contagem) <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"Treinamento"</span>, <span class="st">"Chuva"</span>, <span class="st">"Temperatura"</span>, <span class="st">"Vento"</span>, <span class="st">"Materiais"</span>, <span class="st">"Atrasos"</span>, <span class="st">"Retrabalho"</span>, <span class="st">"Planejamento"</span>, <span class="st">"Cliente"</span>, <span class="st">"Permissões"</span>, <span class="st">"Erros"</span>)</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>qcc<span class="sc">::</span><span class="fu">pareto.chart</span>(Contagem, <span class="at">plot =</span> F)<span class="sc">|&gt;</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(<span class="at">title =</span> <span class="st">"Figura 19: Gráfico de Pareto para a contagem dos erros"</span>,</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">ylab =</span> <span class="st">"Frequência do Erro"</span>, <span class="at">ylab2 =</span> <span class="st">"Percentual Acumulado"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="L2_files/figure-html/fig7a-1.png" class="img-fluid figure-img" width="864"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div id="tabset-7-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-7-2-tab">
+<div class="cell" data-layout-align="center">
+<details>
+<summary>Mostrar Código</summary>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(Custo) <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"Treinamento"</span>, <span class="st">"Chuva"</span>, <span class="st">"Temperatura"</span>, <span class="st">"Vento"</span>, <span class="st">"Materiais"</span>, <span class="st">"Atrasos"</span>, <span class="st">"Retrabalho"</span>, <span class="st">"Planejamento"</span>, <span class="st">"Cliente"</span>, <span class="st">"Permissões"</span>, <span class="st">"Erros"</span>)</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>qcc<span class="sc">::</span><span class="fu">pareto.chart</span>(Custo, <span class="at">plot =</span> F, <span class="at">main =</span> <span class="st">"Figura 17: Gráfico de Pareto para os custos dos erros"</span>)<span class="sc">|&gt;</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(<span class="at">main =</span> <span class="st">"Figura 20: Gráfico de Pareto para os custos dos erros"</span>,</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">ylab =</span> <span class="st">"Frequência do Erro"</span>, <span class="at">ylab2 =</span> <span class="st">"Percentual Acumulado"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="L2_files/figure-html/fig7b-1.png" class="img-fluid figure-img" width="864"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div id="tabset-7-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-7-3-tab">
+<p>Baseado nos gráficos desenvolvidos, o retrabalho evidencia ser a causa mais importante a ser investigada e sanada para o bom andamento do serviço.</p>
+</div>
+</div>
+</div>
+</section>
 </section>
 
 </main>

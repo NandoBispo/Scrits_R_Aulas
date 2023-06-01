@@ -467,7 +467,7 @@ controle. Em outras palavras, a empresa deseja saber se o tempo médio até que 
 a) O tempo de entrega do pedido segue distribuição normal?
 b) Construa gráficos de controle e analise-os. Caso não exibam controle estatístico, revise os limites de controle tentativos.
 
-## Solução
+## Solução:
 
 ::: {.panel-tabset}
 
@@ -500,9 +500,9 @@ result|>
 
 par(mfrow=c(1,2))
 
-hist(tempo[,-1], ylab = "Frequência", main = "Histograma", xlab = "X")
+hist(tempo[,-1], ylab = "Frequência", main = "Figura 11: Histograma", xlab = "X")
 
-qqnorm(tempo[,-1], xlab = "Quantis normais", ylab = "X")
+qqnorm(tempo[,-1], xlab = "Quantis normais", ylab = "X", main = "Figura 12: Normal Q-Q Plot")
 qqline(tempo[,-1], col = "steelblue", lwd = 2)
 
 par(mfrow=c(1,1))
@@ -605,29 +605,57 @@ Amostras de tamanhos variáveis (n entre 5 e 8) são extraídas de um processo m
 a) Construa gráficos de controle usando esses dados. O processo está sob controle estatístico?
 b) Supondo que tenha sido identificada uma causa responsável pela falta de controle pontual das amostras identificadas no item anterior, refaça a análise sem tais amostras e descubra se há mais sinais de descontrole do processo.
 
-## Solução
+## Solução:
 
 ::: {.panel-tabset}
 
 ### Item a
 
-```{r}
-#| echo: false
+```{r q5a}
 #| warning: false
 #| fig-width: 9
-#| fig-height: 7
+#| fig-height: 6
+#| fig-align: center
 
-m=25; set.seed(35); n=sample(seq(5,8),m,replace=T); mn=sum(n); mi=100; sigma=10; set.seed(3725); x=round(rnorm(mn,mi,sigma),1); x[89:100]=x[89:100]+2*sigma
 
-xS2(m, n, x)
+amostra <- read.csv2("tab5-L2.csv")
+
+qcc::qcc(amostra[,-1], type = "S", plot = F)|>
+      plot(label.limits = c("LIC", "LSC"), xlab = "Amostras",
+       ylab = "Resumo das Estatísticas das Amostras",
+       title = "Figura 15: Gráfico S para medidas sem especificações")
+
+qcc::qcc(amostra[,-1], type = "xbar", plot = F)|>
+      plot(label.limits = c("LIC", "LSC"), xlab = "Amostras",
+       ylab = "Resumo das Estatísticas das Amostras",
+       title = "Figura 16: Gráfico das médias das medidas sem especificações")
 
 ```
 
 
-### Item b.
+O gráfico $\bar{X}$ não atende ao requisito do teste 1 das Regras Sensibilizantes, pois existem 2 pontos que ultrapassam o LSC, logo o processo não está sob controle.
 
 
+### Item b
 
+Após a identificação das amostras que estão fora de controle, foi feita a remoção das mesmas e refeito o gráfico para as médias, exposto na Figura 17.
+
+```{r q5b}
+#| warning: false
+#| fig-width: 9
+#| fig-height: 6
+#| fig-align: center
+
+
+qcc::qcc(amostra[-c(14, 15),-1], type = "xbar", plot = F)|>
+      plot(label.limits = c("LIC", "LSC"), xlab = "Amostras",
+       ylab = "Resumo das Estatísticas das Amostras",
+       title = "Figura 17: Gráfico das médias das medidas sem especificações")
+
+```
+
+
+Conforme ilustrado na Figura 17 é possível constatar que após a remoção das amostras que estão fora de controle, o processo se ajustou, permanecendo assim controlado.
 
 :::
 
@@ -635,7 +663,8 @@ xS2(m, n, x)
 
 ::: {.panel-tabset}
 
-## Enunciado Original
+### Enunciado Original
+
 (Cano et al., 2012) In the construction of a building, a critical to quality (CTQ)
 characteristic might be the fulfillment of a deadline, as unfulfillment can lead to failure. The Six Sigma team identified the following events that can cause a delay in the schedule: weather, errors in planning, delay of suppliers, inadequate operators, customer specifications/delays, defects in materials, and permissions.
 
@@ -648,12 +677,12 @@ Causes[2]: “Rain”, “Temperature”, “Wind”\
 Causes[3]: “Materials”, “Delays”, “Rework”\   
 Causes[4]: “Customer”, “Permissions”, “Errors”\   
 
-## Tradução
+### Tradução
 (Cano et al., 2012) Na construção de um edifício, uma característica crítica à qualidade (CTQ) pode ser o cumprimento de um prazo, pois o não cumprimento pode levar ao fracasso. A equipe Seis Sigma identificou os seguintes eventos que podem causar atraso no cronograma: clima, erros de planejamento, atraso de fornecedores, operadores inadequados, especificações/atrasos do cliente, defeitos de materiais e permissões.
 
 Crie um diagrama de causa e efeito tal que:
 
-Efeito: “Delay”\    
+Efeito: “Atraso”\    
 Grupos: “Pessoal”, “Clima”, “Fornecedores”, “Planejamento”\   
 Causas[1]: “Treinamento”, “Inadequado”\   
 Causas[2]: “Chuva”, “Temperatura”, “Vento”\   
@@ -662,6 +691,22 @@ Causas[4]: “Cliente”, “Permissões”, “Erros”
 
 :::
 
+## Solução:
+
+```{r q6}
+#| warning: false
+#| fig-width: 9
+#| fig-height: 5
+#| fig-align: center
+
+
+qcc::cause.and.effect(cause = 
+                        list("Pessoal"=c("Treinamento", "Inadequado"),
+                             "Clima"=c("Chuva", "Temperatura", "Vento"),
+                             "Fornecedores"=c("Materiais", "Atrasos", "Retrabalho"),
+                             "Planejamento"=c("Cliente", "Permissões", "Erros")),
+                      effect = "Atraso", title = "Figura 18: Diagrama de Causa e Efeito")
+```
 
 
 
@@ -687,12 +732,81 @@ c) Select the causes you must focus on to improve the construction process. Can 
 ## Tradução
 (Cano et al., 2012) O Black Belt na construtora do exemplo anterior investigou porque uma amostragem de prazos de projetos desenvolvidos nos últimos 2 anos não foi cumprida. Ele também estimou o custo desses atrasos para a empresa (maior força de trabalho, pagamentos extras, etc.). O número de prazos não cumpridos e o custo estimado são:
 
-Contagem: 5, 1, 3, 1, 2, 18, 20, 4, 15, 2, 4\   
-Custo: 50, 150, 50, 10, 20, 180, 200, 10, 5, 20, 150
+
+```{r tabQ7}
+#| echo: false
+
+
+Contagem = c(5, 1, 3, 1, 2, 18, 20, 4, 15, 2, 4)
+Custo = c(50, 150, 50, 10, 20, 180, 200, 10, 5, 20, 150)
+
+prazos = rbind(Contagem, Custo)
+
+prazos |>
+  DT::datatable(
+    colnames = "",
+    options = list(dom = 't', fixedHeader = F, autoWidth = F,
+                   columnDefs = 
+                     list(
+                       list(className = 'dt-center', targets = c(1:10)
+                            )
+                       )
+                   )
+  )
+```
+
+\   
 
 a) Faça um gráfico de Pareto por número de defeitos.
 b) Faça um gráfico do custo do erro.
 c) Selecione as causas nas quais você deve focar para melhorar o processo de construção. Você pode selecioná-los de apenas um dos gráficos?
+
+:::
+
+
+## Solução:
+
+::: {.panel-tabset}
+
+### Item a
+
+
+```{r fig7a}
+#| warning: false
+#| fig-width: 9
+#| fig-height: 7
+#| fig-align: center
+
+names(Contagem) = c("Treinamento", "Chuva", "Temperatura", "Vento", "Materiais", "Atrasos", "Retrabalho", "Planejamento", "Cliente", "Permissões", "Erros")
+
+qcc::pareto.chart(Contagem, plot = F)|>
+  plot(title = "Figura 19: Gráfico de Pareto para a contagem dos erros",
+       ylab = "Frequência do Erro", ylab2 = "Percentual Acumulado")
+```
+
+
+### Item b
+
+
+```{r fig7b}
+#| warning: false
+#| fig-width: 9
+#| fig-height: 7
+#| fig-align: center
+
+names(Custo) = c("Treinamento", "Chuva", "Temperatura", "Vento", "Materiais", "Atrasos", "Retrabalho", "Planejamento", "Cliente", "Permissões", "Erros")
+
+qcc::pareto.chart(Custo, plot = F, main = "Figura 17: Gráfico de Pareto para os custos dos erros")|>
+  plot(main = "Figura 20: Gráfico de Pareto para os custos dos erros",
+       ylab = "Frequência do Erro", ylab2 = "Percentual Acumulado")
+```
+
+
+### Item c
+
+Baseado nos gráficos desenvolvidos, o retrabalho evidencia ser a causa mais importante a ser investigada e sanada para o bom andamento do serviço.
+
+
 
 :::
 
